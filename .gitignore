@@ -3,3 +3,5 @@
 node/swaggerToTs/service/*
 **/venv
 __pycache__
+output
+out

@@ -60,19 +60,43 @@ def is_contains_chinese(text: str) -> bool:
     return bool(chinese_pattern.search(text))
 
 def to_camel_case(text: str) -> str:
-    """将文本转换为驼峰命名"""
+    """将文本转换为纯驼峰命名，去除所有特殊字符"""
+    # 处理特殊情况
+    if not text:
+        return ""
+    
+    # 预处理：确保连字符、下划线和数字周围有空格
+    # 这样可以更好地识别单词边界
+    text = re.sub(r'([_\-])', r' \1 ', text)
+    text = re.sub(r'([0-9]+)', r' \1 ', text)
+    
     # 移除所有非字母数字，并用空格替换
     s = re.sub(r'[^a-zA-Z0-9]', ' ', text.lower())
-    # 分割成单词
-    words = s.split()
+    # 清理多余空格
+    s = re.sub(r'\s+', ' ', s.strip())
+    
+    # 分割成单词（同时保留数字）
+    words = []
+    for part in s.split():
+        if part.isdigit():
+            # 保持数字原样
+            words.append(part)
+        else:
+            # 将单词添加到列表
+            words.append(part)
+    
     if not words:
         return ""
     
     # 首个单词小写开头，其余单词大写开头
     camel = words[0]
     for word in words[1:]:
-        if word:
+        if word and word.isalpha():
+            # 如果是字母，大写首字母
             camel += word[0].upper() + word[1:]
+        else:
+            # 如果是数字，直接添加
+            camel += word
     
     return camel
 
@@ -108,34 +132,64 @@ def google_translate_sync(text: str, src='zh-cn', dest='en') -> str:
         return None
 
 def translate_text(text: str) -> str:
-    """将中文文本转换为英文，使用Google翻译并转为驼峰命名"""
+    """将中文文本转换为英文，使用Google翻译并转为纯驼峰命名（无特殊字符）"""
     # 检查是否含有中文
     if not is_contains_chinese(text):
+        # 如果非中文文本含有连字符，也进行驼峰转换
+        if '-' in text or '_' in text or ' ' in text:
+            return to_camel_case(text)
         return text
     
-    # 处理连字符分隔的复合词
-    if '-' in text:
-        parts = text.split('-')
+    # 处理复合词（包含连字符、下划线或数字的）
+    if any(c in text for c in '-_0123456789'):
+        # 提取所有分隔符
+        delimiters = re.findall(r'[-_0-9]+', text)
+        parts = re.split(r'[-_0-9]+', text)
+        
+        # 翻译每一部分，保留非中文部分
         translated_parts = []
+        for i, part in enumerate(parts):
+            if part:  # 跳过空字符串
+                if is_contains_chinese(part):
+                    # 翻译并添加中文部分
+                    translated = translate_part(part)
+                    translated_parts.append(translated)
+                else:
+                    # 保留非中文部分
+                    translated_parts.append(part)
+                
+                # 添加分隔符中的数字（如果有）
+                if i < len(delimiters):
+                    # 从分隔符中提取数字
+                    nums = re.findall(r'\d+', delimiters[i])
+                    if nums:
+                        translated_parts.append(nums[0])
         
-        for part in parts:
-            if is_contains_chinese(part):
-                translated = translate_part(part)
-                translated_parts.append(translated)
+        # 使用驼峰命名法合并所有部分
+        result = ""
+        for i, part in enumerate(translated_parts):
+            if i == 0:
+                # 第一部分小写开头
+                result += part.lower() if part[0:1].isalpha() else part
             else:
-                translated_parts.append(part)
+                # 后续部分大写开头
+                if part and part[0:1].isalpha():
+                    result += part[0:1].upper() + part[1:].lower()
+                else:
+                    result += part
         
-        return '-'.join(translated_parts)
+        return result
     
+    # 处理普通中文文本
     return translate_part(text)
 
 def translate_part(text: str) -> str:
-    """翻译单个部分并转为驼峰命名"""
+    """翻译单个部分并转为纯驼峰命名（无特殊字符）"""
     # 首先尝试Google翻译
     translated = google_translate_sync(text)
     
     if translated:
-        # 转为驼峰命名
+        # 转为纯驼峰命名
         camel = to_camel_case(translated)
         if camel:
             return camel
@@ -156,7 +210,7 @@ def translate_part(text: str) -> str:
                 suffix_translated = translate_part(text[i:])
                 if suffix_translated:
                     # 确保后续部分首字母大写，以保持驼峰格式
-                    if suffix_translated[0].islower():
+                    if suffix_translated and suffix_translated[0].isalpha() and suffix_translated[0].islower():
                         suffix_translated = suffix_translated[0].upper() + suffix_translated[1:]
                     result_parts.append(suffix_translated)
             found = True
@@ -272,11 +326,15 @@ def test_translate():
         "黑色遮罩",
         "文案底",
         "攻略页面-视频图",
-        "攻略页面1-攻略主页"
+        "攻略页面1-攻略主页",
+        "1-主页按钮",
+        "按钮-1",
+        "功能_测试",
+        "test-测试"
     ]
     
-    print("测试翻译功能:")
-    print("=" * 50)
+    print("测试翻译功能 - 纯驼峰命名（无特殊字符）:")
+    print("=" * 60)
     
     for word in test_words:
         translated = translate_text(word)
