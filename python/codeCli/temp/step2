@@ -1,0 +1,372 @@
+===FILE:package.json===
+{
+  "name": "magic-patterns-vue-template",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc && vite build",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
+    "preview": "vite preview",
+    "format": "prettier --write src/"
+  },
+  "dependencies": {
+    "vue": "^3.4.31", // Vue 核心库
+    "vue-router": "^4.4.0", // Vue 路由
+    "lucide-vue-next": "^0.441.0", // Lucide 图标的 Vue 版本
+    "date-fns": "^3.6.0", // 日期处理库 (注意React版本是^4.0.0, Vue生态中常用^2或^3, 这里用了^3)
+    "pinia": "^2.1.7" // 可选的状态管理库，如果需要的话
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.10.3",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.14.10",
+    "@vitejs/plugin-vue": "^5.0.5", // Vite 的 Vue 插件
+    "@vue/eslint-config-prettier": "^9.0.0",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-vue": "^9.27.0",
+    "npm-run-all2": "^6.2.0",
+    "prettier": "^3.3.2",
+    "typescript": "~5.4.0", // TypeScript 版本
+    "vite": "^5.3.3", // Vite 构建工具
+    "vue-tsc": "^2.0.26", // Vue TypeScript 检查工具
+    "tailwindcss": "^3.4.6", // Tailwind CSS
+    "autoprefixer": "^10.4.19", // CSS 浏览器前缀自动补全
+    "postcss": "^8.4.39" // PostCSS
+  }
+}
+===ENDFILE===
+===FILE:index.html===
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue + TS</title>
+  </head>
+  <body>
+    <div id="app"></div> <!-- Vue 应用通常挂载到 id="app" -->
+    <script type="module" src="/src/main.ts"></script> <!-- Vue 的入口文件通常是 main.ts -->
+  </body>
+</html>
+===ENDFILE===
+===FILE:vite.config.ts===
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue' // 引入 Vue 插件
+import path from 'path' // 用于路径解析
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [vue()], // 使用 Vue 插件
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'), // 设置别名，方便导入 src 下的文件
+    },
+  },
+})
+===ENDFILE===
+===FILE:postcss.config.js===
+// PostCSS 配置文件
+export default {
+  plugins: {
+    tailwindcss: {}, // Tailwind CSS 插件
+    autoprefixer: {}, // 自动添加浏览器前缀插件
+  },
+}
+===ENDFILE===
+===FILE:tailwind.config.js===
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}' // 确保扫描 .vue 文件
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+===ENDFILE===
+===FILE:tsconfig.json===
+{
+  "extends": "@vue/tsconfig/tsconfig.dom.json", // 继承 Vue 的 TSConfig DOM 配置
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"], // 包含的文件类型
+  "exclude": ["src/**/__tests__/*"],
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"] // 路径别名，与 vite.config.ts 对应
+    },
+    "types": ["node", "vite/client"], // 添加 vite/client 类型定义
+    "lib": ["ESNext", "DOM", "DOM.Iterable"] // 确保包含 DOM.Iterable
+  }
+}
+===ENDFILE===
+===FILE:tsconfig.node.json===
+{
+  "extends": "@vue/tsconfig/tsconfig.node.json", // 继承 Vue 的 TSConfig Node 配置
+  "include": [
+    "vite.config.*",
+    "vitest.config.*",
+    "cypress.config.*",
+    "nightwatch.conf.*",
+    "playwright.config.*"
+  ],
+  "compilerOptions": {
+    "composite": true,
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "types": ["node"]
+  }
+}
+===ENDFILE===
+===FILE:env.d.ts===
+/// <reference types="vite/client" />
+
+// 为 .vue 文件提供类型声明
+declare module '*.vue' {
+  import type { DefineComponent } from 'vue'
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+===ENDFILE===
+===FILE:src/index.css===
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+===ENDFILE===
+===FILE:src/main.ts===
+import './index.css' // 引入全局样式
+import { createApp } from 'vue' // 引入 createApp 函数
+import App from './App.vue' // 引入根组件
+import router from './router' // 引入路由配置
+// import { createPinia } from 'pinia' // 如果使用 Pinia
+
+const app = createApp(App) // 创建 Vue 应用实例
+
+// const pinia = createPinia() // 如果使用 Pinia
+// app.use(pinia) // 注册 Pinia
+
+app.use(router) // 注册路由
+app.mount('#app') // 挂载应用到 DOM
+===ENDFILE===
+===FILE:src/router/index.ts===
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
+import Layout from '@/components/layout/Layout.vue' // 主布局组件
+import Dashboard from '@/pages/Dashboard.vue'
+import Permissions from '@/pages/Permissions.vue'
+import DailySignIn from '@/pages/DailySignIn.vue'
+import BannerManagement from '@/pages/BannerManagement.vue'
+import ActivityManagement from '@/pages/ActivityManagement.vue'
+import TagManagement from '@/pages/TagManagement.vue'
+import ContentDashboard from '@/pages/ContentDashboard.vue'
+import ArticleEditor from '@/pages/ArticleEditor.vue'
+import VideoPublisher from '@/pages/VideoPublisher.vue'
+import MessageFactory from '@/pages/MessageFactory.vue'
+import AccountManagement from '@/pages/AccountManagement.vue'
+
+// 定义路由规则
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    component: Layout, // 使用 Layout 作为父路由组件
+    redirect: '/dashboard', // 默认重定向到仪表盘
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: Dashboard,
+      },
+      {
+        path: 'permissions',
+        name: 'Permissions',
+        component: Permissions,
+      },
+      {
+        path: 'daily-sign-in',
+        name: 'DailySignIn',
+        component: DailySignIn,
+      },
+      {
+        path: 'banner-management',
+        name: 'BannerManagement',
+        component: BannerManagement,
+      },
+      {
+        path: 'activity-management',
+        name: 'ActivityManagement',
+        component: ActivityManagement,
+      },
+      {
+        path: 'tag-management',
+        name: 'TagManagement',
+        component: TagManagement,
+      },
+      {
+        path: 'content-dashboard',
+        name: 'ContentDashboard',
+        component: ContentDashboard,
+      },
+      {
+        path: 'content-dashboard/article/new',
+        name: 'ArticleEditorNew',
+        component: ArticleEditor,
+      },
+      {
+        path: 'content-dashboard/article/:id', // 文章编辑，带参数
+        name: 'ArticleEditorEdit',
+        component: ArticleEditor,
+        props: true, // 将路由参数作为 props 传递给组件
+      },
+      {
+        path: 'content-dashboard/video/new',
+        name: 'VideoPublisherNew',
+        component: VideoPublisher,
+      },
+      {
+        path: 'content-dashboard/video/:id', // 视频发布，带参数
+        name: 'VideoPublisherEdit',
+        component: VideoPublisher,
+        props: true, // 将路由参数作为 props 传递给组件
+      },
+      {
+        path: 'message-factory',
+        name: 'MessageFactory',
+        component: MessageFactory,
+      },
+      {
+        path: 'account-management',
+        name: 'AccountManagement',
+        component: AccountManagement,
+      },
+    ],
+  },
+  // 可以添加其他顶层路由，例如登录页
+  // {
+  //   path: '/login',
+  //   name: 'Login',
+  //   component: () => import('@/pages/Login.vue') // 路由懒加载
+  // }
+]
+
+// 创建路由实例
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL), // 使用 HTML5 History 模式
+  routes,
+})
+
+export default router
+===ENDFILE===
+===FILE:src/App.vue===
+<template>
+  <!-- 路由出口，匹配到的组件将在这里渲染 -->
+  <router-view />
+</template>
+
+<script setup lang="ts">
+// App.vue 通常作为根组件，只包含 <router-view />
+// 具体的布局和页面路由在 router/index.ts 中定义
+// React 中的 <Router><Layout><Routes>...</Routes></Layout></Router> 结构
+// 在 Vue Router 中，Layout 通常是路由配置中的一个父路由组件，
+// 其 <template> 中包含 <router-view /> 来渲染子路由。
+</script>
+
+<style>
+/* 你可以在这里添加全局样式，或者在 main.ts 中引入 CSS 文件 */
+</style>
+===ENDFILE===
+===FILE:src/components/ui/Button.vue===
+<template>
+  <!-- 按钮组件模板 -->
+  <button
+    :type="props.type"
+    :class="buttonClasses"
+    @click="handleClick"
+    :disabled="props.disabled"
+  >
+    <!-- 图标插槽或直接渲染 -->
+    <span v-if="props.icon" class="mr-2">
+      <!-- 动态组件用于渲染传入的图标组件 -->
+      <component :is="props.icon" />
+    </span>
+    <!-- 默认插槽，用于按钮文本内容 -->
+    <slot></slot>
+  </button>
+</template>
+
+<script setup lang="ts">
+import { computed, type Component } from 'vue' // 引入 computed 和 Component 类型
+
+// 定义组件的 props 接口
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'danger' | 'outline'; // 按钮样式变体
+  size?: 'sm' | 'md' | 'lg'; // 按钮尺寸
+  onClick?: () => void; // 点击事件回调
+  className?: string; // 额外的 CSS 类名
+  disabled?: boolean; // 是否禁用
+  type?: 'button' | 'submit' | 'reset'; // 按钮类型
+  icon?: Component; // 图标组件，类型为 Vue Component
+}
+
+// 使用 withDefaults 定义 props 并设置默认值
+const props = withDefaults(defineProps<ButtonProps>(), {
+  variant: 'primary',
+  size: 'md',
+  className: '',
+  disabled: false,
+  type: 'button',
+})
+
+// 定义 emit 事件 (可选，如果 onClick 只是简单回调，可以直接使用 props.onClick)
+const emit = defineEmits(['click'])
+
+// 处理点击事件的方法
+const handleClick = () => {
+  if (props.onClick) {
+    props.onClick() // 如果传入了 onClick prop，则调用它
+  }
+  emit('click') // 触发父组件监听的 click 事件
+}
+
+// 基本样式类
+const baseClasses = 'inline-flex items-center justify-center font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
+
+// 变体样式类映射
+const variantClassesMap = {
+  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+  secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
+  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+  outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500',
+}
+
+// 尺寸样式类映射
+const sizeClassesMap = {
+  sm: 'text-xs px-2.5 py-1.5',
+  md: 'text-sm px-4 py-2',
+  lg: 'text-base px-6 py-3',
+}
+
+// 计算最终的按钮样式类
+const buttonClasses = computed(() => {
+  const disabledClasses = props.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
+  return [
+    baseClasses,
+    variantClassesMap[props.variant],
+    sizeClassesMap[props.size],
+    disabledClasses,
+    props.className, // 允许传入自定义 class
+  ].join(' ')
+})
+</script>
+
+<style scoped>
+/* 如果需要，可以在这里添加组件的局部样式 */
+/* Tailwind CSS 类通常是全局的，所以这里可能不需要太多内容 */
+</style>
+===ENDFILE===
