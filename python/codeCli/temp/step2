@@ -1,372 +1,396 @@
-===FILE:package.json===
-{
-  "name": "magic-patterns-vue-template",
-  "version": "0.0.1",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc && vite build",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-    "preview": "vite preview",
-    "format": "prettier --write src/"
-  },
-  "dependencies": {
-    "vue": "^3.4.31", // Vue 核心库
-    "vue-router": "^4.4.0", // Vue 路由
-    "lucide-vue-next": "^0.441.0", // Lucide 图标的 Vue 版本
-    "date-fns": "^3.6.0", // 日期处理库 (注意React版本是^4.0.0, Vue生态中常用^2或^3, 这里用了^3)
-    "pinia": "^2.1.7" // 可选的状态管理库，如果需要的话
-  },
-  "devDependencies": {
-    "@rushstack/eslint-patch": "^1.10.3",
-    "@tsconfig/node20": "^20.1.4",
-    "@types/node": "^20.14.10",
-    "@vitejs/plugin-vue": "^5.0.5", // Vite 的 Vue 插件
-    "@vue/eslint-config-prettier": "^9.0.0",
-    "@vue/eslint-config-typescript": "^13.0.0",
-    "@vue/tsconfig": "^0.5.1",
-    "eslint": "^8.57.0",
-    "eslint-plugin-vue": "^9.27.0",
-    "npm-run-all2": "^6.2.0",
-    "prettier": "^3.3.2",
-    "typescript": "~5.4.0", // TypeScript 版本
-    "vite": "^5.3.3", // Vite 构建工具
-    "vue-tsc": "^2.0.26", // Vue TypeScript 检查工具
-    "tailwindcss": "^3.4.6", // Tailwind CSS
-    "autoprefixer": "^10.4.19", // CSS 浏览器前缀自动补全
-    "postcss": "^8.4.39" // PostCSS
-  }
-}
-===ENDFILE===
-===FILE:index.html===
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Vue + TS</title>
-  </head>
-  <body>
-    <div id="app"></div> <!-- Vue 应用通常挂载到 id="app" -->
-    <script type="module" src="/src/main.ts"></script> <!-- Vue 的入口文件通常是 main.ts -->
-  </body>
-</html>
-===ENDFILE===
-===FILE:vite.config.ts===
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue' // 引入 Vue 插件
-import path from 'path' // 用于路径解析
+<output>
+<message><![CDATA[您好！我已经定位到问题所在。画布拖拽和缩放后视图重置的问题，是由于一个内部函数 `initializeIdCounter` 的引用不稳定，导致 `loadFlow` 函数（其中包含 `fitView` 调用）在每次组件渲染时都被意外触发。
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [vue()], // 使用 Vue 插件
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'), // 设置别名，方便导入 src 下的文件
-    },
-  },
-})
-===ENDFILE===
-===FILE:postcss.config.js===
-// PostCSS 配置文件
-export default {
-  plugins: {
-    tailwindcss: {}, // Tailwind CSS 插件
-    autoprefixer: {}, // 自动添加浏览器前缀插件
-  },
-}
-===ENDFILE===
-===FILE:tailwind.config.js===
-/** @type {import('tailwindcss').Config} */
-export default {
-  content: [
-    './index.html',
-    './src/**/*.{vue,js,ts,jsx,tsx}' // 确保扫描 .vue 文件
-  ],
-  theme: {
-    extend: {},
-  },
-  plugins: [],
-}
-===ENDFILE===
-===FILE:tsconfig.json===
-{
-  "extends": "@vue/tsconfig/tsconfig.dom.json", // 继承 Vue 的 TSConfig DOM 配置
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"], // 包含的文件类型
-  "exclude": ["src/**/__tests__/*"],
-  "compilerOptions": {
-    "composite": true,
-    "noEmit": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"] // 路径别名，与 vite.config.ts 对应
-    },
-    "types": ["node", "vite/client"], // 添加 vite/client 类型定义
-    "lib": ["ESNext", "DOM", "DOM.Iterable"] // 确保包含 DOM.Iterable
-  }
-}
-===ENDFILE===
-===FILE:tsconfig.node.json===
-{
-  "extends": "@vue/tsconfig/tsconfig.node.json", // 继承 Vue 的 TSConfig Node 配置
-  "include": [
-    "vite.config.*",
-    "vitest.config.*",
-    "cypress.config.*",
-    "nightwatch.conf.*",
-    "playwright.config.*"
-  ],
-  "compilerOptions": {
-    "composite": true,
-    "noEmit": true,
-    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
-    "types": ["node"]
-  }
-}
-===ENDFILE===
-===FILE:env.d.ts===
-/// <reference types="vite/client" />
+我已经通过 `useCallback` 优化了 `initializeIdCounter` 函数，使其引用保持稳定。这将确保 `fitView` 只在必要的时候（如初始加载或 `reactFlowInstance` 准备好时）被调用，从而解决拖拽和缩放的问题。
 
-// 为 .vue 文件提供类型声明
-declare module '*.vue' {
-  import type { DefineComponent } from 'vue'
-  const component: DefineComponent<{}, {}, any>
-  export default component
-}
-===ENDFILE===
-===FILE:src/index.css===
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-===ENDFILE===
-===FILE:src/main.ts===
-import './index.css' // 引入全局样式
-import { createApp } from 'vue' // 引入 createApp 函数
-import App from './App.vue' // 引入根组件
-import router from './router' // 引入路由配置
-// import { createPinia } from 'pinia' // 如果使用 Pinia
+请应用以下文件修改：]]></message>
+<files>
+<file>
+<filename>src/App.tsx</filename>
+<content><![CDATA[
+import React, { useState, useCallback, useRef, DragEvent, MouseEvent, useEffect } from 'react';
+import {
+  ReactFlow,
+  ReactFlowProvider,
+  addEdge,
+  useNodesState,
+  useEdgesState,
+  Controls,
+  Background,
+  MiniMap,
+  Node,
+  Edge,
+  Connection,
+  XYPosition,
+  NodeTypes,
+  ReactFlowInstance,
+  OnNodesChange,
+  OnEdgesChange,
+} from '@xyflow/react';
 
-const app = createApp(App) // 创建 Vue 应用实例
+import InputNode from './components/CustomNodes/InputNode';
+import ProcessNode from './components/CustomNodes/ProcessNode';
+import OutputNode from './components/CustomNodes/OutputNode';
+import ContextMenu, { ContextMenuItem } from './components/ContextMenu'; // 新增：导入 ContextMenu
 
-// const pinia = createPinia() // 如果使用 Pinia
-// app.use(pinia) // 注册 Pinia
+import './App.css';
 
-app.use(router) // 注册路由
-app.mount('#app') // 挂载应用到 DOM
-===ENDFILE===
-===FILE:src/router/index.ts===
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import Layout from '@/components/layout/Layout.vue' // 主布局组件
-import Dashboard from '@/pages/Dashboard.vue'
-import Permissions from '@/pages/Permissions.vue'
-import DailySignIn from '@/pages/DailySignIn.vue'
-import BannerManagement from '@/pages/BannerManagement.vue'
-import ActivityManagement from '@/pages/ActivityManagement.vue'
-import TagManagement from '@/pages/TagManagement.vue'
-import ContentDashboard from '@/pages/ContentDashboard.vue'
-import ArticleEditor from '@/pages/ArticleEditor.vue'
-import VideoPublisher from '@/pages/VideoPublisher.vue'
-import MessageFactory from '@/pages/MessageFactory.vue'
-import AccountManagement from '@/pages/AccountManagement.vue'
+// localStorage keys
+const LOCALSTORAGE_KEY_NODES = 'reactflow_nodes';
+const LOCALSTORAGE_KEY_EDGES = 'reactflow_edges';
+const LOCALSTORAGE_KEY_ID_COUNTER = 'reactflow_id_counter';
 
-// 定义路由规则
-const routes: Array<RouteRecordRaw> = [
+// 初始节点数据 (hardcoded, will be overridden by localStorage if available)
+const initialNodesData: Node[] = [
   {
-    path: '/',
-    component: Layout, // 使用 Layout 作为父路由组件
-    redirect: '/dashboard', // 默认重定向到仪表盘
-    children: [
-      {
-        path: 'dashboard',
-        name: 'Dashboard',
-        component: Dashboard,
-      },
-      {
-        path: 'permissions',
-        name: 'Permissions',
-        component: Permissions,
-      },
-      {
-        path: 'daily-sign-in',
-        name: 'DailySignIn',
-        component: DailySignIn,
-      },
-      {
-        path: 'banner-management',
-        name: 'BannerManagement',
-        component: BannerManagement,
-      },
-      {
-        path: 'activity-management',
-        name: 'ActivityManagement',
-        component: ActivityManagement,
-      },
-      {
-        path: 'tag-management',
-        name: 'TagManagement',
-        component: TagManagement,
-      },
-      {
-        path: 'content-dashboard',
-        name: 'ContentDashboard',
-        component: ContentDashboard,
-      },
-      {
-        path: 'content-dashboard/article/new',
-        name: 'ArticleEditorNew',
-        component: ArticleEditor,
-      },
-      {
-        path: 'content-dashboard/article/:id', // 文章编辑，带参数
-        name: 'ArticleEditorEdit',
-        component: ArticleEditor,
-        props: true, // 将路由参数作为 props 传递给组件
-      },
-      {
-        path: 'content-dashboard/video/new',
-        name: 'VideoPublisherNew',
-        component: VideoPublisher,
-      },
-      {
-        path: 'content-dashboard/video/:id', // 视频发布，带参数
-        name: 'VideoPublisherEdit',
-        component: VideoPublisher,
-        props: true, // 将路由参数作为 props 传递给组件
-      },
-      {
-        path: 'message-factory',
-        name: 'MessageFactory',
-        component: MessageFactory,
-      },
-      {
-        path: 'account-management',
-        name: 'AccountManagement',
-        component: AccountManagement,
-      },
-    ],
+    id: 'node_1', // 修改：统一ID格式
+    type: 'inputNode',
+    data: { label: 'Start Workflow' },
+    position: { x: 250, y: 5 },
   },
-  // 可以添加其他顶层路由，例如登录页
-  // {
-  //   path: '/login',
-  //   name: 'Login',
-  //   component: () => import('@/pages/Login.vue') // 路由懒加载
-  // }
-]
+  {
+    id: 'node_2', // 修改：统一ID格式
+    type: 'processNode',
+    data: { label: 'Process Data' },
+    position: { x: 250, y: 150 },
+  },
+  {
+    id: 'node_3', // 修改：统一ID格式
+    type: 'outputNode',
+    data: { label: 'End Workflow' },
+    position: { x: 250, y: 300 },
+  },
+];
 
-// 创建路由实例
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL), // 使用 HTML5 History 模式
-  routes,
-})
+// 初始边数据 (hardcoded, will be overridden by localStorage if available)
+const initialEdgesData: Edge[] = [
+  { id: 'e_node_1-node_2', source: 'node_1', target: 'node_2', animated: true }, // 修改：对应ID格式
+  { id: 'e_node_2-node_3', source: 'node_2', target: 'node_3', animated: true }, // 修改：对应ID格式
+];
 
-export default router
-===ENDFILE===
-===FILE:src/App.vue===
-<template>
-  <!-- 路由出口，匹配到的组件将在这里渲染 -->
-  <router-view />
-</template>
+const nodeTypes: NodeTypes = {
+  inputNode: InputNode,
+  processNode: ProcessNode,
+  outputNode: OutputNode,
+};
 
-<script setup lang="ts">
-// App.vue 通常作为根组件，只包含 <router-view />
-// 具体的布局和页面路由在 router/index.ts 中定义
-// React 中的 <Router><Layout><Routes>...</Routes></Layout></Router> 结构
-// 在 Vue Router 中，Layout 通常是路由配置中的一个父路由组件，
-// 其 <template> 中包含 <router-view /> 来渲染子路由。
-</script>
-
-<style>
-/* 你可以在这里添加全局样式，或者在 main.ts 中引入 CSS 文件 */
-</style>
-===ENDFILE===
-===FILE:src/components/ui/Button.vue===
-<template>
-  <!-- 按钮组件模板 -->
-  <button
-    :type="props.type"
-    :class="buttonClasses"
-    @click="handleClick"
-    :disabled="props.disabled"
-  >
-    <!-- 图标插槽或直接渲染 -->
-    <span v-if="props.icon" class="mr-2">
-      <!-- 动态组件用于渲染传入的图标组件 -->
-      <component :is="props.icon" />
-    </span>
-    <!-- 默认插槽，用于按钮文本内容 -->
-    <slot></slot>
-  </button>
-</template>
-
-<script setup lang="ts">
-import { computed, type Component } from 'vue' // 引入 computed 和 Component 类型
-
-// 定义组件的 props 接口
-interface ButtonProps {
-  variant?: 'primary' | 'secondary' | 'danger' | 'outline'; // 按钮样式变体
-  size?: 'sm' | 'md' | 'lg'; // 按钮尺寸
-  onClick?: () => void; // 点击事件回调
-  className?: string; // 额外的 CSS 类名
-  disabled?: boolean; // 是否禁用
-  type?: 'button' | 'submit' | 'reset'; // 按钮类型
-  icon?: Component; // 图标组件，类型为 Vue Component
+interface ContextMenuState {
+  id?: string; // For node context menu, this will be node ID
+  top: number;
+  left: number;
+  items: ContextMenuItem[];
+  flowPosition?: XYPosition; // For pane context menu
 }
 
-// 使用 withDefaults 定义 props 并设置默认值
-const props = withDefaults(defineProps<ButtonProps>(), {
-  variant: 'primary',
-  size: 'md',
-  className: '',
-  disabled: false,
-  type: 'button',
-})
+function App() {
+  const reactFlowWrapper = useRef<HTMLDivElement>(null);
+  const idCounter = useRef<number>(4); // 用于生成新节点ID的计数器
 
-// 定义 emit 事件 (可选，如果 onClick 只是简单回调，可以直接使用 props.onClick)
-const emit = defineEmits(['click'])
+  const [nodes, setNodes, onNodesChangeInternal] = useNodesState([]);
+  const [edges, setEdges, onEdgesChangeInternal] = useEdgesState([]);
+  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
+  const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
 
-// 处理点击事件的方法
-const handleClick = () => {
-  if (props.onClick) {
-    props.onClick() // 如果传入了 onClick prop，则调用它
-  }
-  emit('click') // 触发父组件监听的 click 事件
+  // 初始化ID计数器
+  // 使用 useCallback 包装 initializeIdCounter 以确保其引用稳定
+  // initialNodesData 是模块级常量，因此依赖数组可以为空
+  const initializeIdCounter = useCallback((loadedNodes?: Node[]) => {
+    const savedCounter = localStorage.getItem(LOCALSTORAGE_KEY_ID_COUNTER);
+    if (savedCounter) {
+      idCounter.current = parseInt(savedCounter, 10);
+      return;
+    }
+
+    let maxIdNum = 0;
+    const nodesToScan = loadedNodes || initialNodesData;
+    if (nodesToScan.length > 0) {
+        nodesToScan.forEach(node => {
+        if (node.id.startsWith('node_')) {
+          const num = parseInt(node.id.split('_')[1], 10);
+          if (!isNaN(num) && num > maxIdNum) {
+            maxIdNum = num;
+          }
+        }
+      });
+      idCounter.current = maxIdNum + 1;
+    } else {
+      idCounter.current = 1; // Start from 1 if no nodes
+    }
+  }, []); // 空依赖数组，因为 initialNodesData 是稳定的模块级常量
+  
+  const getId = useCallback(() => {
+    const newId = `node_${idCounter.current++}`;
+    localStorage.setItem(LOCALSTORAGE_KEY_ID_COUNTER, idCounter.current.toString()); // 保存计数器状态
+    return newId;
+  }, []); // idCounter 是 ref，其 current 属性的改变不会使 useCallback 重新计算
+
+
+  // 加载流程
+  const loadFlow = useCallback(() => {
+    const storedNodes = localStorage.getItem(LOCALSTORAGE_KEY_NODES);
+    const storedEdges = localStorage.getItem(LOCALSTORAGE_KEY_EDGES);
+
+    const nodesToLoad = storedNodes ? JSON.parse(storedNodes) : initialNodesData;
+    const edgesToLoad = storedEdges ? JSON.parse(storedEdges) : initialEdgesData;
+    
+    initializeIdCounter(nodesToLoad); // 初始化或更新ID计数器
+
+    setNodes(nodesToLoad);
+    setEdges(edgesToLoad);
+
+    if (reactFlowInstance) {
+      // Ensure a slight delay for nodes to render before fitting view
+      setTimeout(() => reactFlowInstance.fitView(), 0);
+    }
+    console.log('Flow loaded from localStorage.');
+  }, [setNodes, setEdges, reactFlowInstance, initializeIdCounter]); // initializeIdCounter 现在是稳定的
+
+  // 保存流程
+  const saveFlow = useCallback(() => {
+    if (nodes.length > 0) { // Only save if there are nodes
+        localStorage.setItem(LOCALSTORAGE_KEY_NODES, JSON.stringify(nodes));
+        localStorage.setItem(LOCALSTORAGE_KEY_EDGES, JSON.stringify(edges));
+        localStorage.setItem(LOCALSTORAGE_KEY_ID_COUNTER, idCounter.current.toString());
+        console.log('Flow saved to localStorage.');
+        alert('Workflow saved!');
+    } else {
+        // Clear localStorage if there are no nodes to save (optional)
+        localStorage.removeItem(LOCALSTORAGE_KEY_NODES);
+        localStorage.removeItem(LOCALSTORAGE_KEY_EDGES);
+        localStorage.removeItem(LOCALSTORAGE_KEY_ID_COUNTER);
+        console.log('Flow cleared from localStorage as it is empty.');
+        alert('Workflow is empty, cleared saved data.');
+    }
+  }, [nodes, edges]); // idCounter.current 的变化不影响 useCallback 的 memoization
+
+  // 初始加载
+  useEffect(() => {
+    loadFlow();
+  }, [loadFlow]); // loadFlow 现在更稳定，只在 reactFlowInstance 变化时等少数情况改变
+
+  // 自动保存 (当节点或边变化时)
+  useEffect(() => {
+    if (nodes.length > 0 || edges.length > 0) { // Avoid saving empty initial state before load
+        localStorage.setItem(LOCALSTORAGE_KEY_NODES, JSON.stringify(nodes));
+    }
+  }, [nodes]);
+
+  useEffect(() => {
+    if (nodes.length > 0 || edges.length > 0) { // Avoid saving empty initial state before load
+        localStorage.setItem(LOCALSTORAGE_KEY_EDGES, JSON.stringify(edges));
+    }
+  }, [edges]);
+
+
+  // 包装 onNodesChange 和 onEdgesChange 以清除 contextMenu
+  const onNodesChange: OnNodesChange = (changes) => {
+    onNodesChangeInternal(changes);
+    setContextMenu(null); // 关闭菜单当节点变化时
+  };
+
+  const onEdgesChange: OnEdgesChange = (changes) => {
+    onEdgesChangeInternal(changes);
+    setContextMenu(null); // 关闭菜单当边变化时
+  };
+  
+  const onConnect = useCallback(
+    (params: Connection | Edge) => {
+      setEdges((eds) => addEdge(params, eds));
+      setContextMenu(null);
+    },
+    [setEdges]
+  );
+
+  const onDragOver = useCallback((event: DragEvent) => {
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'move';
+  }, []);
+
+  const onDrop = useCallback(
+    (event: DragEvent) => {
+      event.preventDefault();
+      setContextMenu(null);
+
+      if (!reactFlowWrapper.current || !reactFlowInstance) {
+        return;
+      }
+      
+      const type = event.dataTransfer.getData('application/reactflow');
+      if (typeof type === 'undefined' || !type) {
+        return;
+      }
+
+      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+      const position = reactFlowInstance.screenToFlowPosition({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      });
+      
+      const newNode: Node = {
+        id: getId(),
+        type,
+        position,
+        data: { label: `${type.replace('Node','')} Node` },
+      };
+
+      setNodes((nds) => nds.concat(newNode));
+    },
+    [reactFlowInstance, setNodes, getId]
+  );
+  
+  const onDragStart = (event: DragEvent, nodeType: string) => {
+    event.dataTransfer.setData('application/reactflow', nodeType);
+    event.dataTransfer.effectAllowed = 'move';
+  };
+
+  const onEdgeContextMenu = useCallback(
+    (event: MouseEvent, edge: Edge) => {
+      event.preventDefault();
+      setContextMenu(null); // 关闭其他可能打开的菜单
+      if (window.confirm('Are you sure you want to delete this connection?')) {
+        setEdges((eds) => eds.filter((e) => e.id !== edge.id));
+      }
+    },
+    [setEdges]
+  );
+
+  // 新增：处理画布右键菜单
+  const onPaneContextMenu = useCallback(
+    (event: MouseEvent) => {
+      event.preventDefault();
+      if (!reactFlowInstance || !reactFlowWrapper.current) return;
+
+      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
+      const flowPosition = reactFlowInstance.screenToFlowPosition({
+        x: event.clientX - reactFlowBounds.left,
+        y: event.clientY - reactFlowBounds.top,
+      });
+
+      setContextMenu({
+        id: undefined,
+        top: event.clientY,
+        left: event.clientX,
+        flowPosition: flowPosition,
+        items: [
+          { label: 'Create Input Node', action: () => addNode('inputNode', flowPosition) },
+          { label: 'Create Process Node', action: () => addNode('processNode', flowPosition) },
+          { label: 'Create Output Node', action: () => addNode('outputNode', flowPosition) },
+        ],
+      });
+    },
+    [reactFlowInstance, getId, setNodes] // addNode will be defined below
+  );
+
+  // 新增：处理节点右键菜单
+  const onNodeContextMenu = useCallback(
+    (event: MouseEvent, node: Node) => {
+      event.preventDefault();
+      setContextMenu({
+        id: node.id,
+        top: event.clientY,
+        left: event.clientX,
+        items: [
+          { label: 'Delete Node', action: () => deleteNode(node.id) },
+          // Future actions for nodes can be added here
+        ],
+      });
+    },
+    [setNodes, setEdges] // deleteNode will be defined below
+  );
+  
+  // 新增：添加节点函数
+  const addNode = useCallback((type: string, position: XYPosition) => {
+    const newNode: Node = {
+      id: getId(),
+      type,
+      position,
+      data: { label: `${type.replace('Node','')} Node` },
+    };
+    setNodes((nds) => nds.concat(newNode));
+    setContextMenu(null); // Close context menu
+  }, [getId, setNodes]);
+
+  // 新增：删除节点函数
+  const deleteNode = useCallback((nodeId: string) => {
+    setNodes((nds) => nds.filter((n) => n.id !== nodeId));
+    setEdges((eds) => eds.filter((e) => e.source !== nodeId && e.target !== nodeId));
+    setContextMenu(null); // Close context menu
+  }, [setNodes, setEdges]);
+
+  // 新增：点击画布关闭菜单
+  const onPaneClick = useCallback(() => {
+    setContextMenu(null);
+  }, []);
+
+
+  return (
+    <div className="app-container">
+      <ReactFlowProvider>
+        <div className="sidebar">
+          <div className="description">Drag nodes to the canvas:</div>
+          <div 
+            className="sidebar-node input-node-palette" 
+            onDragStart={(event) => onDragStart(event, 'inputNode')} 
+            draggable
+          >
+            Start Node
+          </div>
+          <div 
+            className="sidebar-node process-node-palette" 
+            onDragStart={(event) => onDragStart(event, 'processNode')} 
+            draggable
+          >
+            Process Node
+          </div>
+          <div 
+            className="sidebar-node output-node-palette" 
+            onDragStart={(event) => onDragStart(event, 'outputNode')} 
+            draggable
+          >
+            End Node
+          </div>
+          <div className="description" style={{marginTop: '20px'}}>Manage Workflow:</div>
+          <button className="sidebar-button" onClick={saveFlow}>Save Flow</button>
+          <button className="sidebar-button" onClick={loadFlow}>Load Flow</button>
+        </div>
+        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
+          <ReactFlow
+            nodes={nodes}
+            edges={edges}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            onConnect={onConnect}
+            nodeTypes={nodeTypes}
+            onInit={setReactFlowInstance}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            onEdgeContextMenu={onEdgeContextMenu}
+            onPaneContextMenu={onPaneContextMenu} // 新增
+            onNodeContextMenu={onNodeContextMenu} // 新增
+            onPaneClick={onPaneClick} // 新增：点击画布关闭菜单
+            fitView
+            attributionPosition="bottom-left"
+          >
+            <Controls />
+            <MiniMap />
+            <Background gap={12} size={1} />
+          </ReactFlow>
+          {contextMenu && ( // 新增：渲染上下文菜单
+            <ContextMenu
+              x={contextMenu.left}
+              y={contextMenu.top}
+              items={contextMenu.items}
+              onClose={() => setContextMenu(null)}
+            />
+          )}
+        </div>
+      </ReactFlowProvider>
+    </div>
+  );
 }
 
-// 基本样式类
-const baseClasses = 'inline-flex items-center justify-center font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
-
-// 变体样式类映射
-const variantClassesMap = {
-  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
-  secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
-  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
-  outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500',
-}
-
-// 尺寸样式类映射
-const sizeClassesMap = {
-  sm: 'text-xs px-2.5 py-1.5',
-  md: 'text-sm px-4 py-2',
-  lg: 'text-base px-6 py-3',
-}
-
-// 计算最终的按钮样式类
-const buttonClasses = computed(() => {
-  const disabledClasses = props.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'
-  return [
-    baseClasses,
-    variantClassesMap[props.variant],
-    sizeClassesMap[props.size],
-    disabledClasses,
-    props.className, // 允许传入自定义 class
-  ].join(' ')
-})
-</script>
-
-<style scoped>
-/* 如果需要，可以在这里添加组件的局部样式 */
-/* Tailwind CSS 类通常是全局的，所以这里可能不需要太多内容 */
-</style>
-===ENDFILE===
+export default App;
+]]></content>
+</file>
+</files>
+</output>

@@ -55,22 +55,28 @@ DEFAULT_IGNORE_DIRS = [
     'venv', 'env', '.env', 'build', 'dist'
 ]
 
-def scan_code_files(directory, ignore_dirs=None):
+DEFAULT_IGNORE_FILES = ['.gitignore','package-lock.json', '.DS_Store', 'Thumbs.db', '.env.local', '.env.development.local', '.env.test.local', '.env.production.local', 'yarn.lock']
+
+def scan_code_files(directory, ignore_dirs=None, ignore_files=None):
     """
-    扫描目录中的所有代码文件，忽略指定的目录
+    扫描目录中的所有代码文件，忽略指定的目录和文件
     
     参数:
         directory (str): 要扫描的目录路径
         ignore_dirs (list): 要忽略的目录名列表
+        ignore_files (list): 要忽略的文件名列表
         
     返回:
         list: 相对于输入目录的代码文件路径列表
     """
     code_files = []
     
-    # 使用默认忽略目录（如果未指定）
+    # 使用默认忽略目录和文件（如果未指定）
     if ignore_dirs is None:
         ignore_dirs = DEFAULT_IGNORE_DIRS
+    
+    if ignore_files is None:
+        ignore_files = DEFAULT_IGNORE_FILES
     
     for root, dirs, files in os.walk(directory):
         # 从dirs中移除忽略的目录，这样os.walk不会递归进入它们
@@ -81,6 +87,10 @@ def scan_code_files(directory, ignore_dirs=None):
         )]
         
         for file in files:
+            # 检查文件是否在忽略列表中
+            if file in ignore_files:
+                continue
+                
             file_path = os.path.join(root, file)
             # 获取相对路径
             rel_path = os.path.relpath(file_path, directory)
@@ -119,7 +129,7 @@ def generate_file_content(directory, file_path):
     
     return f"### {file_path}\n```{language}\n{content}\n```\n\n"
 
-def generate_markdown(directory, output_file='code_documentation.md', ignore_dirs=None, include_toc=True):
+def generate_markdown(directory, output_file='./temp/step0.md', ignore_dirs=None, ignore_files=None, include_toc=True):
     """
     生成包含所有代码文件的Markdown文档
     
@@ -127,10 +137,11 @@ def generate_markdown(directory, output_file='code_documentation.md', ignore_dir
         directory (str): 要扫描的目录路径
         output_file (str): 输出的Markdown文件名
         ignore_dirs (list): 要忽略的目录名列表
+        ignore_files (list): 要忽略的文件名列表
         include_toc (bool): 是否包含目录(Table of Contents)
     """
-    # 扫描代码文件，忽略指定的目录
-    code_files = scan_code_files(directory, ignore_dirs)
+    # 扫描代码文件，忽略指定的目录和文件
+    code_files = scan_code_files(directory, ignore_dirs, ignore_files)
     
     if not code_files:
         print("警告: 未找到任何代码文件")
@@ -163,11 +174,14 @@ def generate_markdown(directory, output_file='code_documentation.md', ignore_dir
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='将目录中的代码文件转换为Markdown文档')
     parser.add_argument('directory', help='要扫描的目录路径')
-    parser.add_argument('-o', '--output', default='code_documentation.md', help='输出的Markdown文件名')
-    parser.add_argument('-i', '--ignore', nargs='+', default=DEFAULT_IGNORE_DIRS, 
+    parser.add_argument('-o', '--output', default='./temp/step0.md', help='输出的Markdown文件名')
+    parser.add_argument('-i', '--ignore-dirs', dest='ignore_dirs', nargs='+', default=DEFAULT_IGNORE_DIRS, 
                         help='要忽略的目录名列表（空格分隔，默认包含常见系统和配置目录）')
+    parser.add_argument('-f', '--ignore-files', dest='ignore_files', nargs='+', default=DEFAULT_IGNORE_FILES,
+                        help='要忽略的文件名列表（空格分隔，默认包含常见配置文件）')
     parser.add_argument('--no-toc', action='store_true', help='不生成目录(Table of Contents)')
     parser.add_argument('--list-extensions', action='store_true', help='列出支持的文件扩展名')
+    parser.add_argument('--list-ignore', action='store_true', help='列出默认忽略的目录和文件')
     
     args = parser.parse_args()
     
@@ -176,5 +190,14 @@ if __name__ == "__main__":
         for ext, lang in sorted(EXTENSIONS_MAP.items()):
             print(f"  {ext:8} -> {lang}")
         exit(0)
+        
+    if args.list_ignore:
+        print("默认忽略的目录:")
+        for dir_name in DEFAULT_IGNORE_DIRS:
+            print(f"  {dir_name}")
+        print("\n默认忽略的文件:")
+        for file_name in DEFAULT_IGNORE_FILES:
+            print(f"  {file_name}")
+        exit(0)
     
-    generate_markdown(args.directory, args.output, args.ignore, not args.no_toc)
+    generate_markdown(args.directory, args.output, args.ignore_dirs, args.ignore_files, not args.no_toc)
