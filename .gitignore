@@ -5,3 +5,4 @@ node/swaggerToTs/service/*
 __pycache__
 output
 out
+temp

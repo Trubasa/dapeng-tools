@@ -5,7 +5,7 @@ import time
 import sys
 from baseConfig import CONFIG
 
-APP_ID = "9b47f6bb-70b7-4eb8-bac6-ad5299ff43c9"
+APP_ID = "58ef287c-8f60-4a1c-a3d5-5389b7dc088b"
 
 def read_markdown_file(file_path):
     """读取Markdown文件内容"""

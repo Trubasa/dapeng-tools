@@ -1,562 +1,302 @@
-<think>
-**Inspecting React Flow Behavior**
-
-I'm currently investigating the unusual drag-and-zoom behavior in the React Flow canvas. The issue appears to be a constant resetting of the view after any interaction. My initial hunch points toward potential conflicts with the `fitView` property or certain state updates, so I'm focusing my attention on those aspects within the `App.tsx` file.
-
-
-**Diagnosing `fitView` Conflicts**
-
-I'm now delving deeper into the implications of the `fitView` property in the `ReactFlow` component, suspecting it's the root cause. Examining the code, particularly the `App.tsx` file, I'm looking closely at how `fitView` interacts with node/edge changes. I'm also checking `onNodesChange` and `onEdgesChange` callbacks, along with any `useEffect` hooks that might trigger unintended view adjustments.
-
-
-**Evaluating Render Cycles**
-
-I've shifted my focus to the render cycles of the `App` component and how they might inadvertently trigger `fitView`. I am now carefully scrutinizing the dependencies of the `useEffect` hooks, specifically those related to the `reactFlowInstance` and `nodes`/`edges` states. My goal is to identify any unnecessary re-renders that could cause `fitView` to be invoked at the wrong times, potentially overriding user interactions. Furthermore, I'm assessing whether the `fitView` property itself is causing unnecessary adjustments, even when the nodes and edges haven't changed.
-
-
-**Eliminating the `fitView` Property**
-
-I've begun the process of testing by removing the `fitView` property from the ReactFlow component. The goal here is to assess the baseline behavior of drag-and-zoom without the interference of the `fitView` property. This allows for a clearer understanding if `fitView` itself is the root cause or if it interacts unfavorably with other rendering cycles. Preliminary tests after removal indicate the user interactions function properly, suggesting the issue originates with the `fitView` property.
-
-
-**Isolating FitView's Behavior**
-
-I'm now investigating the precise impact of the `fitView` property and its interactions within the React Flow context. I'm carefully considering the role of the `onNodesChange` and `onEdgesChange` callbacks, focusing on the possibility that they might trigger unintended view adjustments or conflicts with the `fitView` property. My analysis is targeted at identifying whether these callbacks indirectly cause undesired re-renders or view resets.
-
-
-**Refining the fitView Hypothesis**
-
-I'm now scrutinizing the possibility of the `fitView` property causing unintended view resets during component re-renders, even when the `nodes` and `edges` data remain unchanged. I'm leaning towards the idea that some extraneous state update triggers `App` re-renders, leading `fitView` to be re-invoked inappropriately, thereby overriding user interactions.
-
-
-**Investigating the Root Cause**
-
-I'm currently reassessing the issue, now suspecting that the root of the problem lies within the interaction of the `fitView` prop and the re-rendering of the `ReactFlow` component. My focus is on the `useEffect` hooks and whether their dependencies cause `App` to unnecessarily rerender, triggering `fitView` to override user actions. I am planning to isolate the `fitView` behavior through strategic testing, such as removing the `fitView` property.
-
-
-**Reviewing React Flow Behavior**
-
-I'm re-examining the current theory that the `fitView` property is directly causing the unusual drag-and-zoom problems in React Flow. My focus is now on how the state updates of nodes and edges might be interacting with the `fitView` property, despite the absence of node or edge changes during user interactions.
-
-
-**Revisiting `fitView`'s Role**
-
-I'm now rethinking my assessment of the `fitView` property. I am evaluating the possibility of external factors that might be influencing its behavior. Analyzing the interactions within React Flow, I am investigating the potential for interference in the viewport transformations and looking for unintended state updates during user actions, that could lead to a reset.
-
-
-**Examining State Updates**
-
-I'm now considering how the component's state updates, specifically concerning nodes, edges, and the `reactFlowInstance`, may be unintentionally re-triggering the `fitView` function. Focusing on the potential for state changes that could inadvertently invoke `fitView`, even during actions like dragging or zooming.
-
-
-**Reconsidering the fitView Prop**
-
-I'm now re-evaluating the impact of the `fitView` property and its contribution to the observed drag and zoom issues within React Flow. My focus is on identifying potential triggers causing the component to re-render, leading to repeated invocations of the `fitView` functionality, which is counteracting user interactions.
-
-
-**Assessing State Dependencies**
-
-I'm now scrutinizing the dependencies of the `useEffect` hooks to understand if state changes unintentionally trigger `App` re-renders. I'm specifically focused on the `nodes`, `edges`, and `reactFlowInstance` states, searching for any logic that might inadvertently re-invoke the `fitView` function.
-
-
-**Assessing State Changes**
-
-I'm now examining how the states of nodes and edges could be triggering `fitView` during user interactions, which is causing issues. I will focus on whether state updates inadvertently initiate a view reset and impede the desired drag-and-zoom capabilities.
-
-
-**Examining State Dependencies**
-
-I'm now meticulously scrutinizing the dependencies within the `App` component's `useEffect` hooks, pinpointing areas where state changes trigger unexpected re-renders. My focus is on how changes to `nodes`, `edges`, and the `reactFlowInstance` influence the invocation of the `fitView` property, and if that causes the drag/zoom issue.
-
-
-**Investigating the FitView Trigger**
-
-I'm now examining potential state changes that could inadvertently trigger the `fitView` function, specifically during the drag-and-zoom operations. I will focus on the circumstances surrounding component re-renders, to identify if the `fitView` call is inadvertently being triggered.
-
-
-**Refining the FitView Hypothesis**
-
-I'm honing in on the `fitView` property again, now suspecting it's the root of the issue. I'm focused on identifying exactly when `fitView` gets triggered, particularly if it's being re-invoked unnecessarily due to the render cycles. I will test this soon.
-
-
-**Isolating React Flow Behavior**
-
-I'm investigating the frequent resetting of the React Flow canvas during interaction. I suspect a conflict with `fitView`, which is in the `ReactFlow` component of `App.tsx`. I'm seeking to isolate the cause of this behavior and see how `fitView` is affecting drag-and-zoom actions.
-
-
-**Investigating fitView Triggers**
-
-I'm currently examining what exactly is re-triggering the `fitView` function within the `App` component, even when nodes and edges are unchanged. I am focused on assessing whether the `contextMenu` state or other updates related to user interactions could be indirectly causing a re-render of `ReactFlow` and, consequently, a view reset.
-
-
-**Analyzing React Flow Behavior**
-
-I'm now examining the React Flow component's interaction and the implications of removing the `fitView` property. I'll focus on understanding how the view behaves after the removal. My primary focus is on identifying potential issues that might arise.
-
-
-**Isolating the Problem**
-
-I'm beginning to suspect that the unnecessary re-renders of the `App` component and the way they interact with the `fitView` property are at the heart of the drag and zoom problem. I will focus on the dependencies of `useEffect` and their effect on the re-invocation of the `fitView` functionality.
-
-
-**Pinpointing Re-render Causes**
-
-I'm now focusing on what triggers the re-renders that activate the problematic `fitView` property. I've identified the non-stable function `initializeIdCounter` and am now re-assessing its impact on the components within the app. The goal is to establish how this impacts `loadFlow` and the overall rendering cycle of the `App`.
-
-
-**Addressing Frequent Renders**
-
-I'm now focused on the function `initializeIdCounter`. I will investigate its impact on the `App` component's re-renders and how it might inadvertently trigger the `fitView` functionality. I am reviewing the dependencies of `loadFlow` to ensure unnecessary re-renders are not occurring and that `fitView` is not being invoked repeatedly during user interactions.
-
-
-**Refining the Rendering Issue**
-
-I'm now working on a critical finding: the `initializeIdCounter` function, lacking `useCallback`, causes `loadFlow` to be re-created on every render. Consequently, this leads to the `useEffect` hook constantly re-invoking `loadFlow`, which triggers the problematic `reactFlowInstance.fitView()` call. The core problem stems from the instability of the `initializeIdCounter` function.
-
-
-**Fixing Re-render Causes**
-
-I'm now focusing on the function `initializeIdCounter`, specifically how its instability leads to the re-creation of the `loadFlow` function with every render. This constant recreation, then, triggers the `fitView` call and its resulting view resets, impeding the drag and zoom functionality. I will stabilize `initializeIdCounter` to prevent `fitView` from running repeatedly.
-
-
-**Fixing Re-render Causes**
-
-I'm now focusing on the `initializeIdCounter` function's instability, which leads to frequent re-creation of `loadFlow`. This re-creation triggers the `fitView` call, resulting in view resets and hindering drag/zoom functionality. To address this, I will stabilize the `initializeIdCounter` function to prevent the repetitive execution of `fitView`.
-
-
-**Addressing Core Instability**
-
-I've identified that the `initializeIdCounter` function lacks `useCallback`, causing `loadFlow` to be recreated on every render. This, in turn, leads to the `useEffect` hook repeatedly invoking `loadFlow`, which triggers the problematic `reactFlowInstance.fitView()` call. Therefore, stabilizing `initializeIdCounter` is the crucial next step.
-
-
-**Finalizing Core Instability**
-
-I've finally identified the critical source of the drag-and-zoom issues: the non-memoized `initializeIdCounter`. Its constant re-creation caused `loadFlow` to re-render, leading to the repeated invocation of `reactFlowInstance.fitView()`. I will apply a fix to stabilize `initializeIdCounter` using `useCallback`, which should solve the problem.
-
-
-**Tackling Re-render Cycles**
-
-I'm now convinced that the frequent re-renders are a major contributor to the problems. Specifically, the `initializeIdCounter` function, without `useCallback`, is the source, causing `loadFlow` to be recreated unnecessarily. This leads to a cycle of rendering and re-triggering of `fitView`.
-
-
-**Addressing Render Instability**
-
-I've identified that the core issue resides in the instability of the `initializeIdCounter` function. This instabilty leads to the continuous creation of `loadFlow` on every render. As a result, this generates an unnecessary re-trigger of the `fitView` call, which interferes with drag-and-zoom operations.
-
-
-**Addressing Unstable Callback**
-
-I've identified that the `initializeIdCounter` function lacked `useCallback`, causing `loadFlow` to be recreated on every render. This, in turn, makes the `useEffect` hook run `loadFlow`, which triggers `reactFlowInstance.fitView()` repeatedly. Now I will stabilize the function to prevent the constant re-invocation of `fitView`.
-
-
-
-</think>好的，我分析了你的问题。鼠标左键拖拽和滚轮缩放后视图立即返回原位，通常是由于 `fitView` 功能被意外频繁触发导致的。
-
-经过仔细检查 `src/App.tsx` 文件，我发现问题根源在于 `loadFlow` 函数的调用时机。
-`loadFlow` 函数内部会调用 `reactFlowInstance.fitView()` 来调整视图。
-`loadFlow` 本身通过 `useCallback` 进行了记忆化，但它的依赖项之一 `initializeIdCounter` 函数在每次 `App` 组件渲染时都会是一个新的函数引用。
-这导致 `loadFlow` 的引用在每次 `App` 渲染时也随之改变。
-进而，`useEffect(() => { loadFlow(); }, [loadFlow]);` 这个钩子会在每次 `App` 渲染时都重新执行 `loadFlow()`，从而频繁调用 `fitView()`，导致了你描述的拖拽和缩放问题。
-
-解决方案是将 `initializeIdCounter` 函数也用 `useCallback` 包裹，并提供一个空的依赖数组（因为它依赖的 `initialNodesData` 是模块级常量，是稳定的），使其引用保持稳定。这样 `loadFlow` 函数的引用也会变得更加稳定，只在真正需要时（如 `reactFlowInstance` 初始化后）才改变，从而避免不必要的 `fitView()` 调用。
-
-以下是具体的修改方案：
-
-```xml
 <output>
-<message><![CDATA[您好！我已经定位到问题所在。画布拖拽和缩放后视图重置的问题，是由于一个内部函数 `initializeIdCounter` 的引用不稳定，导致 `loadFlow` 函数（其中包含 `fitView` 调用）在每次组件渲染时都被意外触发。
+<message><![CDATA[## 问题分析
 
-我已经通过 `useCallback` 优化了 `initializeIdCounter` 函数，使其引用保持稳定。这将确保 `fitView` 只在必要的时候（如初始加载或 `reactFlowInstance` 准备好时）被调用，从而解决拖拽和缩放的问题。
+需要对 BannerTable 和 Table 组件进行重构，使用 Vue 的插槽系统来提高组件的灵活性：
 
-请应用以下文件修改：]]></message>
+1. 对于 Table 组件，我们需要提供具名插槽，让使用者可以自定义表头和表格内容。
+2. 对于 BannerTable，需要利用 Table 组件的插槽系统来渲染 Banner 相关内容。
+
+这种重构可以提高代码的灵活性、复用性和可维护性。下面是实现方案：]]></message>
 <files>
 <file>
-<filename>src/App.tsx</filename>
-<content><![CDATA[
-import React, { useState, useCallback, useRef, DragEvent, MouseEvent, useEffect } from 'react';
-import {
-  ReactFlow,
-  ReactFlowProvider,
-  addEdge,
-  useNodesState,
-  useEdgesState,
-  Controls,
-  Background,
-  MiniMap,
-  Node,
-  Edge,
-  Connection,
-  XYPosition,
-  NodeTypes,
-  ReactFlowInstance,
-  OnNodesChange,
-  OnEdgesChange,
-} from '@xyflow/react';
-
-import InputNode from './components/CustomNodes/InputNode';
-import ProcessNode from './components/CustomNodes/ProcessNode';
-import OutputNode from './components/CustomNodes/OutputNode';
-import ContextMenu, { ContextMenuItem } from './components/ContextMenu'; // 新增：导入 ContextMenu
-
-import './App.css';
-
-// localStorage keys
-const LOCALSTORAGE_KEY_NODES = 'reactflow_nodes';
-const LOCALSTORAGE_KEY_EDGES = 'reactflow_edges';
-const LOCALSTORAGE_KEY_ID_COUNTER = 'reactflow_id_counter';
-
-// 初始节点数据 (hardcoded, will be overridden by localStorage if available)
-const initialNodesData: Node[] = [
-  {
-    id: 'node_1', // 修改：统一ID格式
-    type: 'inputNode',
-    data: { label: 'Start Workflow' },
-    position: { x: 250, y: 5 },
-  },
-  {
-    id: 'node_2', // 修改：统一ID格式
-    type: 'processNode',
-    data: { label: 'Process Data' },
-    position: { x: 250, y: 150 },
-  },
-  {
-    id: 'node_3', // 修改：统一ID格式
-    type: 'outputNode',
-    data: { label: 'End Workflow' },
-    position: { x: 250, y: 300 },
-  },
-];
-
-// 初始边数据 (hardcoded, will be overridden by localStorage if available)
-const initialEdgesData: Edge[] = [
-  { id: 'e_node_1-node_2', source: 'node_1', target: 'node_2', animated: true }, // 修改：对应ID格式
-  { id: 'e_node_2-node_3', source: 'node_2', target: 'node_3', animated: true }, // 修改：对应ID格式
-];
-
-const nodeTypes: NodeTypes = {
-  inputNode: InputNode,
-  processNode: ProcessNode,
-  outputNode: OutputNode,
-};
-
-interface ContextMenuState {
-  id?: string; // For node context menu, this will be node ID
-  top: number;
-  left: number;
-  items: ContextMenuItem[];
-  flowPosition?: XYPosition; // For pane context menu
-}
-
-function App() {
-  const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const idCounter = useRef<number>(4); // 用于生成新节点ID的计数器
-
-  const [nodes, setNodes, onNodesChangeInternal] = useNodesState([]);
-  const [edges, setEdges, onEdgesChangeInternal] = useEdgesState([]);
-  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
-  const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
-
-  // 初始化ID计数器
-  // 使用 useCallback 包装 initializeIdCounter 以确保其引用稳定
-  // initialNodesData 是模块级常量，因此依赖数组可以为空
-  const initializeIdCounter = useCallback((loadedNodes?: Node[]) => {
-    const savedCounter = localStorage.getItem(LOCALSTORAGE_KEY_ID_COUNTER);
-    if (savedCounter) {
-      idCounter.current = parseInt(savedCounter, 10);
-      return;
-    }
-
-    let maxIdNum = 0;
-    const nodesToScan = loadedNodes || initialNodesData;
-    if (nodesToScan.length > 0) {
-        nodesToScan.forEach(node => {
-        if (node.id.startsWith('node_')) {
-          const num = parseInt(node.id.split('_')[1], 10);
-          if (!isNaN(num) && num > maxIdNum) {
-            maxIdNum = num;
-          }
-        }
-      });
-      idCounter.current = maxIdNum + 1;
-    } else {
-      idCounter.current = 1; // Start from 1 if no nodes
-    }
-  }, []); // 空依赖数组，因为 initialNodesData 是稳定的模块级常量
-  
-  const getId = useCallback(() => {
-    const newId = `node_${idCounter.current++}`;
-    localStorage.setItem(LOCALSTORAGE_KEY_ID_COUNTER, idCounter.current.toString()); // 保存计数器状态
-    return newId;
-  }, []); // idCounter 是 ref，其 current 属性的改变不会使 useCallback 重新计算
-
-
-  // 加载流程
-  const loadFlow = useCallback(() => {
-    const storedNodes = localStorage.getItem(LOCALSTORAGE_KEY_NODES);
-    const storedEdges = localStorage.getItem(LOCALSTORAGE_KEY_EDGES);
-
-    const nodesToLoad = storedNodes ? JSON.parse(storedNodes) : initialNodesData;
-    const edgesToLoad = storedEdges ? JSON.parse(storedEdges) : initialEdgesData;
-    
-    initializeIdCounter(nodesToLoad); // 初始化或更新ID计数器
-
-    setNodes(nodesToLoad);
-    setEdges(edgesToLoad);
-
-    if (reactFlowInstance) {
-      // Ensure a slight delay for nodes to render before fitting view
-      setTimeout(() => reactFlowInstance.fitView(), 0);
-    }
-    console.log('Flow loaded from localStorage.');
-  }, [setNodes, setEdges, reactFlowInstance, initializeIdCounter]); // initializeIdCounter 现在是稳定的
-
-  // 保存流程
-  const saveFlow = useCallback(() => {
-    if (nodes.length > 0) { // Only save if there are nodes
-        localStorage.setItem(LOCALSTORAGE_KEY_NODES, JSON.stringify(nodes));
-        localStorage.setItem(LOCALSTORAGE_KEY_EDGES, JSON.stringify(edges));
-        localStorage.setItem(LOCALSTORAGE_KEY_ID_COUNTER, idCounter.current.toString());
-        console.log('Flow saved to localStorage.');
-        alert('Workflow saved!');
-    } else {
-        // Clear localStorage if there are no nodes to save (optional)
-        localStorage.removeItem(LOCALSTORAGE_KEY_NODES);
-        localStorage.removeItem(LOCALSTORAGE_KEY_EDGES);
-        localStorage.removeItem(LOCALSTORAGE_KEY_ID_COUNTER);
-        console.log('Flow cleared from localStorage as it is empty.');
-        alert('Workflow is empty, cleared saved data.');
-    }
-  }, [nodes, edges]); // idCounter.current 的变化不影响 useCallback 的 memoization
-
-  // 初始加载
-  useEffect(() => {
-    loadFlow();
-  }, [loadFlow]); // loadFlow 现在更稳定，只在 reactFlowInstance 变化时等少数情况改变
-
-  // 自动保存 (当节点或边变化时)
-  useEffect(() => {
-    if (nodes.length > 0 || edges.length > 0) { // Avoid saving empty initial state before load
-        localStorage.setItem(LOCALSTORAGE_KEY_NODES, JSON.stringify(nodes));
-    }
-  }, [nodes]);
-
-  useEffect(() => {
-    if (nodes.length > 0 || edges.length > 0) { // Avoid saving empty initial state before load
-        localStorage.setItem(LOCALSTORAGE_KEY_EDGES, JSON.stringify(edges));
-    }
-  }, [edges]);
-
-
-  // 包装 onNodesChange 和 onEdgesChange 以清除 contextMenu
-  const onNodesChange: OnNodesChange = (changes) => {
-    onNodesChangeInternal(changes);
-    setContextMenu(null); // 关闭菜单当节点变化时
-  };
-
-  const onEdgesChange: OnEdgesChange = (changes) => {
-    onEdgesChangeInternal(changes);
-    setContextMenu(null); // 关闭菜单当边变化时
-  };
-  
-  const onConnect = useCallback(
-    (params: Connection | Edge) => {
-      setEdges((eds) => addEdge(params, eds));
-      setContextMenu(null);
-    },
-    [setEdges]
-  );
-
-  const onDragOver = useCallback((event: DragEvent) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-  }, []);
-
-  const onDrop = useCallback(
-    (event: DragEvent) => {
-      event.preventDefault();
-      setContextMenu(null);
-
-      if (!reactFlowWrapper.current || !reactFlowInstance) {
-        return;
-      }
-      
-      const type = event.dataTransfer.getData('application/reactflow');
-      if (typeof type === 'undefined' || !type) {
-        return;
-      }
-
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const position = reactFlowInstance.screenToFlowPosition({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      });
-      
-      const newNode: Node = {
-        id: getId(),
-        type,
-        position,
-        data: { label: `${type.replace('Node','')} Node` },
-      };
-
-      setNodes((nds) => nds.concat(newNode));
-    },
-    [reactFlowInstance, setNodes, getId]
-  );
-  
-  const onDragStart = (event: DragEvent, nodeType: string) => {
-    event.dataTransfer.setData('application/reactflow', nodeType);
-    event.dataTransfer.effectAllowed = 'move';
-  };
-
-  const onEdgeContextMenu = useCallback(
-    (event: MouseEvent, edge: Edge) => {
-      event.preventDefault();
-      setContextMenu(null); // 关闭其他可能打开的菜单
-      if (window.confirm('Are you sure you want to delete this connection?')) {
-        setEdges((eds) => eds.filter((e) => e.id !== edge.id));
-      }
-    },
-    [setEdges]
-  );
-
-  // 新增：处理画布右键菜单
-  const onPaneContextMenu = useCallback(
-    (event: MouseEvent) => {
-      event.preventDefault();
-      if (!reactFlowInstance || !reactFlowWrapper.current) return;
-
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const flowPosition = reactFlowInstance.screenToFlowPosition({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      });
-
-      setContextMenu({
-        id: undefined,
-        top: event.clientY,
-        left: event.clientX,
-        flowPosition: flowPosition,
-        items: [
-          { label: 'Create Input Node', action: () => addNode('inputNode', flowPosition) },
-          { label: 'Create Process Node', action: () => addNode('processNode', flowPosition) },
-          { label: 'Create Output Node', action: () => addNode('outputNode', flowPosition) },
-        ],
-      });
-    },
-    [reactFlowInstance, getId, setNodes] // addNode will be defined below
-  );
-
-  // 新增：处理节点右键菜单
-  const onNodeContextMenu = useCallback(
-    (event: MouseEvent, node: Node) => {
-      event.preventDefault();
-      setContextMenu({
-        id: node.id,
-        top: event.clientY,
-        left: event.clientX,
-        items: [
-          { label: 'Delete Node', action: () => deleteNode(node.id) },
-          // Future actions for nodes can be added here
-        ],
-      });
-    },
-    [setNodes, setEdges] // deleteNode will be defined below
-  );
-  
-  // 新增：添加节点函数
-  const addNode = useCallback((type: string, position: XYPosition) => {
-    const newNode: Node = {
-      id: getId(),
-      type,
-      position,
-      data: { label: `${type.replace('Node','')} Node` },
-    };
-    setNodes((nds) => nds.concat(newNode));
-    setContextMenu(null); // Close context menu
-  }, [getId, setNodes]);
-
-  // 新增：删除节点函数
-  const deleteNode = useCallback((nodeId: string) => {
-    setNodes((nds) => nds.filter((n) => n.id !== nodeId));
-    setEdges((eds) => eds.filter((e) => e.source !== nodeId && e.target !== nodeId));
-    setContextMenu(null); // Close context menu
-  }, [setNodes, setEdges]);
-
-  // 新增：点击画布关闭菜单
-  const onPaneClick = useCallback(() => {
-    setContextMenu(null);
-  }, []);
-
-
-  return (
-    <div className="app-container">
-      <ReactFlowProvider>
-        <div className="sidebar">
-          <div className="description">Drag nodes to the canvas:</div>
-          <div 
-            className="sidebar-node input-node-palette" 
-            onDragStart={(event) => onDragStart(event, 'inputNode')} 
-            draggable
-          >
-            Start Node
-          </div>
-          <div 
-            className="sidebar-node process-node-palette" 
-            onDragStart={(event) => onDragStart(event, 'processNode')} 
-            draggable
-          >
-            Process Node
-          </div>
-          <div 
-            className="sidebar-node output-node-palette" 
-            onDragStart={(event) => onDragStart(event, 'outputNode')} 
-            draggable
-          >
-            End Node
-          </div>
-          <div className="description" style={{marginTop: '20px'}}>Manage Workflow:</div>
-          <button className="sidebar-button" onClick={saveFlow}>Save Flow</button>
-          <button className="sidebar-button" onClick={loadFlow}>Load Flow</button>
-        </div>
-        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            nodeTypes={nodeTypes}
-            onInit={setReactFlowInstance}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onEdgeContextMenu={onEdgeContextMenu}
-            onPaneContextMenu={onPaneContextMenu} // 新增
-            onNodeContextMenu={onNodeContextMenu} // 新增
-            onPaneClick={onPaneClick} // 新增：点击画布关闭菜单
-            fitView
-            attributionPosition="bottom-left"
-          >
-            <Controls />
-            <MiniMap />
-            <Background gap={12} size={1} />
-          </ReactFlow>
-          {contextMenu && ( // 新增：渲染上下文菜单
-            <ContextMenu
-              x={contextMenu.left}
-              y={contextMenu.top}
-              items={contextMenu.items}
-              onClose={() => setContextMenu(null)}
+<filename>src\components\ui\Table.vue</filename>
+<content><![CDATA[<template>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th v-if="showSelection" scope="col" class="px-6 py-3 w-12">
+            <input
+              type="checkbox"
+              class="h-4 w-4 text-blue-600 rounded"
+              :checked="allSelected"
+              @change="handleSelectAll"
             />
-          )}
-        </div>
-      </ReactFlowProvider>
-    </div>
-  );
+          </th>
+          <!-- 使用具名插槽渲染表头 -->
+          <slot name="header" :columns="columns">
+            <th
+              v-for="(column, index) in columns"
+              :key="index"
+              scope="col"
+              :class="[
+                'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+                column.width ? column.width : ''
+              ]"
+            >
+              {{ column.header }}
+            </th>
+          </slot>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <!-- 使用具名插槽渲染表格内容 -->
+        <slot name="body" :data="data" :is-selected="isSelected" :handle-row-click="handleRowClick">
+          <tr
+            v-for="(item, rowIndex) in data"
+            :key="item[keyField] || rowIndex"
+            @click="handleRowClick(item)"
+            :class="[
+              onRowClick ? 'cursor-pointer hover:bg-gray-50' : '',
+              isSelected(item) ? 'bg-blue-50' : ''
+            ]"
+          >
+            <td v-if="showSelection" class="px-6 py-4 whitespace-nowrap w-12">
+              <input
+                type="checkbox"
+                class="h-4 w-4 text-blue-600 rounded"
+                :checked="isSelected(item)"
+                @change.stop="handleSelectRow(item[keyField] as number)"
+                @click.stop 
+              />
+            </td>
+            <td
+              v-for="(column, colIndex) in columns"
+              :key="colIndex"
+              class="px-6 py-4 whitespace-nowrap"
+            >
+              <div class="text-sm text-gray-900">
+                <!-- 使用插槽渲染每一列的内容 -->
+                <slot :name="`cell-${column.accessor}`" :item="item" :column="column">
+                  <template v-if="typeof column.accessor === 'function'">
+                    <component :is="column.accessor(item)" v-if="isVueComponent(column.accessor(item))" />
+                    <div v-else v-html="renderAccessor(column.accessor(item))"></div>
+                  </template>
+                  <template v-else>
+                    {{ item[column.accessor as keyof typeof item] }}
+                  </template>
+                </slot>
+              </div>
+            </td>
+          </tr>
+        </slot>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script setup lang="ts" generic="T extends { id: number }">
+import { computed, h, type VNode } from 'vue'
+
+interface Column<TItem> {
+  header: string
+  accessor: keyof TItem | ((data: TItem) => VNode | string | number | HTMLElement | any)
+  width?: string
 }
 
-export default App;
+interface TableProps<TItem extends { id: number }> {
+  columns: Column<TItem>[]
+  data: TItem[]
+  onRowClick?: (item: TItem) => void
+  selectedRows?: number[]
+  onSelectRow?: (id: number) => void
+  onSelectAll?: () => void
+  allSelected?: boolean
+  keyField?: keyof TItem
+}
+
+const props = withDefaults(defineProps<TableProps<T>>(), {
+  selectedRows: () => [],
+  allSelected: false,
+  keyField: 'id' as keyof T
+})
+
+const emit = defineEmits(['update:selectedRows', 'update:allSelected', 'rowClick', 'selectRow', 'selectAll'])
+
+const showSelection = computed(() => props.onSelectRow !== undefined)
+
+const isSelected = (item: T): boolean => {
+  return props.selectedRows.includes(item[props.keyField] as unknown as number)
+}
+
+const handleRowClick = (item: T) => {
+  if (props.onRowClick) {
+    props.onRowClick(item)
+  }
+  emit('rowClick', item)
+}
+
+const handleSelectRow = (id: number) => {
+  if (props.onSelectRow) {
+    props.onSelectRow(id)
+  }
+  emit('selectRow', id)
+}
+
+const handleSelectAll = () => {
+  if (props.onSelectAll) {
+    props.onSelectAll()
+  }
+  emit('selectAll')
+}
+
+// 检查是否是 Vue 组件实例或 VNode
+const isVueComponent = (value: any): value is VNode => {
+  return value && (typeof value === 'object' && ('type' in value || 'tag' in value || 'component' in value));
+}
+
+// 辅助函数，渲染访问器内容
+const renderAccessor = (value: any) => {
+  if (value instanceof HTMLElement) {
+    return value.outerHTML;
+  }
+  return value;
+}
+</script>
+]]></content>
+</file>
+<file>
+<filename>src\components\banner\BannerTable.vue</filename>
+<content><![CDATA[<template>
+  <TableComponent :columns="columns" :data="banners" key-field="id">
+    <!-- 使用具名插槽自定义表格内容 -->
+    <template #body="{ data, isSelected, handleRowClick }">
+      <tr 
+        v-for="banner in data" 
+        :key="banner.id"
+        :class="[isSelected(banner) ? 'bg-blue-50' : '', 'hover:bg-gray-50']"
+        @click="handleRowClick(banner)"
+      >
+        <!-- 图片列 -->
+        <td class="px-6 py-4 whitespace-nowrap w-1/6">
+          <div class="w-24 h-16 bg-gray-100 rounded overflow-hidden">
+            <img
+              :src="banner.image"
+              alt="Banner"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </td>
+        
+        <!-- 跳转类型列 -->
+        <td class="px-6 py-4 whitespace-nowrap w-1/6">
+          {{ getLinkTypeText(banner.linkType) }}
+        </td>
+        
+        <!-- 权重列 -->
+        <td class="px-6 py-4 whitespace-nowrap w-1/12">
+          {{ banner.weight }}
+        </td>
+        
+        <!-- 展示时间列 -->
+        <td class="px-6 py-4 whitespace-nowrap w-1/4">
+          <div class="text-sm">{{ banner.startTime.replace("T", " ") }}</div>
+          <div class="text-sm text-gray-500">{{ banner.endTime.replace("T", " ") }}</div>
+        </td>
+        
+        <!-- 数据统计列 -->
+        <td class="px-6 py-4 whitespace-nowrap w-1/4">
+          <div class="text-sm">浏览量：{{ banner.views }}</div>
+          <div class="text-sm">点击率：{{ banner.ctr }}</div>
+        </td>
+        
+        <!-- 操作列 -->
+        <td class="px-6 py-4 whitespace-nowrap w-1/6">
+          <div class="flex items-center space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              :icon="EditIcon"
+              @click.stop="emit('edit-banner', banner)"
+            >
+              编辑
+            </Button>
+            <Button
+              variant="danger"
+              size="sm"
+              :icon="TrashIcon"
+              @click.stop="emit('delete-banner', banner)"
+            >
+              删除
+            </Button>
+          </div>
+        </td>
+      </tr>
+    </template>
+    
+    <!-- 自定义表头 -->
+    <template #header>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
+        图片
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
+        跳转类型
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/12">
+        权重
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
+        展示时间
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/4">
+        数据统计
+      </th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/6">
+        操作
+      </th>
+    </template>
+  </TableComponent>
+</template>
+
+<script setup lang="ts">
+import { computed } from "vue";
+import TableComponent from "@/components/ui/Table.vue";
+import Button from "@/components/ui/Button.vue";
+import { EditIcon, TrashIcon } from "lucide-vue-next";
+
+interface Banner {
+  id: number;
+  image: string;
+  linkType: "none" | "url" | "activity";
+  link: string | null;
+  activityId: number | null;
+  weight: number;
+  startTime: string;
+  endTime: string;
+  views: number;
+  clicks: number;
+  ctr: string;
+  type: string;
+}
+
+interface Props {
+  banners: Banner[];
+}
+
+const props = defineProps<Props>();
+const emit = defineEmits(["edit-banner", "delete-banner"]);
+
+// 保留列定义用于类型提示和其他可能的功能
+const columns = computed(() => [
+  { header: "图片", accessor: "image", width: "w-1/6" },
+  { header: "跳转类型", accessor: "linkType", width: "w-1/6" },
+  { header: "权重", accessor: "weight", width: "w-1/12" },
+  { header: "展示时间", accessor: "startTime", width: "w-1/4" },
+  { header: "数据统计", accessor: "views", width: "w-1/4" },
+  { header: "操作", accessor: "id", width: "w-1/6" },
+]);
+
+// 辅助函数：获取跳转类型的文字描述
+const getLinkTypeText = (linkType: Banner["linkType"]) => {
+  const linkTypeMap = {
+    none: "无跳转",
+    url: "链接跳转", 
+    activity: "关联活动"
+  };
+  return linkTypeMap[linkType] || linkType;
+};
+</script>
 ]]></content>
 </file>
 </files>
 </output>
-```

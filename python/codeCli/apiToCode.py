@@ -9,9 +9,62 @@ from buildFiles import buildFiles
 from step1ToStep2 import main as step1ToStep2
 from c2m import generate_markdown
 
-PROJECT_DIR = r"G:\test\test-workplace"
-OUTPUT_DIR = r"G:\test\test-workplace"
-QUERY = "目前这份代码我鼠标左键拖拽后它会瞬间返回原味，无法进行正常的拖拽查看，滚轮缩放也是会回滚为原位，请修复这个问题"
+PROJECT_DIR = r"G:\code\g136-miniprogram-admin-web"
+QUERY = """
+# 问题描述
+目前代码运行中有个报错，当页面处在  banner-management 后，如果切换其他路由，会有以下报错
+请帮我修复该问题
+
+## 报错内容
+[Vue warn]: Unhandled error during execution of component update 
+  at <RouterView> 
+  at <Layout onVnodeUnmounted=fn<onVnodeUnmounted> ref=Ref< Proxy(Object) {__v_skip: true} > > 
+  at <RouterView> 
+  at <App>
+warn$1 @ runtime-core.esm-bundler.js:51
+logError @ runtime-core.esm-bundler.js:263
+handleError @ runtime-core.esm-bundler.js:255
+callWithErrorHandling @ runtime-core.esm-bundler.js:201
+flushJobs @ runtime-core.esm-bundler.js:408
+Promise.then
+queueFlush @ runtime-core.esm-bundler.js:322
+queuePostFlushCb @ runtime-core.esm-bundler.js:336
+queueEffectWithSuspense @ runtime-core.esm-bundler.js:7350
+baseWatchOptions.scheduler @ runtime-core.esm-bundler.js:6226
+effect2.scheduler @ reactivity.esm-bundler.js:1842
+trigger @ reactivity.esm-bundler.js:265
+endBatch @ reactivity.esm-bundler.js:323
+notify @ reactivity.esm-bundler.js:609
+trigger @ reactivity.esm-bundler.js:583
+set value @ reactivity.esm-bundler.js:1460
+finalizeNavigation @ vue-router.mjs:3503
+(anonymous) @ vue-router.mjs:3368
+Promise.then
+pushWithRedirect @ vue-router.mjs:3335
+push @ vue-router.mjs:3260
+navigate @ vue-router.mjs:2315
+callWithErrorHandling @ runtime-core.esm-bundler.js:199
+callWithAsyncErrorHandling @ runtime-core.esm-bundler.js:206
+invoker @ runtime-dom.esm-bundler.js:729Understand this warning
+18:11:56.789 runtime-core.esm-bundler.js:5937 Uncaught (in promise) TypeError: Cannot read properties of null (reading 'type')
+    at unmountComponent (runtime-core.esm-bundler.js:5937:63)
+    at unmount (runtime-core.esm-bundler.js:5844:7)
+    at unmountChildren (runtime-core.esm-bundler.js:5984:7)
+    at unmount (runtime-core.esm-bundler.js:5868:9)
+    at unmountChildren (runtime-core.esm-bundler.js:5984:7)
+    at unmount (runtime-core.esm-bundler.js:5868:9)
+    at unmountChildren (runtime-core.esm-bundler.js:5984:7)
+    at unmount (runtime-core.esm-bundler.js:5876:9)
+    at unmountChildren (runtime-core.esm-bundler.js:5984:7)
+    at unmount (runtime-core.esm-bundler.js:5868:9)
+
+## 已知信息
+* 定位到 BannerTable.vue 中，的 columns 的最后一项，如果h标签内渲染的不是Button，而是 div，则不会有这个报错
+"""
+
+QUERY = '修改 BannerTable 和 Table 组件的实现，BannerTable 使用插槽的方式渲染，Table 组件提供具名插槽'
+INPUT_DIR = PROJECT_DIR
+OUTPUT_DIR = PROJECT_DIR
 
 def api_to_code(query=None, code_str=None):
     """
@@ -61,7 +114,7 @@ def api_to_code(query=None, code_str=None):
 
 if __name__ == "__main__":
     print("提取项目文件到step0.md")
-    generate_markdown(PROJECT_DIR, "./temp/step0.md")
+    generate_markdown(INPUT_DIR, "./temp/step0.md")
     print("提取项目文件到step0.md完成")
 
     # 从命令行参数获取查询（如果有）

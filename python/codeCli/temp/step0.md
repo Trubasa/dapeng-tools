@@ -1,32 +1,70 @@
-# 代码文档: test-workplace
+# 代码文档: g136-miniprogram-admin-web
 
-*本文档由c2m工具自动生成于 G:\test\test-workplace*
+*本文档由c2m工具自动生成于 G:\code\g136-miniprogram-admin-web*
 
 ## 目录
 
-- [.vite\deps_temp_be5e8324\package.json](#vite\deps_temp_be5e8324\packagejson)
+- [README.md](#READMEmd)
 - [index.html](#indexhtml)
 - [package.json](#packagejson)
-- [src\App.css](#src\Appcss)
-- [src\App.tsx](#src\Apptsx)
-- [src\components\ContextMenu.css](#src\components\ContextMenucss)
-- [src\components\ContextMenu.tsx](#src\components\ContextMenutsx)
-- [src\components\CustomNodes\InputNode.tsx](#src\components\CustomNodes\InputNodetsx)
-- [src\components\CustomNodes\OutputNode.tsx](#src\components\CustomNodes\OutputNodetsx)
-- [src\components\CustomNodes\ProcessNode.tsx](#src\components\CustomNodes\ProcessNodetsx)
+- [postcss.config.js](#postcssconfigjs)
+- [src\App.vue](#src\Appvue)
+- [src\components\banner\BannerFormModal.vue](#src\components\banner\BannerFormModalvue)
+- [src\components\banner\BannerTable.vue](#src\components\banner\BannerTablevue)
+- [src\components\banner\BannerTabs.vue](#src\components\banner\BannerTabsvue)
+- [src\components\layout\Header.vue](#src\components\layout\Headervue)
+- [src\components\layout\Layout.vue](#src\components\layout\Layoutvue)
+- [src\components\layout\NavGroup.vue](#src\components\layout\NavGroupvue)
+- [src\components\layout\NavItem.vue](#src\components\layout\NavItemvue)
+- [src\components\layout\Sidebar.vue](#src\components\layout\Sidebarvue)
+- [src\components\message\MessageSettings.vue](#src\components\message\MessageSettingsvue)
+- [src\components\message\MessageTemplateSelector.vue](#src\components\message\MessageTemplateSelectorvue)
+- [src\components\ui\Button.vue](#src\components\ui\Buttonvue)
+- [src\components\ui\Card.vue](#src\components\ui\Cardvue)
+- [src\components\ui\Modal.vue](#src\components\ui\Modalvue)
+- [src\components\ui\Table.vue](#src\components\ui\Tablevue)
 - [src\index.css](#src\indexcss)
-- [src\main.tsx](#src\maintsx)
-- [src\vite-env.d.ts](#src\vite-envdts)
+- [src\main.ts](#src\maints)
+- [src\pages\AccountManagement.vue](#src\pages\AccountManagementvue)
+- [src\pages\ActivityManagement.vue](#src\pages\ActivityManagementvue)
+- [src\pages\ArticleEditor.vue](#src\pages\ArticleEditorvue)
+- [src\pages\BannerManagement.vue](#src\pages\BannerManagementvue)
+- [src\pages\ContentDashboard.vue](#src\pages\ContentDashboardvue)
+- [src\pages\ContentEditor.vue](#src\pages\ContentEditorvue)
+- [src\pages\DailySignIn.vue](#src\pages\DailySignInvue)
+- [src\pages\Dashboard.vue](#src\pages\Dashboardvue)
+- [src\pages\MessageFactory.vue](#src\pages\MessageFactoryvue)
+- [src\pages\Permissions.vue](#src\pages\Permissionsvue)
+- [src\pages\TagManagement.vue](#src\pages\TagManagementvue)
+- [src\pages\VideoPublisher.vue](#src\pages\VideoPublishervue)
+- [src\router\index.ts](#src\router\indexts)
+- [tailwind.config.js](#tailwindconfigjs)
 - [tsconfig.json](#tsconfigjson)
 - [tsconfig.node.json](#tsconfignodejson)
 - [vite.config.ts](#viteconfigts)
 
 
-### .vite\deps_temp_be5e8324\package.json
-```json
-{
-  "type": "module"
-}
+### README.md
+```markdown
+# Vue 3 + Vite + TypeScript - Converted Project
+
+This project was converted from a React + Vite + TypeScript template.
+The original design source was: [Source Design](https://magicpatterns.com/c/gohwncshqq6fcquntena3j)
+
+## Getting Started
+
+1. Run `npm install`
+2. Run `npm run dev`
+
+## Project Structure
+
+- `src/main.ts`: Vue application entry point.
+- `src/App.vue`: Root Vue component.
+- `src/router/index.ts`: Vue Router configuration.
+- `src/components/`: Shared UI components and layout components.
+- `src/pages/`: Page-level components.
+- `src/assets/`: Static assets (if any, though `index.css` is in `src`).
+- `public/`: Static assets served directly.
 
 ```
 
@@ -38,11 +76,11 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>React Flow Workflow Builder</title>
+    <title>Vite + Vue + TS</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
 
@@ -51,839 +89,4113 @@
 ### package.json
 ```json
 {
-  "name": "react-flow-workflow-builder",
-  "private": true,
+  "name": "vue3-converted-project",
   "version": "0.0.1",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "build": "vue-tsc && vite build",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "preview": "vite preview"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "@xyflow/react": "^11.11.3"
+    "vue": "^3.4.31",
+    "vue-router": "^4.4.0",
+    "lucide-vue-next": "^0.441.0",
+    "date-fns": "^3.6.0"
   },
   "devDependencies": {
-    "@types/react": "^18.2.66",
-    "@types/react-dom": "^18.2.22",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
-    "@vitejs/plugin-react": "^4.2.1",
+    "@rushstack/eslint-patch": "^1.10.3",
+    "@tsconfig/node20": "^20.1.4",
+    "@types/node": "^20.14.10",
+    "@vitejs/plugin-vue": "^5.0.5",
+    "@vue/eslint-config-typescript": "^13.0.0",
+    "@vue/tsconfig": "^0.5.1",
     "eslint": "^8.57.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.6",
-    "typescript": "^5.2.2",
-    "vite": "^5.2.0"
+    "eslint-plugin-vue": "^9.27.0",
+    "typescript": "~5.5.3",
+    "vite": "^5.3.3",
+    "vue-tsc": "^2.0.26",
+    "tailwindcss": "^3.4.6",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39"
   }
 }
 
 ```
 
-### src\App.css
-```css
-
-/* App.tsx specific styles */
-.app-container {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  height: 100%;
-  background-color: #1a192b; /* 深色背景 */
+### postcss.config.js
+```javascript
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
 }
-
-.sidebar {
-  width: 200px;
-  padding: 15px;
-  border-right: 1px solid #444;
-  background-color: #2c2c3e; /* 侧边栏背景 */
-  color: #f0f0f0; /* 浅色文字 */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  overflow-y: auto; /* 新增：如果侧边栏内容过多，允许滚动 */
-}
-
-.sidebar .description {
-  margin-bottom: 10px;
-  font-size: 0.9em;
-  color: #aaa;
-}
-
-.sidebar-node {
-  padding: 10px;
-  border: 1px solid #555;
-  border-radius: 4px;
-  cursor: grab;
-  text-align: center;
-  background-color: #3a3a52; /* 节点选项背景 */
-  transition: background-color 0.2s ease;
-}
-
-.sidebar-node:hover {
-  background-color: #4a4a62; /* 节点选项悬停背景 */
-}
-
-.input-node-palette {
-  border-left: 5px solid #76d7c4; /* 绿色主题色 */
-}
-.process-node-palette {
-  border-left: 5px solid #f7dc6f; /* 黄色主题色 */
-}
-.output-node-palette {
-  border-left: 5px solid #ec7063; /* 红色主题色 */
-}
-
-
-.reactflow-wrapper {
-  flex-grow: 1;
-  height: 100%;
-  position: relative; /* 新增：确保 context menu 相对于此容器定位（如果需要） */
-}
-
-/* Custom Node Styles (can also be in their respective component files) */
-.custom-node {
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: 1px solid #333;
-  font-size: 12px;
-  color: #fff;
-  min-width: 150px;
-  text-align: center;
-}
-
-.input-node {
-  background: #2c3e50; /* 深蓝灰色 */
-  border-color: #76d7c4; /* 绿色边框 */
-  border-width: 2px;
-}
-
-.process-node {
-  background: #8e44ad; /* 紫色 */
-  border-color: #f7dc6f; /* 黄色边框 */
-  border-width: 2px;
-}
-
-.output-node {
-  background: #c0392b; /* 深红色 */
-  border-color: #ec7063; /* 浅红色边框 */
-  border-width: 2px;
-}
-
-.custom-node .react-flow__handle {
-  width: 8px;
-  height: 8px;
-  background: #555;
-  border-radius: 50%;
-}
-
-.custom-node .react-flow__handle-top {
-  top: -5px;
-}
-.custom-node .react-flow__handle-bottom {
-  bottom: -5px;
-}
-.custom-node .react-flow__handle-left {
-  left: -5px;
-}
-.custom-node .react-flow__handle-right {
-  right: -5px;
-}
-
-/* Styles for new sidebar buttons */
-.sidebar-button {
-  padding: 8px 10px;
-  border: 1px solid #555;
-  border-radius: 4px;
-  cursor: pointer;
-  text-align: center;
-  background-color: #3a3a52; /* Use similar bg as draggable nodes */
-  color: #f0f0f0; /* Light text */
-  transition: background-color 0.2s ease;
-  margin-top: 5px; /* Add some spacing between buttons */
-  font-size: 0.9em;
-}
-
-.sidebar-button:hover {
-  background-color: #4a4a62; /* Darken on hover */
-}
-
-/* 新增：确保 React Flow 控件在 ContextMenu 之上 (如果需要调整 z-index) */
-/* .react-flow__controls {
-  z-index: 5; 
-} */
 
 ```
 
-### src\App.tsx
-```tsx
+### src\App.vue
+```vue
+<template>
+  <router-view />
+</template>
 
-import React, { useState, useCallback, useRef, DragEvent, MouseEvent, useEffect } from 'react';
-import {
-  ReactFlow,
-  ReactFlowProvider,
-  addEdge,
-  useNodesState,
-  useEdgesState,
-  Controls,
-  Background,
-  MiniMap,
-  Node,
-  Edge,
-  Connection,
-  XYPosition,
-  NodeTypes,
-  ReactFlowInstance,
-  OnNodesChange,
-  OnEdgesChange,
-} from '@xyflow/react';
+<script setup lang="ts">
+// This is the root component.
+// The actual layout and router-view rendering for pages will be handled by Layout.vue
+// and the router configuration.
+// If you need global setup or providers, this is a good place.
+</script>
 
-import InputNode from './components/CustomNodes/InputNode';
-import ProcessNode from './components/CustomNodes/ProcessNode';
-import OutputNode from './components/CustomNodes/OutputNode';
-import ContextMenu, { ContextMenuItem } from './components/ContextMenu'; // 新增：导入 ContextMenu
+```
 
-import './App.css';
+### src\components\banner\BannerFormModal.vue
+```vue
 
-// localStorage keys
-const LOCALSTORAGE_KEY_NODES = 'reactflow_nodes';
-const LOCALSTORAGE_KEY_EDGES = 'reactflow_edges';
-const LOCALSTORAGE_KEY_ID_COUNTER = 'reactflow_id_counter';
-
-// 初始节点数据 (hardcoded, will be overridden by localStorage if available)
-const initialNodesData: Node[] = [
-  {
-    id: 'node_1', // 修改：统一ID格式
-    type: 'inputNode',
-    data: { label: 'Start Workflow' },
-    position: { x: 250, y: 5 },
-  },
-  {
-    id: 'node_2', // 修改：统一ID格式
-    type: 'processNode',
-    data: { label: 'Process Data' },
-    position: { x: 250, y: 150 },
-  },
-  {
-    id: 'node_3', // 修改：统一ID格式
-    type: 'outputNode',
-    data: { label: 'End Workflow' },
-    position: { x: 250, y: 300 },
-  },
-];
-
-// 初始边数据 (hardcoded, will be overridden by localStorage if available)
-const initialEdgesData: Edge[] = [
-  { id: 'e_node_1-node_2', source: 'node_1', target: 'node_2', animated: true }, // 修改：对应ID格式
-  { id: 'e_node_2-node_3', source: 'node_2', target: 'node_3', animated: true }, // 修改：对应ID格式
-];
-
-const nodeTypes: NodeTypes = {
-  inputNode: InputNode,
-  processNode: ProcessNode,
-  outputNode: OutputNode,
-};
-
-interface ContextMenuState {
-  id?: string; // For node context menu, this will be node ID
-  top: number;
-  left: number;
-  items: ContextMenuItem[];
-  flowPosition?: XYPosition; // For pane context menu
-}
-
-function App() {
-  const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const idCounter = useRef<number>(4); // 用于生成新节点ID的计数器
-
-  const [nodes, setNodes, onNodesChangeInternal] = useNodesState([]);
-  const [edges, setEdges, onEdgesChangeInternal] = useEdgesState([]);
-  const [reactFlowInstance, setReactFlowInstance] = useState<ReactFlowInstance | null>(null);
-  const [contextMenu, setContextMenu] = useState<ContextMenuState | null>(null);
-
-  // 初始化ID计数器
-  const initializeIdCounter = (loadedNodes?: Node[]) => {
-    const savedCounter = localStorage.getItem(LOCALSTORAGE_KEY_ID_COUNTER);
-    if (savedCounter) {
-      idCounter.current = parseInt(savedCounter, 10);
-      return;
-    }
-
-    let maxIdNum = 0;
-    const nodesToScan = loadedNodes || initialNodesData;
-    if (nodesToScan.length > 0) {
-        nodesToScan.forEach(node => {
-        if (node.id.startsWith('node_')) {
-          const num = parseInt(node.id.split('_')[1], 10);
-          if (!isNaN(num) && num > maxIdNum) {
-            maxIdNum = num;
-          }
-        }
-      });
-      idCounter.current = maxIdNum + 1;
-    } else {
-      idCounter.current = 1; // Start from 1 if no nodes
-    }
-  };
-  
-  const getId = useCallback(() => {
-    const newId = `node_${idCounter.current++}`;
-    localStorage.setItem(LOCALSTORAGE_KEY_ID_COUNTER, idCounter.current.toString()); // 保存计数器状态
-    return newId;
-  }, []);
-
-
-  // 加载流程
-  const loadFlow = useCallback(() => {
-    const storedNodes = localStorage.getItem(LOCALSTORAGE_KEY_NODES);
-    const storedEdges = localStorage.getItem(LOCALSTORAGE_KEY_EDGES);
-
-    const nodesToLoad = storedNodes ? JSON.parse(storedNodes) : initialNodesData;
-    const edgesToLoad = storedEdges ? JSON.parse(storedEdges) : initialEdgesData;
-    
-    initializeIdCounter(nodesToLoad); // 初始化或更新ID计数器
-
-    setNodes(nodesToLoad);
-    setEdges(edgesToLoad);
-
-    if (reactFlowInstance) {
-      // Ensure a slight delay for nodes to render before fitting view
-      setTimeout(() => reactFlowInstance.fitView(), 0);
-    }
-    console.log('Flow loaded from localStorage.');
-  }, [setNodes, setEdges, reactFlowInstance, initializeIdCounter]); // initializeIdCounter is stable
-
-  // 保存流程
-  const saveFlow = useCallback(() => {
-    if (nodes.length > 0) { // Only save if there are nodes
-        localStorage.setItem(LOCALSTORAGE_KEY_NODES, JSON.stringify(nodes));
-        localStorage.setItem(LOCALSTORAGE_KEY_EDGES, JSON.stringify(edges));
-        localStorage.setItem(LOCALSTORAGE_KEY_ID_COUNTER, idCounter.current.toString());
-        console.log('Flow saved to localStorage.');
-        alert('Workflow saved!');
-    } else {
-        // Clear localStorage if there are no nodes to save (optional)
-        localStorage.removeItem(LOCALSTORAGE_KEY_NODES);
-        localStorage.removeItem(LOCALSTORAGE_KEY_EDGES);
-        localStorage.removeItem(LOCALSTORAGE_KEY_ID_COUNTER);
-        console.log('Flow cleared from localStorage as it is empty.');
-        alert('Workflow is empty, cleared saved data.');
-    }
-  }, [nodes, edges, idCounter]);
-
-  // 初始加载
-  useEffect(() => {
-    loadFlow();
-  }, [loadFlow]); // loadFlow is memoized
-
-  // 自动保存 (当节点或边变化时)
-  useEffect(() => {
-    if (nodes.length > 0 || edges.length > 0) { // Avoid saving empty initial state before load
-        localStorage.setItem(LOCALSTORAGE_KEY_NODES, JSON.stringify(nodes));
-    }
-  }, [nodes]);
-
-  useEffect(() => {
-    if (nodes.length > 0 || edges.length > 0) { // Avoid saving empty initial state before load
-        localStorage.setItem(LOCALSTORAGE_KEY_EDGES, JSON.stringify(edges));
-    }
-  }, [edges]);
-
-
-  // 包装 onNodesChange 和 onEdgesChange 以清除 contextMenu
-  const onNodesChange: OnNodesChange = (changes) => {
-    onNodesChangeInternal(changes);
-    setContextMenu(null); // 关闭菜单当节点变化时
-  };
-
-  const onEdgesChange: OnEdgesChange = (changes) => {
-    onEdgesChangeInternal(changes);
-    setContextMenu(null); // 关闭菜单当边变化时
-  };
-  
-  const onConnect = useCallback(
-    (params: Connection | Edge) => {
-      setEdges((eds) => addEdge(params, eds));
-      setContextMenu(null);
-    },
-    [setEdges]
-  );
-
-  const onDragOver = useCallback((event: DragEvent) => {
-    event.preventDefault();
-    event.dataTransfer.dropEffect = 'move';
-  }, []);
-
-  const onDrop = useCallback(
-    (event: DragEvent) => {
-      event.preventDefault();
-      setContextMenu(null);
-
-      if (!reactFlowWrapper.current || !reactFlowInstance) {
-        return;
-      }
-      
-      const type = event.dataTransfer.getData('application/reactflow');
-      if (typeof type === 'undefined' || !type) {
-        return;
-      }
-
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const position = reactFlowInstance.screenToFlowPosition({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      });
-      
-      const newNode: Node = {
-        id: getId(),
-        type,
-        position,
-        data: { label: `${type.replace('Node','')} Node` },
-      };
-
-      setNodes((nds) => nds.concat(newNode));
-    },
-    [reactFlowInstance, setNodes, getId]
-  );
-  
-  const onDragStart = (event: DragEvent, nodeType: string) => {
-    event.dataTransfer.setData('application/reactflow', nodeType);
-    event.dataTransfer.effectAllowed = 'move';
-  };
-
-  const onEdgeContextMenu = useCallback(
-    (event: MouseEvent, edge: Edge) => {
-      event.preventDefault();
-      setContextMenu(null); // 关闭其他可能打开的菜单
-      if (window.confirm('Are you sure you want to delete this connection?')) {
-        setEdges((eds) => eds.filter((e) => e.id !== edge.id));
-      }
-    },
-    [setEdges]
-  );
-
-  // 新增：处理画布右键菜单
-  const onPaneContextMenu = useCallback(
-    (event: MouseEvent) => {
-      event.preventDefault();
-      if (!reactFlowInstance || !reactFlowWrapper.current) return;
-
-      const reactFlowBounds = reactFlowWrapper.current.getBoundingClientRect();
-      const flowPosition = reactFlowInstance.screenToFlowPosition({
-        x: event.clientX - reactFlowBounds.left,
-        y: event.clientY - reactFlowBounds.top,
-      });
-
-      setContextMenu({
-        id: undefined,
-        top: event.clientY,
-        left: event.clientX,
-        flowPosition: flowPosition,
-        items: [
-          { label: 'Create Input Node', action: () => addNode('inputNode', flowPosition) },
-          { label: 'Create Process Node', action: () => addNode('processNode', flowPosition) },
-          { label: 'Create Output Node', action: () => addNode('outputNode', flowPosition) },
-        ],
-      });
-    },
-    [reactFlowInstance, getId, setNodes] // addNode will be defined below
-  );
-
-  // 新增：处理节点右键菜单
-  const onNodeContextMenu = useCallback(
-    (event: MouseEvent, node: Node) => {
-      event.preventDefault();
-      setContextMenu({
-        id: node.id,
-        top: event.clientY,
-        left: event.clientX,
-        items: [
-          { label: 'Delete Node', action: () => deleteNode(node.id) },
-          // Future actions for nodes can be added here
-        ],
-      });
-    },
-    [setNodes, setEdges] // deleteNode will be defined below
-  );
-  
-  // 新增：添加节点函数
-  const addNode = useCallback((type: string, position: XYPosition) => {
-    const newNode: Node = {
-      id: getId(),
-      type,
-      position,
-      data: { label: `${type.replace('Node','')} Node` },
-    };
-    setNodes((nds) => nds.concat(newNode));
-    setContextMenu(null); // Close context menu
-  }, [getId, setNodes]);
-
-  // 新增：删除节点函数
-  const deleteNode = useCallback((nodeId: string) => {
-    setNodes((nds) => nds.filter((n) => n.id !== nodeId));
-    setEdges((eds) => eds.filter((e) => e.source !== nodeId && e.target !== nodeId));
-    setContextMenu(null); // Close context menu
-  }, [setNodes, setEdges]);
-
-  // 新增：点击画布关闭菜单
-  const onPaneClick = useCallback(() => {
-    setContextMenu(null);
-  }, []);
-
-
-  return (
-    <div className="app-container">
-      <ReactFlowProvider>
-        <div className="sidebar">
-          <div className="description">Drag nodes to the canvas:</div>
-          <div 
-            className="sidebar-node input-node-palette" 
-            onDragStart={(event) => onDragStart(event, 'inputNode')} 
-            draggable
-          >
-            Start Node
-          </div>
-          <div 
-            className="sidebar-node process-node-palette" 
-            onDragStart={(event) => onDragStart(event, 'processNode')} 
-            draggable
-          >
-            Process Node
-          </div>
-          <div 
-            className="sidebar-node output-node-palette" 
-            onDragStart={(event) => onDragStart(event, 'outputNode')} 
-            draggable
-          >
-            End Node
-          </div>
-          <div className="description" style={{marginTop: '20px'}}>Manage Workflow:</div>
-          <button className="sidebar-button" onClick={saveFlow}>Save Flow</button>
-          <button className="sidebar-button" onClick={loadFlow}>Load Flow</button>
-        </div>
-        <div className="reactflow-wrapper" ref={reactFlowWrapper}>
-          <ReactFlow
-            nodes={nodes}
-            edges={edges}
-            onNodesChange={onNodesChange}
-            onEdgesChange={onEdgesChange}
-            onConnect={onConnect}
-            nodeTypes={nodeTypes}
-            onInit={setReactFlowInstance}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onEdgeContextMenu={onEdgeContextMenu}
-            onPaneContextMenu={onPaneContextMenu} // 新增
-            onNodeContextMenu={onNodeContextMenu} // 新增
-            onPaneClick={onPaneClick} // 新增：点击画布关闭菜单
-            fitView
-            attributionPosition="bottom-left"
-          >
-            <Controls />
-            <MiniMap />
-            <Background gap={12} size={1} />
-          </ReactFlow>
-          {contextMenu && ( // 新增：渲染上下文菜单
-            <ContextMenu
-              x={contextMenu.left}
-              y={contextMenu.top}
-              items={contextMenu.items}
-              onClose={() => setContextMenu(null)}
+<template>
+  <Modal
+    :is-open="props.isOpen"
+    @close="closeModal"
+    :title="props.isEditMode ? '编辑Banner' : '新增Banner'"
+  >
+    <div class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"> Banner图片 </label>
+        <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+          <div class="aspect-[2/1] rounded overflow-hidden bg-gray-100">
+            <img
+              :src="localFormState.image"
+              alt="Banner Preview"
+              class="w-full h-full object-cover"
             />
-          )}
+          </div>
+          <div class="mt-4 flex justify-center">
+            <input type="file" ref="bannerImageInput" @change="handleBannerImageUpload" class="hidden" accept="image/*" />
+            <Button variant="outline" size="sm" :icon="ImageIcon" @click="triggerBannerImageUpload"> 上传图片 </Button>
+          </div>
         </div>
-      </ReactFlowProvider>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"> 跳转配置 </label>
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          v-model="localFormState.linkType"
+        >
+          <option value="none">无跳转</option>
+          <option value="url">链接跳转</option>
+          <option value="activity">关联活动</option>
+        </select>
+      </div>
+      <div v-if="localFormState.linkType === 'url'">
+        <label class="block text-sm font-medium text-gray-700 mb-1"> 跳转链接 </label>
+        <input
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          v-model="localFormState.link"
+          placeholder="请输入完整的URL地址"
+        />
+      </div>
+      <div v-if="localFormState.linkType === 'activity'">
+        <label class="block text-sm font-medium text-gray-700 mb-1"> 关联活动 </label>
+        <select
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          v-model="localFormState.activityId"
+        >
+          <option :value="null">请选择活动</option>
+          <option value="1">好友邀请活动</option>
+          <!-- Add more activities as needed -->
+        </select>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 开始时间 </label>
+          <input
+            type="datetime-local"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            v-model="localFormState.startTime"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 结束时间 </label>
+          <input
+            type="datetime-local"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            v-model="localFormState.endTime"
+          />
+        </div>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"> 权重 </label>
+        <input
+          type="number"
+          min="1"
+          max="100"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          v-model.number="localFormState.weight"
+        />
+        <p class="mt-1 text-xs text-gray-500">数值范围：1-100，数值越大排序越靠前</p>
+      </div>
     </div>
-  );
+    <template #footer>
+      <Button
+        variant="primary"
+        class="ml-3"
+        @click="handleSave"
+      >
+        {{ props.isEditMode ? '保存' : '确认' }}
+      </Button>
+      <Button variant="outline" @click="closeModal"> 取消 </Button>
+    </template>
+  </Modal>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive, watch } from 'vue'
+import Modal from '@/components/ui/Modal.vue'
+import Button from '@/components/ui/Button.vue'
+import { ImageIcon } from 'lucide-vue-next'
+
+export interface BannerFormData {
+  image: string
+  linkType: 'none' | 'url' | 'activity'
+  link: string
+  activityId: number | null
+  startTime: string // YYYY-MM-DDTHH:MM
+  endTime: string   // YYYY-MM-DDTHH:MM
+  weight: number
 }
 
-export default App;
+interface Props {
+  isOpen: boolean
+  isEditMode: boolean
+  initialFormData: BannerFormData
+  activeTabType: string // To assign type for new banners
+}
+
+const props = defineProps<Props>()
+const emit = defineEmits(['close', 'save'])
+
+const localFormState = reactive<BannerFormData>({ ...props.initialFormData })
+const bannerImageInput = ref<HTMLInputElement | null>(null)
+
+watch(() => props.initialFormData, (newData) => {
+  Object.assign(localFormState, newData)
+}, { deep: true })
+
+watch(() => props.isOpen, (newVal) => {
+  if (newVal) {
+    // When modal opens, sync localFormState with initialFormData from props
+    Object.assign(localFormState, props.initialFormData);
+  }
+});
+
+
+const closeModal = () => {
+  emit('close')
+}
+
+const handleSave = () => {
+  emit('save', {
+    formData: { ...localFormState },
+    editingId: props.isEditMode ? props.initialFormData.id : null, // Assuming id is part of initialFormData if editing
+    type: props.activeTabType
+  })
+}
+
+const triggerBannerImageUpload = () => {
+  bannerImageInput.value?.click()
+}
+
+const handleBannerImageUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (file) {
+    localFormState.image = URL.createObjectURL(file)
+    // In a real app, upload to server and set URL from response
+  }
+}
+</script>
 
 ```
 
-### src\components\ContextMenu.css
-```css
+### src\components\banner\BannerTable.vue
+```vue
+<template>
+  <TableComponent :columns="columns" :data="banners" key-field="id" />
+</template>
 
-.context-menu {
-  position: fixed; /* 使用 fixed 定位，相对于视口 */
-  background-color: #3e3e5a; /* 深色背景，比侧边栏稍亮 */
-  border: 1px solid #555;
-  border-radius: 5px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* 更明显的阴影 */
-  z-index: 10000; /* 确保在最上层 */
-  padding: 6px 0;
-  color: #e0e0e0; /* 浅色文字 */
-  min-width: 180px; /* 最小宽度 */
-  font-size: 14px;
+<script setup lang="ts" generic="T extends { id: number }">
+import { h, VNode, computed } from "vue";
+import TableComponent from "@/components/ui/Table.vue";
+import Button from "@/components/ui/Button.vue";
+import { EditIcon, TrashIcon } from "lucide-vue-next";
+
+interface Banner {
+  id: number;
+  image: string;
+  linkType: "none" | "url" | "activity";
+  link: string | null;
+  activityId: number | null;
+  weight: number;
+  startTime: string;
+  endTime: string;
+  views: number;
+  clicks: number;
+  ctr: string;
+  type: string;
 }
 
-.context-menu ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+interface Props {
+  banners: Banner[];
 }
 
-.context-menu li {
-  padding: 10px 18px; /* 增加内边距 */
-  cursor: pointer;
-  transition: background-color 0.15s ease-in-out;
-}
+const props = defineProps<Props>();
+const emit = defineEmits(["edit-banner", "delete-banner"]);
 
-.context-menu li:hover {
-  background-color: #4f4f70; /* 悬停时更亮的背景 */
-}
-
-.context-menu li.disabled {
-  color: #888;
-  cursor: not-allowed;
-  background-color: transparent; /* 禁用项无悬停效果 */
-}
-
-.context-menu li.disabled:hover {
-  background-color: transparent;
-}
+const columns = computed(() => [
+  {
+    header: "图片",
+    accessor: (banner: Banner): VNode =>
+      h("div", { class: "w-24 h-16 bg-gray-100 rounded overflow-hidden" }, [
+        h("img", {
+          src: banner.image,
+          alt: "Banner",
+          class: "w-full h-full object-cover",
+        }),
+      ]),
+    width: "w-1/6",
+  },
+  {
+    header: "跳转类型",
+    accessor: (banner: Banner) =>
+      ({ none: "无跳转", url: "链接跳转", activity: "关联活动" }[
+        banner.linkType
+      ]),
+    width: "w-1/6",
+  },
+  { header: "权重", accessor: "weight", width: "w-1/12" },
+  {
+    header: "展示时间",
+    accessor: (banner: Banner): VNode =>
+      h("div", [
+        h("div", { class: "text-sm" }, banner.startTime.replace("T", " ")),
+        h(
+          "div",
+          { class: "text-sm text-gray-500" },
+          banner.endTime.replace("T", " ")
+        ),
+      ]),
+    width: "w-1/4",
+  },
+  {
+    header: "数据统计",
+    accessor: (banner: Banner): VNode =>
+      h("div", [
+        h("div", { class: "text-sm" }, `浏览量：${banner.views}`),
+        h("div", { class: "text-sm" }, `点击率：${banner.ctr}`),
+      ]),
+    width: "w-1/4",
+  },
+  {
+    header: "操作",
+    accessor: (banner: Banner): VNode =>
+      h("div", { class: "flex items-center space-x-2" }, [
+        h(
+          Button,
+          {
+            variant: "outline",
+            size: "sm",
+            icon: EditIcon,
+            onClick: (e: Event) => {
+              e.stopPropagation();
+              emit("edit-banner", banner);
+            },
+          },
+          () => "编辑"
+        ),
+        h(
+          Button,
+          {
+            variant: "danger",
+            size: "sm",
+            icon: TrashIcon,
+            onClick: (e: Event) => {
+              e.stopPropagation();
+              emit("delete-banner", banner);
+            },
+          },
+          () => "删除"
+        ),
+      ]),
+    width: "w-1/6",
+  },
+]);
+</script>
 
 ```
 
-### src\components\ContextMenu.tsx
-```tsx
+### src\components\banner\BannerTabs.vue
+```vue
 
-import React from 'react';
-import './ContextMenu.css'; // 引入上下文菜单样式
+<template>
+  <div class="border-b border-gray-200">
+    <div class="flex items-center space-x-2">
+      <div
+        v-for="tab in tabs"
+        :key="tab.id"
+        class="relative group"
+      >
+        <button
+          :class="[
+            'px-4 py-2 font-medium text-sm rounded-lg',
+            activeTab === tab.id ? 'bg-blue-50 text-blue-600' : 'text-gray-500 hover:bg-gray-50'
+          ]"
+          @click="emit('update:activeTab', tab.id)"
+        >
+          {{ tab.label }}
+        </button>
+        <button
+          v-if="!tab.isDefault"
+          class="absolute right-0 top-0 p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+          @click.stop="emit('request-edit-tab', tab)"
+        >
+          <EditIcon class="h-3 w-3 text-gray-400 hover:text-gray-600" />
+        </button>
+      </div>
+      <button
+        class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg"
+        @click="emit('request-add-tab')"
+      >
+        <PlusIcon class="h-5 w-5" />
+      </button>
+    </div>
+  </div>
+</template>
 
-export interface ContextMenuItem {
-  label: string;
-  action: () => void;
-  disabled?: boolean; // 可选：禁用菜单项
+<script setup lang="ts">
+import { PlusIcon, EditIcon } from 'lucide-vue-next'
+
+interface TabData {
+  id: string
+  label: string
+  isDefault: boolean
 }
 
-interface ContextMenuProps {
-  x: number;
-  y: number;
-  items: ContextMenuItem[];
-  onClose: () => void;
+interface Props {
+  tabs: TabData[]
+  activeTab: string
 }
 
-const ContextMenu: React.FC<ContextMenuProps> = ({ x, y, items, onClose }) => {
-  const handleItemClick = (itemAction: () => void) => {
-    itemAction();
-    onClose(); // 执行动作后关闭菜单
-  };
+defineProps<Props>()
 
-  // 防止菜单内部点击触发外部的 onPaneClick (如果它存在并关闭菜单)
-  const handleMenuClick = (event: React.MouseEvent) => {
-    event.stopPropagation();
-  };
+const emit = defineEmits(['update:activeTab', 'request-add-tab', 'request-edit-tab'])
+</script>
 
-  return (
-    <div
-      className="context-menu"
-      style={{ top: y, left: x }}
-      onClick={handleMenuClick} // 阻止事件冒泡
-      onContextMenu={(e) => e.preventDefault()} // 防止在菜单上再次触发浏览器默认右键菜单
+```
+
+### src\components\layout\Header.vue
+```vue
+<template>
+  <header class="bg-white border-b border-gray-200 py-4 px-6 flex items-center justify-between">
+    <div class="flex items-center rounded-md bg-gray-100 px-3 py-2 w-72">
+      <SearchIcon class="h-4 w-4 text-gray-500 mr-2" />
+      <input
+        type="text"
+        placeholder="搜索..."
+        class="bg-transparent border-none outline-none text-sm w-full"
+      />
+    </div>
+    <div class="flex items-center space-x-4">
+      <button class="text-gray-500 hover:text-gray-700">
+        <BellIcon class="h-5 w-5" />
+      </button>
+      <div class="flex items-center">
+        <div
+          class="h-8 w-8 rounded-full bg-blue-500 flex items-center justify-center text-white"
+        >
+          <UserIcon class="h-5 w-5" />
+        </div>
+        <span class="ml-2 text-sm font-medium">管理员</span>
+      </div>
+    </div>
+  </header>
+</template>
+
+<script setup lang="ts">
+import { BellIcon, UserIcon, SearchIcon } from 'lucide-vue-next'
+</script>
+
+```
+
+### src\components\layout\Layout.vue
+```vue
+<template>
+  <div class="flex h-screen bg-gray-100">
+    <Sidebar />
+    <div class="flex flex-col flex-1 overflow-hidden">
+      <Header />
+      <main class="flex-1 overflow-y-auto p-6">
+        <router-view /> <!-- Content for each page will be rendered here -->
+      </main>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Sidebar from './Sidebar.vue'
+import Header from './Header.vue'
+</script>
+
+```
+
+### src\components\layout\NavGroup.vue
+```vue
+<template>
+  <div class="mb-4">
+    <button
+      class="flex items-center justify-between w-full px-4 py-2 text-sm font-medium text-gray-500"
+      @click="isOpen = !isOpen"
     >
-      <ul>
-        {items.map((item, index) => (
-          <li
-            key={index}
-            onClick={() => !item.disabled && handleItemClick(item.action)}
-            className={item.disabled ? 'disabled' : ''}
+      <span>{{ title }}</span>
+      <ChevronDownIcon :class="['h-4 w-4 transition-transform', { 'transform rotate-180': isOpen }]" />
+    </button>
+    <div v-if="isOpen" class="mt-1">
+      <slot></slot>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { ChevronDownIcon } from 'lucide-vue-next'
+
+interface NavGroupProps {
+  title: string
+}
+
+defineProps<NavGroupProps>()
+
+const isOpen = ref(true)
+</script>
+
+```
+
+### src\components\layout\NavItem.vue
+```vue
+<template>
+  <router-link
+    :to="to"
+    :class="[
+      'flex items-center px-4 py-3 text-sm rounded-lg mb-1',
+      isActive ? 'bg-blue-100 text-blue-800' : 'text-gray-700 hover:bg-gray-100'
+    ]"
+  >
+    <span class="mr-3">
+      <component :is="icon" class="h-5 w-5" />
+    </span>
+    <span>{{ label }}</span>
+  </router-link>
+</template>
+
+<script setup lang="ts">
+import type { FunctionalComponent } from 'vue'
+
+interface NavItemProps {
+  to: string
+  icon: FunctionalComponent | object // Lucide icons are functional components or objects
+  label: string
+  isActive: boolean
+}
+
+defineProps<NavItemProps>()
+</script>
+
+```
+
+### src\components\layout\Sidebar.vue
+```vue
+<template>
+  <div class="w-64 bg-white border-r border-gray-200 flex-shrink-0 overflow-y-auto">
+    <div class="p-5">
+      <h1 class="text-xl font-bold text-gray-800">游戏小程序后台</h1>
+    </div>
+    <nav class="px-3 py-2">
+      <NavItem
+        to="/dashboard"
+        :icon="LayoutDashboardIcon"
+        label="仪表盘"
+        :is-active="currentPath === '/dashboard'"
+      />
+
+      <NavGroup title="基础配置">
+        <NavItem
+          to="/permissions"
+          :icon="UsersIcon"
+          label="权限管理"
+          :is-active="currentPath === '/permissions'"
+        />
+      </NavGroup>
+
+      <NavGroup title="页面管理">
+        <NavItem
+          to="/daily-sign-in"
+          :icon="CalendarIcon"
+          label="每日签到管理"
+          :is-active="currentPath === '/daily-sign-in'"
+        />
+        <NavItem
+          to="/banner-management"
+          :icon="ImageIcon"
+          label="Banner管理"
+          :is-active="currentPath === '/banner-management'"
+        />
+      </NavGroup>
+
+      <NavGroup title="活动运营">
+        <NavItem
+          to="/activity-management"
+          :icon="ZapIcon"
+          label="最新活动管理"
+          :is-active="currentPath === '/activity-management'"
+        />
+      </NavGroup>
+
+      <NavGroup title="攻略生态">
+        <NavItem
+          to="/tag-management"
+          :icon="TagIcon"
+          label="标签管理"
+          :is-active="currentPath === '/tag-management'"
+        />
+        <NavItem
+          to="/content-dashboard"
+          :icon="BarChart2Icon"
+          label="内容管理"
+          :is-active="currentPath === '/content-dashboard' || currentPath.startsWith('/content-dashboard/')"
+        />
+        <NavItem
+          to="/account-management"
+          :icon="UserIcon"
+          label="官方账号管理"
+          :is-active="currentPath === '/account-management'"
+        />
+      </NavGroup>
+
+      <NavGroup title="消息触达">
+        <NavItem
+          to="/message-factory"
+          :icon="BellIcon"
+          label="订阅消息工厂"
+          :is-active="currentPath === '/message-factory'"
+        />
+      </NavGroup>
+    </nav>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import {
+  UsersIcon,
+  LayoutDashboardIcon,
+  CalendarIcon,
+  ImageIcon,
+  ZapIcon,
+  TagIcon,
+  UserIcon,
+  BarChart2Icon,
+  BellIcon,
+  // ActivityIcon, // Not used in the provided React code for Sidebar directly
+  // ChevronDownIcon // Used in NavGroup
+} from 'lucide-vue-next'
+import NavItem from './NavItem.vue'
+import NavGroup from './NavGroup.vue'
+
+const route = useRoute()
+const currentPath = computed(() => route.path)
+</script>
+
+```
+
+### src\components\message\MessageSettings.vue
+```vue
+<template>
+  <Card :title="title">
+    <div class="space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <BellIcon class="h-5 w-5 text-gray-500" />
+          <span class="text-sm font-medium text-gray-700">启用消息推送</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            class="sr-only peer"
+            v-model="isEnabled"
+          />
+          <div
+            class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"
+          ></div>
+        </label>
+      </div>
+
+      <template v-if="isEnabled">
+        <div class="border-t pt-4">
+          <MessageTemplateSelector
+            :module-type="moduleType"
+            :selected-template="selectedTemplate || undefined"
+            @select="handleTemplateSelect"
+          />
+        </div>
+
+        <div v-if="showTimingSection" class="border-t pt-4">
+          <div class="space-y-3">
+            <div class="flex items-center space-x-2">
+              <ClockIcon class="h-5 w-5 text-gray-500" />
+              <span class="text-sm font-medium text-gray-700">发送时间</span>
+            </div>
+            <div class="flex space-x-4">
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  class="h-4 w-4 text-blue-600"
+                  value="immediate"
+                  v-model="timing"
+                />
+                <span class="ml-2 text-sm text-gray-700">立即发送</span>
+              </label>
+              <label class="flex items-center">
+                <input
+                  type="radio"
+                  class="h-4 w-4 text-blue-600"
+                  value="scheduled"
+                  v-model="timing"
+                />
+                <span class="ml-2 text-sm text-gray-700">定时发送</span>
+              </label>
+            </div>
+            <input
+              v-if="timing === 'scheduled'"
+              type="datetime-local"
+              class="px-3 py-2 border rounded-md"
+              v-model="scheduledTime"
+            />
+          </div>
+        </div>
+      </template>
+    </div>
+  </Card>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import Card from '@/components/ui/Card.vue'
+// import Button from '@/components/ui/Button.vue' // Not directly used in this component's template
+import MessageTemplateSelector from './MessageTemplateSelector.vue'
+import { BellIcon, ClockIcon } from 'lucide-vue-next'
+
+interface Template {
+  id: number
+  name: string
+  category: string
+  content: string
+  example: string
+}
+
+interface MessageSettingsProps {
+  moduleType: 'activity' | 'content' | 'sign_in'
+  title: string
+}
+
+const props = defineProps<MessageSettingsProps>()
+
+const selectedTemplate = ref<Template | null>(null)
+const isEnabled = ref(false)
+const timing = ref<'immediate' | 'scheduled'>('immediate')
+const scheduledTime = ref('')
+
+const showTimingSection = computed(() => props.moduleType !== 'activity')
+
+const handleTemplateSelect = (template: Template) => {
+  selectedTemplate.value = template
+}
+</script>
+
+```
+
+### src\components\message\MessageTemplateSelector.vue
+```vue
+<template>
+  <div>
+    <div class="flex items-center justify-between">
+      <div class="flex-1">
+        <div v-if="selectedTemplate" class="p-3 border rounded-lg">
+          <div class="font-medium text-gray-700">
+            {{ selectedTemplate.name }}
+          </div>
+          <div class="text-sm text-gray-500 mt-1">
+            {{ selectedTemplate.example }}
+          </div>
+        </div>
+        <Button v-else variant="outline" @click="isModalOpen = true" :icon="PlusIcon">
+          选择订阅消息
+        </Button>
+      </div>
+      <Button
+        v-if="selectedTemplate"
+        variant="outline"
+        class="ml-2"
+        @click="isModalOpen = true"
+      >
+        更换订阅消息
+      </Button>
+    </div>
+
+    <Modal :is-open="isModalOpen" @close="isModalOpen = false" title="选择订阅消息">
+      <div class="space-y-4">
+        <div class="relative">
+          <input
+            type="text"
+            class="w-full pl-10 pr-4 py-2 border rounded-lg"
+            placeholder="搜索模板..."
+            v-model="searchQuery"
+          />
+          <SearchIcon
+            class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400"
+          />
+        </div>
+        <div class="space-y-3 max-h-[400px] overflow-y-auto">
+          <div
+            v-for="template in filteredTemplates"
+            :key="template.id"
+            class="p-3 border rounded-lg cursor-pointer hover:border-blue-500"
+            @click="selectTemplate(template)"
           >
-            {item.label}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-};
+            <div class="font-medium text-gray-700">{{ template.name }}</div>
+            <div class="text-sm text-gray-500 mt-1">
+              {{ template.example }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </Modal>
+  </div>
+</template>
 
-export default ContextMenu;
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import { SearchIcon, PlusIcon } from 'lucide-vue-next'
+
+interface Template {
+  id: number
+  name: string
+  category: string
+  content: string
+  example: string
+}
+
+interface MessageTemplateSelectorProps {
+  moduleType: 'activity' | 'content' | 'sign_in'
+  selectedTemplate?: Template
+}
+
+const props = defineProps<MessageTemplateSelectorProps>()
+const emit = defineEmits(['select'])
+
+const isModalOpen = ref(false)
+const searchQuery = ref('')
+
+const mockTemplates: Template[] = [
+  {
+    id: 1,
+    name: '活动开始提醒',
+    category: 'activity',
+    content: '亲爱的${user}，${activityName}活动即将开始，记得来参加哦！',
+    example: '亲爱的玩家，新春活动即将开始，记得来参加哦！'
+  },
+  {
+    id: 2,
+    name: '每日签到提醒',
+    category: 'sign_in',
+    content: '亲爱的${user}，今日签到奖励${reward}等你来领取！',
+    example: '亲爱的玩家，今日签到奖励100金币等你来领取！'
+  },
+  {
+    id: 3,
+    name: '内容更新提醒',
+    category: 'content',
+    content: '${title}已更新，快来查看最新内容吧！',
+    example: '每周攻略已更新，快来查看最新内容吧！'
+  }
+]
+
+const filteredTemplates = computed(() =>
+  mockTemplates.filter(
+    (template) =>
+      template.category === props.moduleType &&
+      template.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+)
+
+const selectTemplate = (template: Template) => {
+  emit('select', template)
+  isModalOpen.value = false
+}
+</script>
 
 ```
 
-### src\components\CustomNodes\InputNode.tsx
-```tsx
-import React, { memo } from 'react';
-import { Handle, Position, NodeProps } from '@xyflow/react';
+### src\components\ui\Button.vue
+```vue
+<template>
+  <button :type="type" :class="classes" @click="handleClick" :disabled="disabled">
+    <span v-if="icon" class="mr-2">
+      <component :is="icon" />
+    </span>
+    <slot></slot>
+  </button>
+</template>
 
-// memoized لتجنب إعادة العرض غير الضرورية
-const InputNode: React.FC<NodeProps<{ label: string }>> = ({ data, isConnectable }) => {
-  return (
-    <div className="custom-node input-node">
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        isConnectable={isConnectable}
-      />
-      <div>{data.label || 'Input Node'}</div>
-    </div>
-  );
-};
+<script setup lang="ts">
+import { computed, type FunctionalComponent } from 'vue'
 
-export default memo(InputNode);
+interface ButtonProps {
+  variant?: 'primary' | 'secondary' | 'danger' | 'outline'
+  size?: 'sm' | 'md' | 'lg'
+  className?: string
+  disabled?: boolean
+  type?: 'button' | 'submit' | 'reset'
+  icon?: FunctionalComponent | object // For lucide-vue-next icons
+}
+
+const props = withDefaults(defineProps<ButtonProps>(), {
+  variant: 'primary',
+  size: 'md',
+  className: '',
+  disabled: false,
+  type: 'button'
+})
+
+const emit = defineEmits(['click'])
+
+const baseClasses =
+  'inline-flex items-center justify-center font-medium rounded-md transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2'
+
+const variantClasses = {
+  primary: 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500',
+  secondary: 'bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500',
+  danger: 'bg-red-600 text-white hover:bg-red-700 focus:ring-red-500',
+  outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500'
+}
+
+const sizeClasses = {
+  sm: 'text-xs px-2.5 py-1.5',
+  md: 'text-sm px-4 py-2',
+  lg: 'text-base px-6 py-3'
+}
+
+const disabledClasses = computed(() => (props.disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'))
+
+const classes = computed(() =>
+  `${baseClasses} ${variantClasses[props.variant]} ${sizeClasses[props.size]} ${
+    disabledClasses.value
+  } ${props.className}`.trim()
+)
+
+const handleClick = (event: MouseEvent) => {
+  if (!props.disabled) {
+    emit('click', event)
+  }
+}
+</script>
 
 ```
 
-### src\components\CustomNodes\OutputNode.tsx
-```tsx
-import React, { memo } from 'react';
-import { Handle, Position, NodeProps } from '@xyflow/react';
-
-const OutputNode: React.FC<NodeProps<{ label: string }>> = ({ data, isConnectable }) => {
-  return (
-    <div className="custom-node output-node">
-      <Handle
-        type="target"
-        position={Position.Top}
-        isConnectable={isConnectable}
-      />
-      <div>{data.label || 'Output Node'}</div>
+### src\components\ui\Card.vue
+```vue
+<template>
+  <div :class="['bg-white rounded-lg shadow-sm border border-gray-200', className]">
+    <div v-if="title" class="px-6 py-4 border-b border-gray-200">
+      <h3 class="text-lg font-medium text-gray-800">{{ title }}</h3>
     </div>
-  );
-};
+    <div class="p-6">
+      <slot></slot>
+    </div>
+  </div>
+</template>
 
-export default memo(OutputNode);
+<script setup lang="ts">
+interface CardProps {
+  title?: string
+  className?: string
+}
+
+withDefaults(defineProps<CardProps>(), {
+  className: ''
+})
+</script>
 
 ```
 
-### src\components\CustomNodes\ProcessNode.tsx
-```tsx
-import React, { memo } from 'react';
-import { Handle, Position, NodeProps } from '@xyflow/react';
+### src\components\ui\Modal.vue
+```vue
+<template>
+  <div v-if="isOpen" class="fixed inset-0 z-50 overflow-y-auto">
+    <div
+      class="flex min-h-screen items-end justify-center px-4 pt-4 pb-20 text-center sm:block sm:p-0"
+    >
+      <!-- Background overlay -->
+      <div class="fixed inset-0 transition-opacity" @click="handleClose">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
 
-const ProcessNode: React.FC<NodeProps<{ label: string }>> = ({ data, isConnectable }) => {
-  return (
-    <div className="custom-node process-node">
-      <Handle
-        type="target"
-        position={Position.Top}
-        isConnectable={isConnectable}
-      />
-      <div>{data.label || 'Process Node'}</div>
-      <Handle
-        type="source"
-        position={Position.Bottom}
-        isConnectable={isConnectable}
-      />
-      {/* 可以添加左右 Handle */}
-      {/* <Handle type="source" position={Position.Right} id="a" isConnectable={isConnectable} /> */}
-      {/* <Handle type="target" position={Position.Left} id="b" isConnectable={isConnectable} /> */}
+      <!-- This element is to trick the browser into centering the modal contents. -->
+      <span class="hidden sm:inline-block sm:h-screen sm:align-middle" aria-hidden="true">
+        &#8203;
+      </span>
+
+      <!-- Modal panel -->
+      <div
+        class="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modal-headline"
+      >
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="flex items-start justify-between">
+            <h3 id="modal-headline" class="text-lg font-medium leading-6 text-gray-900">
+              {{ title }}
+            </h3>
+            <button
+              @click="handleClose"
+              class="ml-auto flex h-7 w-7 items-center justify-center rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-500"
+            >
+              <XIcon class="h-5 w-5" />
+            </button>
+          </div>
+          <div class="mt-3">
+            <slot></slot>
+          </div>
+        </div>
+        <div v-if="$slots.footer" class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+          <slot name="footer"></slot>
+        </div>
+      </div>
     </div>
-  );
-};
+  </div>
+</template>
 
-export default memo(ProcessNode);
+<script setup lang="ts">
+import { XIcon } from 'lucide-vue-next'
+
+interface ModalProps {
+  isOpen: boolean
+  title: string
+}
+
+defineProps<ModalProps>()
+const emit = defineEmits(['close'])
+
+const handleClose = () => {
+  emit('close')
+}
+</script>
+
+```
+
+### src\components\ui\Table.vue
+```vue
+<template>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th v-if="showSelection" scope="col" class="px-6 py-3 w-12">
+            <input
+              type="checkbox"
+              class="h-4 w-4 text-blue-600 rounded"
+              :checked="allSelected"
+              @change="handleSelectAll"
+            />
+          </th>
+          <th
+            v-for="(column, index) in columns"
+            :key="index"
+            scope="col"
+            :class="[
+              'px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider',
+              column.width ? column.width : ''
+            ]"
+          >
+            {{ column.header }}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        <tr
+          v-for="(item, rowIndex) in data"
+          :key="item[keyField] || rowIndex"
+          @click="handleRowClick(item)"
+          :class="[
+            onRowClick ? 'cursor-pointer hover:bg-gray-50' : '',
+            isSelected(item) ? 'bg-blue-50' : ''
+          ]"
+        >
+          <td v-if="showSelection" class="px-6 py-4 whitespace-nowrap w-12">
+            <input
+              type="checkbox"
+              class="h-4 w-4 text-blue-600 rounded"
+              :checked="isSelected(item)"
+              @change.stop="handleSelectRow(item[keyField] as number)"
+              @click.stop 
+            />
+          </td>
+          <td
+            v-for="(column, colIndex) in columns"
+            :key="colIndex"
+            class="px-6 py-4 whitespace-nowrap"
+          >
+            <div class="text-sm text-gray-900">
+              <template v-if="typeof column.accessor === 'function'">
+                <component :is="column.accessor(item)" v-if="isVueComponent(column.accessor(item))" />
+                <div v-else v-html="renderAccessor(column.accessor(item))"></div>
+              </template>
+              <template v-else>
+                {{ item[column.accessor as keyof T] }}
+              </template>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</template>
+
+<script setup lang="ts" generic="T extends { id: number }">
+import { computed, h, type VNode } from 'vue'
+
+interface Column<TItem> {
+  header: string
+  accessor: keyof TItem | ((data: TItem) => VNode | string | number | HTMLElement | any) // Adjusted for Vue
+  width?: string
+}
+
+interface TableProps<TItem extends { id: number }> {
+  columns: Column<TItem>[]
+  data: TItem[]
+  onRowClick?: (item: TItem) => void
+  selectedRows?: number[]
+  onSelectRow?: (id: number) => void
+  onSelectAll?: () => void
+  allSelected?: boolean
+  keyField?: keyof TItem
+}
+
+const props = withDefaults(defineProps<TableProps<T>>(), {
+  selectedRows: () => [],
+  allSelected: false,
+  keyField: 'id' as keyof T
+})
+
+const emit = defineEmits(['update:selectedRows', 'update:allSelected', 'rowClick', 'selectRow', 'selectAll'])
+
+const showSelection = computed(() => props.onSelectRow !== undefined)
+
+const isSelected = (item: T): boolean => {
+  return props.selectedRows.includes(item[props.keyField] as unknown as number)
+}
+
+const handleRowClick = (item: T) => {
+  if (props.onRowClick) {
+    props.onRowClick(item)
+  }
+  // emit('rowClick', item) // Alternative emit style
+}
+
+const handleSelectRow = (id: number) => {
+  if (props.onSelectRow) {
+    props.onSelectRow(id)
+  }
+  // emit('selectRow', id) // Alternative emit style
+}
+
+const handleSelectAll = () => {
+  if (props.onSelectAll) {
+    props.onSelectAll()
+  }
+  // emit('selectAll') // Alternative emit style
+}
+
+// Helper to check if accessor returns a Vue component instance or VNode
+// This is a simplified check. Real VNode check is more complex.
+const isVueComponent = (value: any): value is VNode => {
+  return value && (typeof value === 'object' && ('type' in value || 'tag' in value || 'component' in value));
+}
+
+// Helper to render accessor content. If it's an HTML element, use v-html (carefully).
+// For React, it could return JSX. For Vue, it might return a VNode, string, or number.
+// This is a basic interpretation. For complex cell rendering, scoped slots are preferred.
+const renderAccessor = (value: any) => {
+  if (value instanceof HTMLElement) {
+    return value.outerHTML;
+  }
+  return value;
+}
+
+</script>
 
 ```
 
 ### src\index.css
 ```css
-/* 全局基础样式 */
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-#root {
-  width: 100vw;
-  height: 100vh;
-  margin: 0 auto;
-  text-align: center;
-  display: flex; /* Ensure App takes full height/width */
-}
-
-/* React Flow 默认主题样式 (如果不想用 theme-default.css, 可以自定义) */
-/* .react-flow__minimap {
-  background-color: #333;
-}
-.react-flow__controls button {
-  background-color: #444;
-  border-color: #555;
-}
-.react-flow__controls button:hover {
-  background-color: #555;
-}
-.react-flow__edge-path {
-  stroke: #b1b1b7;
-} */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 ```
 
-### src\main.tsx
-```tsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import '@xyflow/react/dist/style.css'; // React Flow 基础样式
-// import '@xyflow/react/dist/theme-default.css'; // 可选：React Flow 默认主题
+### src\main.ts
+```typescript
+import './index.css' // Tailwind CSS
+import { createApp } from 'vue'
+import App from './App.vue'
+import router from './router'
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+const app = createApp(App)
+
+app.use(router)
+
+app.mount('#app')
+
+```
+
+### src\pages\AccountManagement.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">官方账号管理</h1>
+      <Button variant="primary" :icon="PlusIcon" @click="isAddModalOpen = true">
+        新增账号
+      </Button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <Card v-for="account in accounts" :key="account.id">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center space-x-4">
+            <div
+              class="h-16 w-16 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden"
+            >
+              <img :src="account.avatar" :alt="account.name" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <h3 class="font-medium text-gray-900">{{ account.name }}</h3>
+              <p class="text-sm text-gray-500">ID: {{ account.id }}</p>
+            </div>
+          </div>
+          <Button
+            variant="danger"
+            size="sm"
+            :icon="TrashIcon"
+            @click="handleDeleteClick(account)"
+          >
+            删除
+          </Button>
+        </div>
+      </Card>
+    </div>
+
+    <Modal
+      :is-open="isAddModalOpen"
+      @close="closeAddModal"
+      title="新增官方账号"
+    >
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 账号头像 </label>
+          <div class="flex items-center space-x-4">
+            <div
+              class="h-20 w-20 rounded-lg bg-gray-100 flex items-center justify-center overflow-hidden"
+            >
+              <img :src="formData.avatar" alt="Avatar preview" class="w-full h-full object-cover" />
+            </div>
+            <div>
+              <input
+                type="file"
+                id="avatar-upload"
+                class="hidden"
+                accept="image/*"
+                @change="handleUploadAvatar"
+                ref="avatarUploadInput"
+              />
+              <label for="avatar-upload">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  :icon="ImageIcon"
+                  type="button"
+                  @click="triggerAvatarUpload"
+                >
+                  上传头像
+                </Button>
+              </label>
+              <p class="text-xs text-gray-500 mt-1">支持 jpg、png 格式，大小 5MB 以内</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 账号名称 </label>
+          <input
+            type="text"
+            :class="[
+              'w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500',
+              formError ? 'border-red-500' : 'border-gray-300'
+            ]"
+            v-model="formData.name"
+            @input="formError = ''"
+            placeholder="请输入账号名称"
+          />
+          <div v-if="formError" class="mt-1 text-sm text-red-500 flex items-center">
+            <AlertCircleIcon class="h-4 w-4 mr-1" />
+            {{ formError }}
+          </div>
+        </div>
+      </div>
+      <template #footer>
+        <Button
+          variant="primary"
+          class="ml-3"
+          @click="handleAddAccount"
+          :disabled="!formData.name.trim()"
+        >
+          确认
+        </Button>
+        <Button variant="outline" @click="closeAddModal"> 取消 </Button>
+      </template>
+    </Modal>
+
+    <Modal
+      :is-open="isDeleteModalOpen"
+      @close="isDeleteModalOpen = false"
+      title="确认删除"
+    >
+      <div class="py-4">
+        <p class="text-gray-700">
+          确定要删除账号 "{{ accountToDelete?.name }}" 吗？此操作无法撤销。
+        </p>
+      </div>
+      <template #footer>
+        <Button variant="danger" class="ml-3" @click="handleDeleteConfirm"> 确认删除 </Button>
+        <Button variant="outline" @click="isDeleteModalOpen = false"> 取消 </Button>
+      </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import { PlusIcon, TrashIcon, ImageIcon, AlertCircleIcon } from 'lucide-vue-next'
+
+interface Account {
+  id: number
+  name: string
+  avatar: string
+}
+
+const mockAccounts: Account[] = [
+  { id: 1, name: '灵兽官方账号', avatar: 'https://placehold.co/100x100' },
+  { id: 2, name: '灵兽活动发布', avatar: 'https://placehold.co/100x100' },
+  { id: 3, name: '灵兽攻略站', avatar: 'https://placehold.co/100x100' }
+]
+
+interface AccountFormData {
+  name: string
+  avatar: string
+}
+
+const accounts = ref<Account[]>(mockAccounts)
+const isAddModalOpen = ref(false)
+const isDeleteModalOpen = ref(false)
+const accountToDelete = ref<Account | null>(null)
+const defaultFormData: AccountFormData = { name: '', avatar: 'https://placehold.co/100x100' }
+const formData = ref<AccountFormData>({ ...defaultFormData })
+const formError = ref('')
+const avatarUploadInput = ref<HTMLInputElement | null>(null)
+
+
+const resetForm = () => {
+  formData.value = { ...defaultFormData }
+  formError.value = ''
+}
+
+const closeAddModal = () => {
+  isAddModalOpen.value = false
+  resetForm()
+}
+
+const handleAddAccount = () => {
+  if (!formData.value.name.trim()) {
+    formError.value = '请输入账号名称'
+    return
+  }
+  if (accounts.value.some((account) => account.name === formData.value.name.trim())) {
+    formError.value = '账号名称已存在'
+    return
+  }
+  const newAccount: Account = {
+    id: accounts.value.length > 0 ? Math.max(...accounts.value.map((a) => a.id)) + 1 : 1,
+    name: formData.value.name.trim(),
+    avatar: formData.value.avatar
+  }
+  accounts.value.push(newAccount)
+  closeAddModal()
+}
+
+const handleDeleteClick = (account: Account) => {
+  accountToDelete.value = account
+  isDeleteModalOpen.value = true
+}
+
+const handleDeleteConfirm = () => {
+  if (accountToDelete.value) {
+    accounts.value = accounts.value.filter((account) => account.id !== accountToDelete.value!.id)
+    accountToDelete.value = null
+    isDeleteModalOpen.value = false
+  }
+}
+
+const triggerAvatarUpload = () => {
+  avatarUploadInput.value?.click()
+}
+
+const handleUploadAvatar = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (file) {
+    if (file.size > 5 * 1024 * 1024) {
+      formError.value = '图片大小不能超过5MB'
+      return
+    }
+    const reader = new FileReader()
+    reader.onload = (e) => {
+      formData.value.avatar = e.target?.result as string
+      formError.value = ''
+    }
+    reader.readAsDataURL(file)
+  }
+}
+</script>
+
+```
+
+### src\pages\ActivityManagement.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">最新活动管理</h1>
+    </div>
+
+    <div v-for="activity in activities" :key="activity.id" class="space-y-6 mb-8">
+      <Card>
+        <div class="space-y-6">
+          <div class="aspect-[3/1] rounded-lg overflow-hidden bg-gray-100">
+            <img :src="activity.banner" :alt="activity.title" class="w-full h-full object-cover" />
+          </div>
+          <div class="flex justify-between items-start">
+            <div class="flex-1">
+              <div class="flex items-center space-x-2">
+                <h2 class="text-xl font-semibold text-gray-800">
+                  {{ activity.title }}
+                </h2>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  :icon="EditIcon"
+                  @click="handleEditClick(activity)"
+                >
+                  编辑
+                </Button>
+              </div>
+              <p class="mt-1 text-gray-500">{{ activity.description }}</p>
+            </div>
+            <div class="ml-4 flex items-center space-x-2">
+              <span
+                :class="[
+                  'px-3 py-1 rounded-full text-sm font-medium',
+                  getStatusClass(activity.status)
+                ]"
+              >
+                {{ getStatusText(activity.status) }}
+              </span>
+              <Button
+                v-if="activity.status === 'upcoming'"
+                variant="primary"
+                size="sm"
+                @click="handleStatusChange(activity.id, 'active')"
+              >
+                开始活动
+              </Button>
+              <Button
+                v-if="activity.status === 'active'"
+                variant="danger"
+                size="sm"
+                @click="handleStatusChange(activity.id, 'ended')"
+              >
+                结束活动
+              </Button>
+            </div>
+          </div>
+          <div class="border-t pt-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <Card class="bg-blue-50">
+                <div class="flex items-center">
+                  <div class="p-3 bg-blue-100 rounded-lg">
+                    <UsersIcon class="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div class="ml-4">
+                    <p class="text-sm text-blue-600">参与人数</p>
+                    <p class="text-2xl font-semibold text-blue-900">
+                      {{ activity.participants.toLocaleString() }}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+              <Card class="bg-green-50">
+                <div class="flex items-center">
+                  <div class="p-3 bg-green-100 rounded-lg">
+                    <UserIcon class="h-6 w-6 text-green-600" />
+                  </div>
+                  <div class="ml-4">
+                    <p class="text-sm text-green-600">邀请人数</p>
+                    <p class="text-2xl font-semibold text-green-900">
+                      {{ activity.invitations.toLocaleString() }}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+              <Card class="bg-purple-50">
+                <div class="flex items-center">
+                  <div class="p-3 bg-purple-100 rounded-lg">
+                    <TrendingUpIcon class="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div class="ml-4">
+                    <p class="text-sm text-purple-600">转化率</p>
+                    <p class="text-2xl font-semibold text-purple-900">
+                      {{ activity.conversionRate }}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
+          </div>
+          <div class="border-t pt-4">
+            <div class="text-sm text-gray-500">
+              活动时间：{{ activity.startTime }} 至 {{ activity.endTime }}
+            </div>
+          </div>
+        </div>
+      </Card>
+      <MessageSettings module-type="activity" title="活动消息设置" />
+    </div>
+
+    <Modal :is-open="isEditModalOpen" @close="isEditModalOpen = false" title="编辑活动">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 活动图片 </label>
+          <div class="border-2 border-dashed border-gray-300 rounded-lg p-4">
+            <div class="aspect-[3/1] rounded-lg overflow-hidden bg-gray-100">
+              <img
+                :src="formData.banner"
+                alt="Banner Preview"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="mt-4 flex justify-center">
+              <input
+                type="file"
+                id="banner-upload"
+                class="hidden"
+                accept="image/*"
+                @change="handleImageUpload"
+                ref="bannerUploadInput"
+              />
+              <label for="banner-upload">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  :icon="ImageIcon"
+                  type="button"
+                  @click="triggerBannerUpload"
+                >
+                  更换图片
+                </Button>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 活动名称 </label>
+          <input
+            type="text"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            v-model="formData.title"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 活动描述 </label>
+          <textarea
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows="4"
+            v-model="formData.description"
+          ></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"> 开始时间 </label>
+            <input
+              type="datetime-local"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              :value="formatDateTimeForInput(formData.startTime)"
+              @input="formData.startTime = ($event.target as HTMLInputElement).value"
+            />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1"> 结束时间 </label>
+            <input
+              type="datetime-local"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              :value="formatDateTimeForInput(formData.endTime)"
+              @input="formData.endTime = ($event.target as HTMLInputElement).value"
+            />
+          </div>
+        </div>
+      </div>
+      <template #footer>
+        <Button variant="primary" class="ml-3" @click="handleSaveEdit"> 保存 </Button>
+        <Button variant="outline" @click="isEditModalOpen = false"> 取消 </Button>
+      </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import MessageSettings from '@/components/message/MessageSettings.vue'
+import { UserIcon, UsersIcon, TrendingUpIcon, EditIcon, ImageIcon } from 'lucide-vue-next'
+
+interface Activity {
+  id: number
+  title: string
+  banner: string
+  description: string
+  startTime: string // Expecting "YYYY-MM-DD HH:MM:SS"
+  endTime: string   // Expecting "YYYY-MM-DD HH:MM:SS"
+  status: 'upcoming' | 'active' | 'ended'
+  participants: number
+  invitations: number
+  conversionRate: string
+}
+
+interface ActivityFormData {
+  title: string
+  description: string
+  startTime: string
+  endTime: string
+  banner: string
+}
+
+const mockActivities: Activity[] = [
+  {
+    id: 1,
+    title: '好友邀请活动',
+    banner: 'https://placehold.co/1200x400',
+    description: '邀请好友加入游戏，双方都可获得丰厚奖励！每成功邀请一位好友，即可获得100钻石和限定称号。',
+    startTime: '2024-01-01 00:00:00',
+    endTime: '2024-12-31 23:59:59',
+    status: 'active',
+    participants: 1234,
+    invitations: 3456,
+    conversionRate: '35.7%'
+  }
+]
+
+const activities = ref<Activity[]>(mockActivities)
+const isEditModalOpen = ref(false)
+const editingActivity = ref<Activity | null>(null)
+const defaultFormData: ActivityFormData = { title: '', description: '', startTime: '', endTime: '', banner: '' }
+const formData = ref<ActivityFormData>({ ...defaultFormData })
+const bannerUploadInput = ref<HTMLInputElement | null>(null)
+
+const formatDateTimeForInput = (dateTimeString: string) => {
+  if (!dateTimeString) return ''
+  // Assuming dateTimeString is "YYYY-MM-DD HH:MM:SS"
+  // HTML datetime-local input needs "YYYY-MM-DDTHH:MM"
+  return dateTimeString.slice(0, 16).replace(' ', 'T')
+}
+
+const handleEditClick = (activity: Activity) => {
+  editingActivity.value = activity
+  formData.value = {
+    title: activity.title,
+    description: activity.description,
+    startTime: activity.startTime,
+    endTime: activity.endTime,
+    banner: activity.banner
+  }
+  isEditModalOpen.value = true
+}
+
+const handleSaveEdit = () => {
+  if (editingActivity.value) {
+    const index = activities.value.findIndex(act => act.id === editingActivity.value!.id)
+    if (index !== -1) {
+      activities.value[index] = {
+        ...activities.value[index],
+        ...formData.value,
+        // Ensure startTime and endTime are in "YYYY-MM-DD HH:MM:SS" if they were changed by input
+        startTime: formData.value.startTime.replace('T', ' ') + ':00',
+        endTime: formData.value.endTime.replace('T', ' ') + ':00',
+      }
+    }
+    isEditModalOpen.value = false
+    editingActivity.value = null
+  }
+}
+
+const triggerBannerUpload = () => {
+  bannerUploadInput.value?.click()
+}
+
+const handleImageUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement
+  const file = target.files?.[0]
+  if (file) {
+    const imageUrl = URL.createObjectURL(file)
+    formData.value.banner = imageUrl
+    // In a real app, you'd upload this file to a server and get back a URL
+  }
+}
+
+const handleStatusChange = (activityId: number, newStatus: Activity['status']) => {
+  const activity = activities.value.find(act => act.id === activityId)
+  if (activity) {
+    activity.status = newStatus
+  }
+}
+
+const getStatusClass = (status: Activity['status']) => {
+  switch (status) {
+    case 'upcoming': return 'bg-blue-50 text-blue-600'
+    case 'active': return 'bg-green-50 text-green-600'
+    case 'ended': return 'bg-gray-50 text-gray-600'
+    default: return ''
+  }
+}
+
+const getStatusText = (status: Activity['status']) => {
+  switch (status) {
+    case 'upcoming': return '未开始'
+    case 'active': return '进行中'
+    case 'ended': return '已结束'
+    default: return ''
+  }
+}
+</script>
+
+```
+
+### src\pages\ArticleEditor.vue
+```vue
+<template>
+  <div>
+    <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center">
+        <Button
+          variant="outline"
+          size="sm"
+          :icon="ChevronLeftIcon"
+          @click="goBack"
+        >
+          返回
+        </Button>
+        <h1 class="text-2xl font-bold text-gray-800 ml-4">
+          {{ articleId ? '编辑文章' : '写文章' }}
+        </h1>
+      </div>
+      <div class="flex space-x-2">
+        <Button variant="outline">保存草稿</Button>
+        <Button variant="primary">发布文章</Button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2">
+        <Card>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 文章标题 </label>
+              <input
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="输入文章标题..."
+                v-model="title"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 文章内容 </label>
+              <div class="border border-gray-300 rounded-md overflow-hidden">
+                <div class="bg-gray-50 border-b border-gray-300 p-2">
+                  <div class="flex items-center space-x-1">
+                    <button class="p-1 hover:bg-gray-200 rounded"><BoldIcon class="h-4 w-4" /></button>
+                    <button class="p-1 hover:bg-gray-200 rounded"><TypeIcon class="h-4 w-4" /></button>
+                    <button class="p-1 hover:bg-gray-200 rounded"><PaletteIcon class="h-4 w-4" /></button>
+                    <div class="h-4 border-r border-gray-300 mx-1"></div>
+                    <button class="p-1 hover:bg-gray-200 rounded"><ListIcon class="h-4 w-4" /></button>
+                    <button class="p-1 hover:bg-gray-200 rounded"><ListOrderedIcon class="h-4 w-4" /></button>
+                    <button class="p-1 hover:bg-gray-200 rounded"><ImageIcon class="h-4 w-4" /></button>
+                    <div class="h-4 border-r border-gray-300 mx-1"></div>
+                    <button class="p-1 hover:bg-gray-200 rounded"><AlignLeftIcon class="h-4 w-4" /></button>
+                    <button class="p-1 hover:bg-gray-200 rounded"><AlignCenterIcon class="h-4 w-4" /></button>
+                    <button class="p-1 hover:bg-gray-200 rounded"><AlignRightIcon class="h-4 w-4" /></button>
+                  </div>
+                </div>
+                <textarea
+                  class="w-full p-3 min-h-[400px] focus:outline-none"
+                  placeholder="开始编写文章内容..."
+                ></textarea>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div class="space-y-6">
+        <Card title="发布设置">
+          <div class="space-y-4">
+            <div>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 rounded"
+                  v-model="scheduledPublish"
+                />
+                <span class="ml-2 text-sm text-gray-700">定时发布</span>
+              </label>
+            </div>
+            <div v-if="scheduledPublish" class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1"> 日期 </label>
+                <div class="relative">
+                  <input
+                    type="date"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <CalendarIcon
+                    class="h-4 w-4 text-gray-400 absolute top-1/2 right-3 transform -translate-y-1/2"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1"> 时间 </label>
+                <div class="relative">
+                  <input
+                    type="time"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  />
+                  <ClockIcon
+                    class="h-4 w-4 text-gray-400 absolute top-1/2 right-3 transform -translate-y-1/2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 可见范围 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="public">公开</option>
+                <option value="private">仅自己可见</option>
+              </select>
+            </div>
+          </div>
+        </Card>
+
+        <Card title="文章设置">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 作者 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="official">灵兽官方账号</option>
+                <option value="activity">灵兽活动发布</option>
+                <option value="guide">灵兽攻略站</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 标签 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+              >
+                <option value="">选择一级标签</option>
+                <option value="1">萌新入门</option>
+                <option value="5">灵兽百科</option>
+                <option value="8">社交指南</option>
+                <option value="11">版本活动</option>
+              </select>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="">选择二级标签</option>
+                <option value="2">快速升级</option>
+                <option value="3">赚钱秘籍</option>
+                <option value="4">伙伴养成</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 封面图 </label>
+              <div
+                class="border-2 border-dashed border-gray-300 rounded-md p-6 flex flex-col items-center"
+              >
+                <ImageIcon class="h-8 w-8 text-gray-400 mb-2" />
+                <p class="text-sm text-gray-500 mb-1">点击上传封面图</p>
+                <p class="text-xs text-gray-400">或从文章首图自动提取</p>
+                <input type="file" class="hidden" />
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import {
+  BoldIcon,
+  // ItalicIcon, // Not used in React version
+  // UnderlineIcon, // Not used in React version
+  ListIcon,
+  ImageIcon,
+  AlignLeftIcon,
+  AlignCenterIcon,
+  AlignRightIcon,
+  CalendarIcon as CalendarIcon, // Renamed to avoid conflict if any
+  ClockIcon,
+  ChevronLeftIcon,
+  TypeIcon, // Used 'Type' in React, assuming TypeIcon
+  ListOrderedIcon, // Used 'ListOrdered' in React
+  PaletteIcon // Used 'Palette' in React
+} from 'lucide-vue-next'
+
+const router = useRouter()
+const route = useRoute()
+
+const articleId = computed(() => route.params.id) // id from route params
+
+const title = ref('')
+const scheduledPublish = ref(false)
+
+// Fetch article data if articleId exists (on component mount)
+// e.g., onMounted(async () => { if (articleId.value) { /* fetch data */ } })
+
+const goBack = () => {
+  router.push('/content-dashboard')
+}
+</script>
+
+```
+
+### src\pages\BannerManagement.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">Banner管理</h1>
+      <Button variant="primary" :icon="PlusIcon" @click="openAddBannerModal">
+        新增Banner
+      </Button>
+    </div>
+
+    <BannerTabs
+      :tabs="tabs"
+      :active-tab="activeTab"
+      @update:active-tab="activeTab = $event"
+      @request-add-tab="isAddTabModalOpen = true"
+      @request-edit-tab="handleRequestEditTab"
+      class="mb-6"
+    />
+
+    <Card>
+      <BannerTable
+        :banners="filteredBanners"
+        @edit-banner="handleEditBannerRequest"
+        @delete-banner="handleDeleteBannerRequest"
+      />
+    </Card>
+
+    <!-- Add/Edit Tab Modal -->
+    <Modal
+      :is-open="isAddTabModalOpen || isEditTabModalOpen"
+      @close="closeTabModal"
+      :title="editingTab ? '编辑Banner分类' : '新增Banner分类'"
+    >
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">
+          分类名称
+        </label>
+        <input
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          v-model="newTabName"
+          placeholder="请输入分类名称"
+        />
+      </div>
+      <template #footer>
+        <Button
+          variant="primary"
+          class="ml-3"
+          @click="editingTab ? handleSaveTabName() : handleAddNewTab()"
+          :disabled="!newTabName.trim()"
+        >
+          确认
+        </Button>
+        <Button variant="outline" @click="closeTabModal"> 取消 </Button>
+      </template>
+    </Modal>
+
+    <!-- Add/Edit Banner Modal -->
+    <BannerFormModal
+      :is-open="isBannerModalOpen"
+      :is-edit-mode="isEditMode"
+      :initial-form-data="bannerForm"
+      :active-tab-type="activeTab"
+      @close="closeBannerModal"
+      @save="handleSaveBanner"
+    />
+
+    <!-- Delete Banner Modal -->
+    <Modal
+      :is-open="isDeleteModalOpen"
+      @close="isDeleteModalOpen = false"
+      title="确认删除"
+    >
+      <div class="py-4">
+        <p class="text-gray-700">确定要删除这个Banner吗？此操作无法撤销。</p>
+      </div>
+      <template #footer>
+        <Button variant="danger" class="ml-3" @click="handleConfirmDelete">
+          确认删除
+        </Button>
+        <Button variant="outline" @click="isDeleteModalOpen = false">
+          取消
+        </Button>
+      </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed, reactive } from "vue";
+import Card from "@/components/ui/Card.vue";
+import Button from "@/components/ui/Button.vue";
+import Modal from "@/components/ui/Modal.vue";
+import BannerTabs from "@/components/banner/BannerTabs.vue";
+import BannerTable from "@/components/banner/BannerTable.vue";
+import BannerFormModal, {
+  type BannerFormData,
+} from "@/components/banner/BannerFormModal.vue";
+import { PlusIcon } from "lucide-vue-next";
+
+interface Banner {
+  id: number;
+  image: string;
+  linkType: "none" | "url" | "activity";
+  link: string | null;
+  activityId: number | null;
+  weight: number;
+  startTime: string; // Expect "YYYY-MM-DDTHH:MM" for datetime-local
+  endTime: string; // Expect "YYYY-MM-DDTHH:MM" for datetime-local
+  views: number;
+  clicks: number;
+  ctr: string;
+  type: string; // Corresponds to tab id
+}
+
+const mockBanners: Banner[] = [
+  {
+    id: 1,
+    image: "https://placehold.co/800x400",
+    linkType: "url",
+    link: "https://example.com/event1",
+    activityId: null,
+    weight: 100,
+    startTime: "2024-01-01T00:00",
+    endTime: "2024-12-31T23:59",
+    views: 12500,
+    clicks: 2800,
+    ctr: "22.4%",
+    type: "home",
+  },
+  {
+    id: 2,
+    image: "https://placehold.co/800x400",
+    linkType: "none",
+    link: null,
+    activityId: null,
+    weight: 90,
+    startTime: "2024-01-15T00:00",
+    endTime: "2024-02-15T23:59",
+    views: 8300,
+    clicks: 0,
+    ctr: "0%",
+    type: "home",
+  },
+  {
+    id: 3,
+    image: "https://placehold.co/800x400",
+    linkType: "activity",
+    link: null,
+    activityId: 1,
+    weight: 80,
+    startTime: "2024-02-01T00:00",
+    endTime: "2024-03-01T23:59",
+    views: 15200,
+    clicks: 4100,
+    ctr: "27%",
+    type: "activity",
+  },
+];
+
+interface TabData {
+  id: string;
+  label: string;
+  isDefault: boolean;
+}
+
+const activeTab = ref("home");
+const banners = ref<Banner[]>(mockBanners);
+
+// Banner Modal State
+const isBannerModalOpen = ref(false);
+const editingBannerId = ref<number | null>(null);
+const isEditMode = computed(() => editingBannerId.value !== null);
+const defaultBannerForm: BannerFormData = {
+  image: "https://placehold.co/800x400",
+  linkType: "none",
+  link: "",
+  activityId: null,
+  startTime: "",
+  endTime: "",
+  weight: 100,
+};
+const bannerForm = ref<BannerFormData>({ ...defaultBannerForm });
+
+// Tab Modal State
+const tabs = ref<TabData[]>([
+  { id: "home", label: "首页Banner", isDefault: true },
+  { id: "activity", label: "活动Banner", isDefault: true },
+]);
+const isAddTabModalOpen = ref(false);
+const isEditTabModalOpen = ref(false);
+const newTabName = ref("");
+const editingTab = ref<TabData | null>(null);
+
+// Delete Banner Modal State
+const isDeleteModalOpen = ref(false);
+const bannerToDelete = ref<Banner | null>(null);
+
+const filteredBanners = computed(() =>
+  banners.value.filter((banner) => banner.type === activeTab.value)
+);
+
+// --- Banner Actions ---
+const resetBannerForm = () => {
+  bannerForm.value = { ...defaultBannerForm };
+  editingBannerId.value = null;
+};
+
+const openAddBannerModal = () => {
+  resetBannerForm();
+  isBannerModalOpen.value = true;
+};
+
+const closeBannerModal = () => {
+  isBannerModalOpen.value = false;
+  resetBannerForm();
+};
+
+const handleSaveBanner = (savedBannerData: {
+  formData: BannerFormData;
+  editingId: number | null;
+  type: string;
+}) => {
+  if (savedBannerData.editingId !== null) {
+    // Edit mode
+    const index = banners.value.findIndex(
+      (b) => b.id === savedBannerData.editingId
+    );
+    if (index !== -1) {
+      banners.value[index] = {
+        ...banners.value[index],
+        ...savedBannerData.formData,
+        id: savedBannerData.editingId, // Ensure ID remains the same
+        type: banners.value[index].type, // Type should not change on edit
+      };
+    }
+  } else {
+    // Add mode
+    const newBanner: Banner = {
+      id:
+        banners.value.length > 0
+          ? Math.max(...banners.value.map((b) => b.id)) + 1
+          : 1,
+      ...savedBannerData.formData,
+      views: 0,
+      clicks: 0,
+      ctr: "0%",
+      type: savedBannerData.type,
+    };
+    banners.value.push(newBanner);
+  }
+  closeBannerModal();
+};
+
+const handleEditBannerRequest = (banner: Banner) => {
+  editingBannerId.value = banner.id;
+  bannerForm.value = {
+    image: banner.image,
+    linkType: banner.linkType,
+    link: banner.link || "",
+    activityId: banner.activityId,
+    startTime: banner.startTime,
+    endTime: banner.endTime,
+    weight: banner.weight,
+  };
+  isBannerModalOpen.value = true;
+};
+
+const handleDeleteBannerRequest = (banner: Banner) => {
+  bannerToDelete.value = banner;
+  isDeleteModalOpen.value = true;
+};
+
+const handleConfirmDelete = () => {
+  if (bannerToDelete.value) {
+    banners.value = banners.value.filter(
+      (b) => b.id !== bannerToDelete.value!.id
+    );
+    bannerToDelete.value = null;
+    isDeleteModalOpen.value = false;
+  }
+};
+
+// --- Tab Actions ---
+const closeTabModal = () => {
+  isAddTabModalOpen.value = false;
+  isEditTabModalOpen.value = false;
+  newTabName.value = "";
+  editingTab.value = null;
+};
+
+const handleAddNewTab = () => {
+  if (newTabName.value.trim()) {
+    const newTab: TabData = {
+      id: `custom-${Date.now()}`,
+      label: newTabName.value.trim(),
+      isDefault: false,
+    };
+    tabs.value.push(newTab);
+    closeTabModal();
+  }
+};
+
+const handleRequestEditTab = (tab: TabData) => {
+  editingTab.value = tab;
+  newTabName.value = tab.label;
+  isEditTabModalOpen.value = true;
+};
+
+const handleSaveTabName = () => {
+  if (editingTab.value && newTabName.value.trim()) {
+    const tabToEdit = tabs.value.find((t) => t.id === editingTab.value!.id);
+    if (tabToEdit) {
+      tabToEdit.label = newTabName.value.trim();
+    }
+    closeTabModal();
+  }
+};
+</script>
+
+```
+
+### src\pages\ContentDashboard.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">内容管理</h1>
+      <div class="flex space-x-2">
+        <Button
+          variant="primary"
+          :icon="FileTextIcon"
+          @click="router.push('/content-dashboard/article/new')"
+        >
+          写文章
+        </Button>
+        <Button
+          variant="primary"
+          :icon="VideoIcon"
+          @click="router.push('/content-dashboard/video/new')"
+        >
+          发视频
+        </Button>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <Card title="内容数据概览">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div class="bg-blue-50 rounded-lg p-4">
+            <h3 class="text-blue-600 font-medium mb-2">文章总数</h3>
+            <p class="text-2xl font-bold text-blue-900">{{ stats.articles }}</p>
+          </div>
+          <div class="bg-green-50 rounded-lg p-4">
+            <h3 class="text-green-600 font-medium mb-2">视频总数</h3>
+            <p class="text-2xl font-bold text-green-900">{{ stats.videos }}</p>
+          </div>
+          <div class="bg-purple-50 rounded-lg p-4">
+            <h3 class="text-purple-600 font-medium mb-2">总浏览量</h3>
+            <p class="text-2xl font-bold text-purple-900">{{ stats.views.toLocaleString() }}</p>
+          </div>
+          <div class="bg-red-50 rounded-lg p-4">
+            <h3 class="text-red-600 font-medium mb-2">总点赞量</h3>
+            <p class="text-2xl font-bold text-red-900">{{ stats.likes.toLocaleString() }}</p>
+          </div>
+          <div class="bg-yellow-50 rounded-lg p-4">
+            <h3 class="text-yellow-600 font-medium mb-2">总收藏量</h3>
+            <p class="text-2xl font-bold text-yellow-900">{{ stats.favorites.toLocaleString() }}</p>
+          </div>
+        </div>
+      </Card>
+
+      <Card title="已发布内容">
+        <div class="space-y-4">
+          <div
+            v-for="contentItem in contents"
+            :key="contentItem.id"
+            class="flex items-start justify-between p-4 border rounded-lg"
+          >
+            <div class="flex space-x-4">
+              <div class="w-24 h-16 bg-gray-100 rounded overflow-hidden flex-shrink-0">
+                <img
+                  :src="contentItem.cover"
+                  :alt="contentItem.title"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="flex-1">
+                <div class="flex items-center space-x-2">
+                  <span
+                    :class="[
+                      'px-2 py-0.5 text-xs rounded-full',
+                      contentItem.status === 'draft'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : 'bg-green-100 text-green-800'
+                    ]"
+                  >
+                    {{ contentItem.status === 'draft' ? '草稿' : '已发布' }}
+                  </span>
+                  <span
+                    :class="[
+                      'px-2 py-0.5 text-xs rounded-full',
+                      contentItem.visibility === 'private'
+                        ? 'bg-gray-100 text-gray-800'
+                        : 'bg-blue-100 text-blue-800'
+                    ]"
+                  >
+                    {{ contentItem.visibility === 'private' ? '仅自己可见' : '公开' }}
+                  </span>
+                  <span class="text-xs text-gray-500">
+                    {{ contentItem.type === 'article' ? '文章' : '视频' }}
+                  </span>
+                </div>
+                <h4 class="font-medium mt-1">{{ contentItem.title }}</h4>
+                <div class="flex items-center space-x-4 mt-2 text-sm text-gray-500">
+                  <span>{{ contentItem.author }}</span>
+                  <span>{{ contentItem.createdAt }}</span>
+                  <div class="flex items-center space-x-2">
+                    <EyeIcon class="h-4 w-4" />
+                    <span>{{ contentItem.views }}</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <ThumbsUpIcon class="h-4 w-4" />
+                    <span>{{ contentItem.likes }}</span>
+                  </div>
+                  <div class="flex items-center space-x-2">
+                    <BookmarkIcon class="h-4 w-4" />
+                    <span>{{ contentItem.favorites }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="sm"
+                :icon="EditIcon"
+                @click="openStatsEditModal(contentItem)"
+              >
+                数据
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                :icon="EditIcon"
+                @click="openContentEditModal(contentItem)"
+              >
+                编辑
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                :icon="contentItem.visibility === 'public' ? EyeOffIcon : EyeIcon"
+                @click="handleVisibilityToggle(contentItem.id)"
+              >
+                {{ contentItem.visibility === 'public' ? '设为私密' : '公开' }}
+              </Button>
+              <Button
+                v-if="contentItem.status === 'draft'"
+                variant="primary"
+                size="sm"
+                @click="handlePublish(contentItem.id)"
+              >
+                发布
+              </Button>
+              <Button
+                variant="danger"
+                size="sm"
+                :icon="TrashIcon"
+                @click="handleDelete(contentItem.id)"
+              >
+                删除
+              </Button>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+
+    <Modal
+      :is-open="isStatsModalOpen"
+      @close="isStatsModalOpen = false"
+      title="编辑数据统计"
+    >
+      <div v-if="selectedContentForStats" class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 浏览量 </label>
+          <input
+            type="number"
+            class="w-full px-3 py-2 border rounded-md"
+            v-model.number="editableStats.views"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 点赞数 </label>
+          <input
+            type="number"
+            class="w-full px-3 py-2 border rounded-md"
+            v-model.number="editableStats.likes"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 收藏数 </label>
+          <input
+            type="number"
+            class="w-full px-3 py-2 border rounded-md"
+            v-model.number="editableStats.favorites"
+          />
+        </div>
+      </div>
+      <template #footer>
+        <Button variant="primary" @click="saveStats">保存</Button>
+        <Button variant="outline" @click="isStatsModalOpen = false"> 取消 </Button>
+      </template>
+    </Modal>
+
+    <Modal
+      :is-open="isContentEditModalOpen"
+      @close="isContentEditModalOpen = false"
+      title="编辑内容"
+    >
+      <div class="space-y-6">
+        <MessageSettings module-type="content" title="内容更新提醒设置" />
+      </div>
+       <template #footer>
+        <Button variant="primary" @click="isContentEditModalOpen = false">完成</Button>
+      </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive } from 'vue'
+import { useRouter } from 'vue-router'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import MessageSettings from '@/components/message/MessageSettings.vue'
+import {
+  FileTextIcon,
+  VideoIcon,
+  ThumbsUpIcon,
+  BookmarkIcon,
+  EyeIcon,
+  EditIcon,
+  TrashIcon,
+  EyeOffIcon
+} from 'lucide-vue-next'
+
+interface Content {
+  id: number
+  type: 'article' | 'video'
+  title: string
+  author: string
+  createdAt: string
+  status: 'draft' | 'published'
+  visibility: 'public' | 'private'
+  views: number
+  likes: number
+  favorites: number
+  cover: string
+  description?: string
+  tags: string[]
+}
+
+const mockContents: Content[] = [
+  { id: 1, type: 'article', title: '新手指南：如何快速升级', author: '灵兽官方账号', createdAt: '2024-01-15 10:30', status: 'published', visibility: 'public', views: 1234, likes: 89, favorites: 45, cover: 'https://placehold.co/600x400', tags: ['萌新入门', '快速升级'] },
+  { id: 2, type: 'video', title: '宠物养成攻略视频', author: '灵兽攻略站', createdAt: '2024-01-14 15:20', status: 'draft', visibility: 'private', views: 0, likes: 0, favorites: 0, cover: 'https://placehold.co/600x400', description: '详细讲解宠物养成技巧...', tags: ['灵兽百科', '伙伴养成'] }
+]
+
+interface StatsData {
+  articles: number
+  videos: number
+  views: number
+  likes: number
+  favorites: number
+}
+
+const initialStats: StatsData = { articles: 128, videos: 45, views: 25431, likes: 12567, favorites: 8934 }
+
+const router = useRouter()
+const contents = ref<Content[]>(mockContents)
+const stats = ref<StatsData>(initialStats)
+
+const selectedContentForStats = ref<Content | null>(null)
+const editableStats = reactive({ views: 0, likes: 0, favorites: 0 })
+const isStatsModalOpen = ref(false)
+
+const selectedContentForEdit = ref<Content | null>(null)
+const isContentEditModalOpen = ref(false)
+
+
+const handleVisibilityToggle = (id: number) => {
+  const contentItem = contents.value.find(c => c.id === id)
+  if (contentItem) {
+    contentItem.visibility = contentItem.visibility === 'public' ? 'private' : 'public'
+  }
+}
+
+const handleDelete = (id: number) => {
+  contents.value = contents.value.filter(c => c.id !== id)
+}
+
+const handlePublish = (id: number) => {
+  const contentItem = contents.value.find(c => c.id === id)
+  if (contentItem) {
+    contentItem.status = 'published'
+  }
+}
+
+const openStatsEditModal = (contentItem: Content) => {
+  selectedContentForStats.value = contentItem
+  editableStats.views = contentItem.views
+  editableStats.likes = contentItem.likes
+  editableStats.favorites = contentItem.favorites
+  isStatsModalOpen.value = true
+}
+
+const saveStats = () => {
+  if (selectedContentForStats.value) {
+    const contentItem = contents.value.find(c => c.id === selectedContentForStats.value!.id)
+    if (contentItem) {
+      contentItem.views = editableStats.views
+      contentItem.likes = editableStats.likes
+      contentItem.favorites = editableStats.favorites
+    }
+  }
+  isStatsModalOpen.value = false
+  selectedContentForStats.value = null
+}
+
+const openContentEditModal = (contentItem: Content) => {
+  selectedContentForEdit.value = contentItem
+  // Depending on type, navigate to specific editor or show generic settings
+  if (contentItem.type === 'article') {
+    // router.push(`/content-dashboard/article/${contentItem.id}`)
+    // For now, just open the message settings modal as per original code
+    isContentEditModalOpen.value = true;
+  } else if (contentItem.type === 'video') {
+    // router.push(`/content-dashboard/video/${contentItem.id}`)
+    isContentEditModalOpen.value = true;
+  }
+}
+</script>
+
+```
+
+### src\pages\ContentEditor.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">文章编辑</h1>
+      <div class="flex space-x-2">
+        <Button variant="outline">保存草稿</Button>
+        <Button variant="primary">发布文章</Button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2">
+        <Card>
+          <div class="mb-6">
+            <label for="title" class="block text-sm font-medium text-gray-700 mb-1">
+              文章标题
+            </label>
+            <input
+              type="text"
+              id="title"
+              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="输入文章标题..."
+              v-model="title"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-1"> 文章内容 </label>
+            <div class="border border-gray-300 rounded-md overflow-hidden">
+              <div class="bg-gray-50 border-b border-gray-300 p-2 flex items-center space-x-1">
+                <button class="p-1 hover:bg-gray-200 rounded"><BoldIcon class="h-4 w-4" /></button>
+                <button class="p-1 hover:bg-gray-200 rounded"><ItalicIcon class="h-4 w-4" /></button>
+                <button class="p-1 hover:bg-gray-200 rounded"><UnderlineIcon class="h-4 w-4" /></button>
+                <div class="h-4 border-r border-gray-300 mx-1"></div>
+                <button class="p-1 hover:bg-gray-200 rounded"><ListIcon class="h-4 w-4" /></button>
+                <button class="p-1 hover:bg-gray-200 rounded"><ImageIcon class="h-4 w-4" /></button>
+                <div class="h-4 border-r border-gray-300 mx-1"></div>
+                <button class="p-1 hover:bg-gray-200 rounded"><AlignLeftIcon class="h-4 w-4" /></button>
+                <button class="p-1 hover:bg-gray-200 rounded"><AlignCenterIcon class="h-4 w-4" /></button>
+                <button class="p-1 hover:bg-gray-200 rounded"><AlignRightIcon class="h-4 w-4" /></button>
+              </div>
+              <textarea
+                class="w-full p-3 min-h-[400px] focus:outline-none"
+                placeholder="开始编写文章内容..."
+              ></textarea>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div class="space-y-6">
+        <Card title="发布设置">
+          <div class="space-y-4">
+            <div>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 rounded"
+                  v-model="scheduledPublish"
+                />
+                <span class="ml-2 text-sm text-gray-700">定时发布</span>
+              </label>
+            </div>
+            <div v-if="scheduledPublish" class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1"> 日期 </label>
+                <div class="relative">
+                  <input
+                    type="date"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
+                  />
+                  <CalendarIcon
+                    class="h-4 w-4 text-gray-400 absolute top-1/2 right-3 transform -translate-y-1/2"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1"> 时间 </label>
+                <div class="relative">
+                  <input
+                    type="time"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
+                  />
+                  <ClockIcon
+                    class="h-4 w-4 text-gray-400 absolute top-1/2 right-3 transform -translate-y-1/2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 可见范围 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="public">公开</option>
+                <option value="private">仅自己可见</option>
+              </select>
+            </div>
+          </div>
+        </Card>
+
+        <Card title="文章设置">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 作者 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="official">灵兽官方账号</option>
+                <option value="activity">灵兽活动发布</option>
+                <option value="guide">灵兽攻略站</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 标签 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 mb-2"
+              >
+                <option value="">选择一级标签</option>
+                <option value="1">萌新入门</option>
+                <option value="5">灵兽百科</option>
+                <option value="8">社交指南</option>
+                <option value="11">版本活动</option>
+              </select>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="">选择二级标签</option>
+                <option value="2">快速升级</option>
+                <option value="3">赚钱秘籍</option>
+                <option value="4">伙伴养成</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 封面图 </label>
+              <div
+                class="border-2 border-dashed border-gray-300 rounded-md p-6 flex flex-col items-center"
+              >
+                <ImageIcon class="h-8 w-8 text-gray-400 mb-2" />
+                <p class="text-sm text-gray-500 mb-1">点击上传封面图</p>
+                <p class="text-xs text-gray-400">或从文章首图自动提取</p>
+                <input type="file" class="hidden" />
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+// This component seems very similar to ArticleEditor.vue.
+// If they are meant to be the same, one can be removed.
+// This conversion assumes it's a distinct page/component as listed.
+import { ref } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import {
+  BoldIcon,
+  ItalicIcon,
+  UnderlineIcon,
+  ListIcon,
+  ImageIcon,
+  AlignLeftIcon,
+  AlignCenterIcon,
+  AlignRightIcon,
+  CalendarIcon,
+  ClockIcon
+} from 'lucide-vue-next'
+
+const title = ref('')
+const scheduledPublish = ref(false)
+
+// Logic for saving, publishing, fetching data if editing would go here.
+</script>
+
+```
+
+### src\pages\DailySignIn.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">每日签到管理</h1>
+      <div class="flex space-x-2">
+        <Button variant="outline" :icon="UploadIcon" @click="handleBulkUpload"> 批量导入 </Button>
+        <Button variant="outline" :icon="CopyIcon" @click="handleCopyLastMonth">
+          复制上月模板
+        </Button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2">
+        <Card title="日历配置">
+          <div class="mb-4 flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+              <button
+                class="p-2 hover:bg-gray-100 rounded-full"
+                @click="handlePreviousMonth"
+              >
+                <ChevronLeftIcon class="h-5 w-5" />
+              </button>
+              <span class="text-lg font-medium">
+                {{ formattedCurrentMonth }}
+              </span>
+              <button class="p-2 hover:bg-gray-100 rounded-full" @click="handleNextMonth">
+                <ChevronRightIcon class="h-5 w-5" />
+              </button>
+            </div>
+          </div>
+          <div class="grid grid-cols-7 gap-2">
+            <div
+              v-for="dayName in ['日', '一', '二', '三', '四', '五', '六']"
+              :key="dayName"
+              class="text-center py-2 text-sm font-medium text-gray-500"
+            >
+              {{ dayName }}
+            </div>
+            <button
+              v-for="day in daysInMonth"
+              :key="day"
+              @click="selectedDay = day"
+              :class="[
+                'aspect-square p-2 rounded-lg border text-sm',
+                selectedDay === day ? 'border-blue-500 bg-blue-50' : 'border-gray-200',
+                hasRewardOnDay(day) ? 'bg-green-50' : '',
+                'hover:border-blue-500 transition-colors'
+              ]"
+            >
+              <div class="font-medium">{{ day }}</div>
+              <div v-if="hasRewardOnDay(day)" class="text-xs text-green-600 mt-1">已配置</div>
+            </button>
+          </div>
+        </Card>
+      </div>
+
+      <div class="space-y-6">
+        <Card title="奖励配置">
+          <div class="space-y-4">
+            <template v-if="selectedDay">
+              <div class="p-4 bg-blue-50 rounded-lg">
+                <div class="font-medium text-blue-800">
+                  {{ formattedCurrentMonth }}{{ selectedDay }}日
+                </div>
+              </div>
+              <div class="space-y-4">
+                <div
+                  v-for="reward in rewardsForSelectedDay"
+                  :key="reward.id"
+                  class="flex items-center justify-between p-3 border border-gray-200 rounded-lg"
+                >
+                  <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gray-100 rounded flex items-center justify-center">
+                      <img :src="reward.icon" :alt="reward.name" class="w-6 h-6" />
+                    </div>
+                    <div>
+                      <div class="font-medium">{{ reward.name }}</div>
+                      <div class="text-sm text-gray-500">
+                        {{ reward.type === 'currency' ? '货币' : '道具' }} x
+                        {{ reward.quantity }}
+                      </div>
+                    </div>
+                  </div>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    :icon="TrashIcon"
+                    @click="handleDeleteReward(reward.id)"
+                  >
+                    删除
+                  </Button>
+                </div>
+                <Button
+                  variant="outline"
+                  class="w-full"
+                  :icon="PlusIcon"
+                  @click="isAddRewardModalOpen = true"
+                >
+                  添加奖励
+                </Button>
+              </div>
+            </template>
+            <div v-else class="text-center py-8 text-gray-500">请选择日期配置奖励</div>
+          </div>
+        </Card>
+        <MessageSettings module-type="sign_in" title="签到提醒设置" />
+      </div>
+    </div>
+
+    <Modal
+      :is-open="isAddRewardModalOpen"
+      @close="closeAddRewardModal"
+      title="添加奖励"
+    >
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 奖励图标 </label>
+          <div class="flex items-center space-x-4">
+            <div class="w-12 h-12 bg-gray-100 rounded flex items-center justify-center">
+              <img :src="rewardForm.icon" alt="" class="w-8 h-8" />
+            </div>
+            <input type="file" ref="rewardIconInput" @change="handleRewardIconUpload" class="hidden" accept="image/*" />
+            <Button variant="outline" size="sm" @click="triggerRewardIconUpload"> 上传图标 </Button>
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 奖励名称 </label>
+          <input
+            type="text"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            v-model="rewardForm.name"
+          />
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 奖励类型 </label>
+          <select
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            v-model="rewardForm.type"
+          >
+            <option value="currency">货币</option>
+            <option value="item">道具</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1"> 数量 </label>
+          <input
+            type="number"
+            min="1"
+            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            v-model.number="rewardForm.quantity"
+          />
+        </div>
+      </div>
+      <template #footer>
+        <Button
+          variant="primary"
+          class="ml-3"
+          @click="handleAddReward"
+          :disabled="!rewardForm.name"
+        >
+          确认
+        </Button>
+        <Button variant="outline" @click="closeAddRewardModal"> 取消 </Button>
+      </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import MessageSettings from '@/components/message/MessageSettings.vue'
+import {
+  PlusIcon,
+  CopyIcon,
+  TrashIcon,
+  // ImageIcon, // Not directly used in template, but for icon upload logic
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  UploadIcon,
+  // DownloadIcon // Not used in React version
+} from 'lucide-vue-next'
+import { format, addMonths, subMonths, getDaysInMonth as dfnsGetDaysInMonth } from 'date-fns'
+
+interface Reward {
+  id: number
+  icon: string
+  name: string
+  type: 'item' | 'currency'
+  quantity: number
+  day: number // Day of the month
+}
+
+interface RewardFormData {
+  icon: string
+  name: string
+  type: 'item' | 'currency'
+  quantity: number
+}
+
+const mockRewards: Reward[] = [
+  { id: 1, icon: 'https://placehold.co/32x32', name: '金币', type: 'currency', quantity: 100, day: 1 },
+  { id: 2, icon: 'https://placehold.co/32x32', name: '经验药水', type: 'item', quantity: 1, day: 2 },
+  { id: 3, icon: 'https://placehold.co/32x32', name: '钻石', type: 'currency', quantity: 50, day: 3 }
+]
+
+const currentDate = ref(new Date())
+const rewards = ref<Reward[]>(mockRewards)
+const selectedDay = ref<number | null>(null)
+const isAddRewardModalOpen = ref(false)
+
+const defaultRewardForm: RewardFormData = { icon: 'https://placehold.co/32x32', name: '', type: 'currency', quantity: 1 }
+const rewardForm = ref<RewardFormData>({ ...defaultRewardForm })
+const rewardIconInput = ref<HTMLInputElement | null>(null);
+const bulkUploadInput = ref<HTMLInputElement | null>(null);
+
+
+const formattedCurrentMonth = computed(() => format(currentDate.value, 'yyyy年MM月'))
+const daysInMonth = computed(() => {
+  const days = dfnsGetDaysInMonth(currentDate.value)
+  return Array.from({ length: days }, (_, i) => i + 1)
+})
+
+const rewardsForSelectedDay = computed(() => {
+  if (!selectedDay.value) return []
+  // This should also filter by month/year if rewards are stored globally for all time
+  return rewards.value.filter(reward => reward.day === selectedDay.value)
+})
+
+const hasRewardOnDay = (day: number) => {
+  // This should also filter by month/year
+  return rewards.value.some(reward => reward.day === day)
+}
+
+const handlePreviousMonth = () => {
+  currentDate.value = subMonths(currentDate.value, 1)
+  selectedDay.value = null // Reset selected day when month changes
+}
+const handleNextMonth = () => {
+  currentDate.value = addMonths(currentDate.value, 1)
+  selectedDay.value = null
+}
+
+const handleCopyLastMonth = () => {
+  alert('复制上月模板 (功能待实现)')
+  // Logic to copy rewards from the previous month
+}
+
+const handleDeleteReward = (id: number) => {
+  rewards.value = rewards.value.filter(reward => reward.id !== id)
+}
+
+const closeAddRewardModal = () => {
+  isAddRewardModalOpen.value = false
+  rewardForm.value = { ...defaultRewardForm }
+}
+
+const handleAddReward = () => {
+  if (selectedDay.value && rewardForm.value.name) {
+    const newReward: Reward = {
+      id: rewards.value.length > 0 ? Math.max(...rewards.value.map(r => r.id)) + 1 : 1,
+      ...rewardForm.value,
+      day: selectedDay.value
+    }
+    rewards.value.push(newReward)
+    closeAddRewardModal()
+  }
+}
+
+const triggerRewardIconUpload = () => {
+  rewardIconInput.value?.click();
+}
+const handleRewardIconUpload = (event: Event) => {
+  const target = event.target as HTMLInputElement;
+  const file = target.files?.[0];
+  if (file) {
+    rewardForm.value.icon = URL.createObjectURL(file);
+    // In real app, upload and get URL
+  }
+}
+
+const handleBulkUpload = () => {
+  // Create input element dynamically or use a ref to a hidden one
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.csv,.xlsx';
+  input.onchange = (e) => {
+    const file = (e.target as HTMLInputElement).files?.[0];
+    if (file) {
+      console.log('Uploading file:', file.name);
+      // Process file
+    }
+  };
+  input.click();
+}
+
+// const handleBulkExport = () => { // Not used in React template
+//   console.log('Exporting rewards data (功能待实现)')
+// }
+</script>
+
+```
+
+### src\pages\Dashboard.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">仪表盘</h1>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+      <StatCard title="用户总数" value="12,345" color="bg-blue-100">
+        <template #icon><UsersIcon class="h-6 w-6 text-blue-500" /></template>
+      </StatCard>
+      <StatCard title="今日签到" value="1,234" color="bg-green-100">
+        <template #icon><CalendarIcon class="h-6 w-6 text-green-500" /></template>
+      </StatCard>
+      <StatCard title="活动参与" value="5,678" color="bg-purple-100">
+        <template #icon><ZapIcon class="h-6 w-6 text-purple-500" /></template>
+      </StatCard>
+      <StatCard title="内容总数" value="890" color="bg-yellow-100">
+        <template #icon><TagIcon class="h-6 w-6 text-yellow-500" /></template>
+      </StatCard>
+      <StatCard title="消息发送" value="4,567" color="bg-red-100">
+        <template #icon><BellIcon class="h-6 w-6 text-red-500" /></template>
+      </StatCard>
+      <StatCard title="系统健康度" value="98%" color="bg-indigo-100">
+        <template #icon><BarChart2Icon class="h-6 w-6 text-indigo-500" /></template>
+      </StatCard>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <Card title="模块使用情况">
+        <div class="h-80 flex items-center justify-center text-gray-500">
+          图表占位 - 各模块使用频率统计
+        </div>
+      </Card>
+      <Card title="最近活动">
+        <div class="space-y-4">
+          <div
+            v-for="i in 5"
+            :key="i"
+            class="flex items-center pb-4 border-b border-gray-100 last:border-0"
+          >
+            <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+              <UsersIcon class="h-5 w-5 text-blue-500" /> <!-- Example icon -->
+            </div>
+            <div>
+              <p class="text-sm font-medium">管理员更新了Banner配置 {{ i }}</p>
+              <p class="text-xs text-gray-500 mt-1">2小时前</p>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import Card from '@/components/ui/Card.vue'
+import { BarChart2Icon, UsersIcon, CalendarIcon, ZapIcon, TagIcon, BellIcon } from 'lucide-vue-next'
+
+// StatCard sub-component (can be moved to a separate file if preferred)
+import { defineComponent, h } from 'vue'
+
+const StatCard = defineComponent({
+  props: {
+    title: { type: String, required: true },
+    value: { type: String, required: true },
+    color: { type: String, required: true }
+  },
+  setup(props, { slots }) {
+    return () =>
+      h(
+        'div',
+        { class: 'bg-white rounded-lg shadow-sm border border-gray-200 p-6' },
+        h('div', { class: 'flex items-center' }, [
+          h('div', { class: `rounded-full p-3 ${props.color}` }, slots.icon ? slots.icon() : ''),
+          h('div', { class: 'ml-5' }, [
+            h('p', { class: 'text-sm font-medium text-gray-500' }, props.title),
+            h('p', { class: 'text-2xl font-semibold mt-1' }, props.value)
+          ])
+        ])
+      )
+  }
+})
+</script>
+
+```
+
+### src\pages\MessageFactory.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">订阅消息工厂</h1>
+      <Button variant="primary" :icon="PlusIcon" @click="isAddModalOpen = true"> 新增模板 </Button>
+    </div>
+
+    <div class="mb-6">
+      <div class="flex space-x-2">
+        <Button
+          :variant="selectedCategory === 'all' ? 'primary' : 'outline'"
+          @click="selectedCategory = 'all'"
+        >
+          全部
+        </Button>
+        <Button
+          v-for="(label, key) in categoryLabels"
+          :key="key"
+          :variant="selectedCategory === key ? 'primary' : 'outline'"
+          @click="selectedCategory = key"
+        >
+          {{ label }}
+        </Button>
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <Card v-for="template in filteredTemplates" :key="template.id">
+        <div class="flex justify-between">
+          <div class="flex-1">
+            <!-- Render Template Content -->
+            <div class="space-y-4">
+              <div class="flex items-center space-x-2">
+                <h3 class="font-medium text-gray-900">{{ template.name }}</h3>
+                <span
+                  :class="[
+                    'px-2 py-0.5 text-xs rounded-full',
+                    statusInfo(template.status).color
+                  ]"
+                >
+                  {{ statusInfo(template.status).label }}
+                </span>
+                <span class="text-sm text-gray-500">
+                  {{ categoryLabels[template.category] }}
+                </span>
+              </div>
+              <div class="flex items-center space-x-4 text-sm text-gray-500">
+                <span>模板ID: {{ template.templateId }}</span>
+                <span>编号: {{ template.code }}</span>
+              </div>
+              <div class="mt-2 bg-gray-50 rounded p-3 text-sm">
+                <div class="font-medium text-gray-700 mb-1">模板内容:</div>
+                <div class="text-gray-600 whitespace-pre-line">
+                  {{ template.content }}
+                </div>
+              </div>
+              <div class="flex items-center space-x-4 text-sm">
+                <span
+                  v-for="param in template.parameters"
+                  :key="param.key"
+                  class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs"
+                >
+                  {{ param.name }}
+                </span>
+              </div>
+              <div v-if="template.boundActivity" class="mt-2 border-t pt-4">
+                <div class="flex items-center space-x-2">
+                  <span class="text-sm font-medium text-gray-700">关联活动：</span>
+                  <span class="text-sm text-gray-600">
+                    {{ template.boundActivity.title }}
+                  </span>
+                  <span
+                    :class="[
+                      'px-2 py-0.5 rounded-full text-xs',
+                      activityStatusClass(template.boundActivity.status)
+                    ]"
+                  >
+                    {{ activityStatusText(template.boundActivity.status) }}
+                  </span>
+                </div>
+                <div class="text-xs text-gray-500 mt-1">
+                  活动时间：{{ template.boundActivity.startTime }} 至
+                  {{ template.boundActivity.endTime }}
+                </div>
+                <div
+                  v-if="
+                    template.stats &&
+                    template.status === 'active' &&
+                    template.category === 'activity' &&
+                    template.boundActivity.status === 'active'
+                  "
+                  class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t"
+                >
+                  <div>
+                    <div class="text-sm font-medium text-gray-700">预约人数</div>
+                    <div class="mt-1 text-2xl font-semibold text-blue-600">
+                      {{ template.stats.subscribers.toLocaleString() }}
+                    </div>
+                  </div>
+                  <div>
+                    <div class="text-sm font-medium text-gray-700">推送人数</div>
+                    <div class="text-xl font-medium text-gray-900 mt-1">
+                      {{ template.stats.pushTasks.total.toLocaleString() }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Render Template Content -->
+          </div>
+          <div class="flex items-start space-x-2 ml-4">
+            <Button variant="outline" size="sm" :icon="EditIcon"> 编辑 </Button>
+            <Button
+              v-if="template.status === 'active'"
+              variant="outline"
+              size="sm"
+              :icon="PauseIcon"
+            >
+              停用
+            </Button>
+            <Button v-else variant="outline" size="sm" :icon="PlayIcon"> 启用 </Button>
+            <Button variant="danger" size="sm" :icon="TrashIcon"> 删除 </Button>
+          </div>
+        </div>
+      </Card>
+    </div>
+    <!-- Add Modal (structure not provided in React, so basic placeholder) -->
+     <Modal :is-open="isAddModalOpen" @close="isAddModalOpen = false" title="新增模板">
+        <p>Form for adding new template goes here...</p>
+        <template #footer>
+            <Button variant="primary" @click="isAddModalOpen = false">保存</Button>
+            <Button variant="outline" @click="isAddModalOpen = false">取消</Button>
+        </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import { PlusIcon, EditIcon, TrashIcon, PlayIcon, PauseIcon } from 'lucide-vue-next'
+
+interface Template {
+  id: number
+  name: string
+  status: 'active' | 'pending' | 'rejected'
+  category: string
+  templateId: string
+  code: string
+  content: string
+  parameters: { key: string; name: string }[]
+  stats?: {
+    subscribers: number
+    pushTasks: { total: number; success: number; failed: number }
+  }
+  boundActivity?: {
+    title: string
+    status: 'active' | 'upcoming' | 'ended'
+    startTime: string
+    endTime: string
+  }
+}
+
+const statusLabels: Record<Template['status'], { label: string; color: string }> = {
+  active: { label: '已启用', color: 'bg-green-100 text-green-800' },
+  pending: { label: '审核中', color: 'bg-yellow-100 text-yellow-800' },
+  rejected: { label: '已驳回', color: 'bg-red-100 text-red-800' }
+}
+
+const categoryLabels: Record<string, string> = {
+  activity: '活动通知',
+  sign_in: '签到提醒',
+  content: '内容更新'
+}
+
+const mockTemplates: Template[] = [
+  { id: 1, name: '活动开始提醒', status: 'active', category: 'activity', templateId: 'TPL_001', code: 'ACT_START', content: '亲爱的${user}，${activityName}活动即将开始，记得来参加哦！', parameters: [ { key: 'user', name: '用户名' }, { key: 'activityName', name: '活动名称' } ], stats: { subscribers: 12345, pushTasks: { total: 10000, success: 9800, failed: 200 } }, boundActivity: { title: '新春活动', status: 'upcoming', startTime: '2024-02-10', endTime: '2024-02-24' } },
+  { id: 2, name: '签到奖励提醒', status: 'pending', category: 'sign_in', templateId: 'TPL_002', code: 'SIGN_REWARD', content: '亲爱的${user}，今日签到奖励${reward}等你来领取！', parameters: [ { key: 'user', name: '用户名' }, { key: 'reward', name: '奖励内容' } ], stats: { subscribers: 8765, pushTasks: { total: 5000, success: 4950, failed: 50 } } }
+]
+
+const templates = ref<Template[]>(mockTemplates)
+const isAddModalOpen = ref(false)
+const selectedCategory = ref<string>('all')
+
+const filteredTemplates = computed(() =>
+  selectedCategory.value === 'all'
+    ? templates.value
+    : templates.value.filter(template => template.category === selectedCategory.value)
 )
 
+const statusInfo = (status: Template['status']) => statusLabels[status]
+
+const activityStatusClass = (status: Template['boundActivity']['status']) => {
+  if (status === 'active') return 'bg-green-100 text-green-800'
+  if (status === 'upcoming') return 'bg-blue-100 text-blue-800'
+  return 'bg-gray-100 text-gray-800'
+}
+const activityStatusText = (status: Template['boundActivity']['status']) => {
+  if (status === 'active') return '进行中'
+  if (status === 'upcoming') return '未开始'
+  return '已结束'
+}
+</script>
+
 ```
 
-### src\vite-env.d.ts
+### src\pages\Permissions.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">权限管理</h1>
+      <div class="flex space-x-2">
+        <Button variant="primary" :icon="PlusIcon"> 新增账号 </Button>
+        <Button
+          variant="danger"
+          :icon="TrashIcon"
+          :disabled="selectedRows.length === 0"
+          @click="deleteSelectedUsers"
+        >
+          删除账号
+        </Button>
+      </div>
+    </div>
+    <Card>
+      <TableComponent
+        :columns="columns"
+        :data="users"
+        :selected-rows="selectedRows"
+        :all-selected="allSelected"
+        @select-row="handleSelectRow"
+        @select-all="handleSelectAll"
+        key-field="id"
+      />
+    </Card>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import TableComponent from '@/components/ui/Table.vue' // Renamed to avoid conflict
+import { PlusIcon, TrashIcon } from 'lucide-vue-next'
+
+interface User {
+  id: number
+  account: string
+  createdAt: string
+}
+
+const mockUsers: User[] = [
+  { id: 1, account: 'admin', createdAt: '2023-01-01 10:00:00' },
+  { id: 2, account: 'editor', createdAt: '2023-01-02 11:30:00' },
+  { id: 3, account: 'viewer', createdAt: '2023-01-03 09:15:00' },
+  { id: 4, account: 'marketing', createdAt: '2023-01-04 14:20:00' },
+  { id: 5, account: 'support', createdAt: '2023-01-05 16:45:00' }
+]
+
+const users = ref<User[]>(mockUsers)
+const selectedRows = ref<number[]>([])
+const allSelected = ref(false)
+
+const columns = [
+  { header: 'ID', accessor: 'id', width: 'w-1/12' },
+  { header: '账号', accessor: 'account', width: 'w-5/12' },
+  { header: '创建时间', accessor: 'createdAt', width: 'w-6/12' }
+]
+
+const handleSelectRow = (id: number) => {
+  const index = selectedRows.value.indexOf(id)
+  if (index > -1) {
+    selectedRows.value.splice(index, 1)
+  } else {
+    selectedRows.value.push(id)
+  }
+  allSelected.value = selectedRows.value.length === users.value.length && users.value.length > 0
+}
+
+const handleSelectAll = () => {
+  allSelected.value = !allSelected.value
+  if (allSelected.value) {
+    selectedRows.value = users.value.map(user => user.id)
+  } else {
+    selectedRows.value = []
+  }
+}
+
+const deleteSelectedUsers = () => {
+  if (selectedRows.value.length === 0) return;
+  // Implement deletion logic, e.g., filter users list
+  users.value = users.value.filter(user => !selectedRows.value.includes(user.id));
+  selectedRows.value = [];
+  allSelected.value = false;
+  alert(`${selectedRows.value.length} users would be deleted. (Actual deletion logic needed)`);
+}
+</script>
+
+```
+
+### src\pages\TagManagement.vue
+```vue
+<template>
+  <div>
+    <div class="flex justify-between items-center mb-6">
+      <h1 class="text-2xl font-bold text-gray-800">标签管理</h1>
+      <Button
+        variant="primary"
+        :icon="PlusIcon"
+        @click="openAddPrimaryModal"
+      >
+        新增一级标签
+      </Button>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6">
+      <Card
+        v-for="primaryTag in primaryTags"
+        :key="primaryTag.id"
+        class="border-l-4 border-l-blue-500"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <div>
+            <h3 class="text-lg font-medium text-gray-800">
+              {{ primaryTag.name }}
+            </h3>
+            <p class="text-sm text-gray-500">关联文章: {{ primaryTag.postCount }}</p>
+          </div>
+          <div class="flex space-x-2">
+            <Button variant="outline" size="sm" @click="editTag(primaryTag)"> 编辑 </Button>
+            <Button variant="danger" size="sm" @click="deleteTag(primaryTag.id)"> 删除 </Button>
+          </div>
+        </div>
+        <div class="bg-gray-50 rounded-lg p-4">
+          <div class="flex justify-between items-center mb-3">
+            <h4 class="text-sm font-medium text-gray-600">二级标签</h4>
+            <Button
+              variant="outline"
+              size="sm"
+              :icon="PlusIcon"
+              @click="openAddSecondaryModal(primaryTag.id)"
+            >
+              新增二级标签
+            </Button>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div
+              v-for="secondaryTag in getSecondaryTags(primaryTag.id)"
+              :key="secondaryTag.id"
+              class="bg-white p-3 rounded border border-gray-200 flex justify-between items-center"
+            >
+              <div>
+                <p class="font-medium">{{ secondaryTag.name }}</p>
+                <p class="text-xs text-gray-500">关联文章: {{ secondaryTag.postCount }}</p>
+              </div>
+              <div class="flex space-x-1">
+                <button class="text-gray-500 hover:text-blue-500 p-1" @click="editTag(secondaryTag)">
+                  <Edit2Icon class="h-4 w-4" />
+                </button>
+                <button class="text-gray-500 hover:text-red-500 p-1" @click="deleteTag(secondaryTag.id)">
+                  <Trash2Icon class="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Card>
+    </div>
+
+    <Modal
+      :is-open="isAddEditModalOpen"
+      @close="closeAddEditModal"
+      :title="modalTitle"
+    >
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1"> 标签名称 </label>
+        <input
+          type="text"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          v-model="tagForm.name"
+          placeholder="请输入标签名称"
+        />
+      </div>
+      <template #footer>
+        <Button
+          variant="primary"
+          class="ml-3"
+          @click="handleSaveTag"
+          :disabled="!tagForm.name.trim()"
+        >
+          确认
+        </Button>
+        <Button variant="outline" @click="closeAddEditModal"> 取消 </Button>
+      </template>
+    </Modal>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import Modal from '@/components/ui/Modal.vue'
+import { PlusIcon, Edit2Icon, Trash2Icon } from 'lucide-vue-next' // Using Edit2Icon and Trash2Icon for variety
+
+interface Tag {
+  id: number
+  name: string
+  parentId: number | null
+  postCount: number
+}
+
+interface TagFormData {
+  name: string
+  parentId?: number | null
+  id?: number // For editing
+}
+
+const mockTags: Tag[] = [
+  { id: 1, name: '萌新入门', parentId: null, postCount: 45 }, { id: 2, name: '快速升级', parentId: 1, postCount: 12 }, { id: 3, name: '赚钱秘籍', parentId: 1, postCount: 18 }, { id: 4, name: '伙伴养成', parentId: 1, postCount: 15 },
+  { id: 5, name: '灵兽百科', parentId: null, postCount: 32 }, { id: 6, name: '赚钱秘籍', parentId: 5, postCount: 10 }, { id: 7, name: '伙伴养成', parentId: 5, postCount: 22 },
+  { id: 8, name: '社交指南', parentId: null, postCount: 28 }, { id: 9, name: '赚钱秘籍', parentId: 8, postCount: 8 }, { id: 10, name: '伙伴养成', parentId: 8, postCount: 20 },
+  { id: 11, name: '版本活动', parentId: null, postCount: 36 }, { id: 12, name: '赚钱秘籍', parentId: 11, postCount: 14 }, { id: 13, name: '伙伴养成', parentId: 11, postCount: 22 }
+]
+
+const tags = ref<Tag[]>(mockTags)
+const isAddEditModalOpen = ref(false)
+const editingTagId = ref<number | null>(null)
+const currentParentIdForNewTag = ref<number | null>(null)
+
+const defaultTagForm: TagFormData = { name: '' }
+const tagForm = ref<TagFormData>({ ...defaultTagForm })
+
+const modalTitle = computed(() => {
+  if (editingTagId.value) return '编辑标签'
+  return currentParentIdForNewTag.value === null ? '新增一级标签' : '新增二级标签'
+})
+
+const primaryTags = computed(() => tags.value.filter(tag => tag.parentId === null))
+
+const getSecondaryTags = (parentId: number) => {
+  return tags.value.filter(tag => tag.parentId === parentId)
+}
+
+const resetFormAndState = () => {
+  tagForm.value = { ...defaultTagForm }
+  editingTagId.value = null
+  currentParentIdForNewTag.value = null
+}
+
+const openAddPrimaryModal = () => {
+  resetFormAndState()
+  currentParentIdForNewTag.value = null
+  isAddEditModalOpen.value = true
+}
+
+const openAddSecondaryModal = (parentId: number) => {
+  resetFormAndState()
+  currentParentIdForNewTag.value = parentId
+  isAddEditModalOpen.value = true
+}
+
+const editTag = (tag: Tag) => {
+  editingTagId.value = tag.id
+  tagForm.value = { name: tag.name, parentId: tag.parentId, id: tag.id }
+  currentParentIdForNewTag.value = tag.parentId // Keep track of context
+  isAddEditModalOpen.value = true
+}
+
+const closeAddEditModal = () => {
+  isAddEditModalOpen.value = false
+  resetFormAndState()
+}
+
+const handleSaveTag = () => {
+  if (!tagForm.value.name.trim()) return
+
+  if (editingTagId.value) { // Editing existing tag
+    const tagIndex = tags.value.findIndex(t => t.id === editingTagId.value)
+    if (tagIndex !== -1) {
+      tags.value[tagIndex].name = tagForm.value.name
+    }
+  } else { // Adding new tag
+    const newTag: Tag = {
+      id: tags.value.length > 0 ? Math.max(...tags.value.map(t => t.id)) + 1 : 1,
+      name: tagForm.value.name,
+      parentId: currentParentIdForNewTag.value,
+      postCount: 0
+    }
+    tags.value.push(newTag)
+  }
+  closeAddEditModal()
+}
+
+const deleteTag = (tagId: number) => {
+  // Also handle deletion of child tags if it's a primary tag, or re-parenting.
+  // For simplicity, just deleting the tag and its direct children.
+  const childrenIds = tags.value.filter(t => t.parentId === tagId).map(t => t.id)
+  tags.value = tags.value.filter(t => t.id !== tagId && !childrenIds.includes(t.id))
+  // If deleting a primary tag, its children are also removed.
+  // If deleting a secondary tag, only it is removed.
+  // More complex logic might be needed based on requirements.
+}
+</script>
+
+```
+
+### src\pages\VideoPublisher.vue
+```vue
+<template>
+  <div class="space-y-6">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center">
+        <Button
+          variant="outline"
+          size="sm"
+          :icon="ChevronLeftIcon"
+          @click="router.push('/content-dashboard')"
+        >
+          返回
+        </Button>
+        <h1 class="text-2xl font-bold text-gray-800 ml-4">
+          {{ videoId ? '编辑视频' : '发布视频' }}
+        </h1>
+      </div>
+      <div class="flex space-x-2">
+        <Button variant="outline" @click="handleSaveDraft"> 保存草稿 </Button>
+        <Button variant="primary" @click="handlePublish"> 发布视频 </Button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="lg:col-span-2 space-y-6">
+        <Card>
+          <div class="space-y-6">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 视频标题 </label>
+              <input
+                type="text"
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                v-model="formData.title"
+                placeholder="请输入视频标题..."
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 上传视频 </label>
+              <div class="border-2 border-dashed border-gray-300 rounded-lg p-6">
+                <div v-if="videoPreviewUrl" class="space-y-4">
+                  <video ref="videoPlayer" :src="videoPreviewUrl" controls class="w-full rounded-lg" />
+                  <Button
+                    variant="outline"
+                    :icon="UploadIcon"
+                    @click="resetVideoUpload"
+                  >
+                    重新上传
+                  </Button>
+                </div>
+                <div v-else>
+                  <input
+                    type="file"
+                    id="video-upload"
+                    class="hidden"
+                    accept="video/mp4,video/webm,video/ogg"
+                    @change="handleVideoUpload"
+                    ref="videoUploadInput"
+                  />
+                  <label
+                    for="video-upload"
+                    class="flex flex-col items-center cursor-pointer"
+                    @click="triggerVideoUpload"
+                  >
+                    <UploadIcon class="h-8 w-8 text-gray-400 mb-2" />
+                    <p class="text-sm text-gray-500">点击上传视频</p>
+                    <p class="text-xs text-gray-400 mt-1">支持 MP4、WebM、Ogg 格式</p>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 视频文案 </label>
+              <div class="relative">
+                <textarea
+                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  rows="5"
+                  :maxlength="MAX_DESCRIPTION_LENGTH"
+                  v-model="formData.description"
+                  placeholder="请输入视频文案描述..."
+                />
+                <div class="absolute bottom-2 right-2 text-sm text-gray-500">
+                  {{ formData.description.length }}/{{ MAX_DESCRIPTION_LENGTH }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+
+      <div class="space-y-6">
+        <Card title="发布设置">
+          <div class="space-y-4">
+            <div>
+              <label class="flex items-center">
+                <input
+                  type="checkbox"
+                  class="h-4 w-4 text-blue-600 rounded"
+                  v-model="formData.scheduledPublish"
+                />
+                <span class="ml-2 text-sm text-gray-700">定时发布</span>
+              </label>
+            </div>
+            <div v-if="formData.scheduledPublish" class="grid grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1"> 日期 </label>
+                <div class="relative">
+                  <input
+                    type="date"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    v-model="formData.publishDate"
+                  />
+                  <CalendarIcon
+                    class="h-4 w-4 text-gray-400 absolute top-1/2 right-3 transform -translate-y-1/2"
+                  />
+                </div>
+              </div>
+              <div>
+                <label class="block text-xs font-medium text-gray-700 mb-1"> 时间 </label>
+                <div class="relative">
+                  <input
+                    type="time"
+                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    v-model="formData.publishTime"
+                  />
+                  <ClockIcon
+                    class="h-4 w-4 text-gray-400 absolute top-1/2 right-3 transform -translate-y-1/2"
+                  />
+                </div>
+              </div>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 可见范围 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                v-model="formData.visibility"
+              >
+                <option value="public">公开</option>
+                <option value="private">仅自己可见</option>
+              </select>
+            </div>
+          </div>
+        </Card>
+
+        <Card title="视频设置">
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 作者 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                v-model="formData.author"
+              >
+                <option value="official">灵兽官方账号</option>
+                <option value="activity">灵兽活动发布</option>
+                <option value="guide">灵兽攻略站</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 标签 </label>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-2"
+                v-model="formData.primaryTag"
+              >
+                <option value="">选择一级标签</option>
+                <option value="1">萌新入门</option> <option value="5">灵兽百科</option> <option value="8">社交指南</option> <option value="11">版本活动</option>
+              </select>
+              <select
+                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                v-model="formData.secondaryTag"
+              >
+                <option value="">选择二级标签</option>
+                <option value="2">快速升级</option> <option value="3">赚钱秘籍</option> <option value="4">伙伴养成</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1"> 封面图 </label>
+              <div v-if="formData.coverImage" class="space-y-2">
+                <img
+                  :src="formData.coverImage"
+                  alt="Cover"
+                  class="w-full h-32 object-cover rounded-lg"
+                />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  class="w-full"
+                  @click="showCoverOptions = true" 
+                >
+                  更换封面
+                </Button>
+              </div>
+              <div v-else class="space-y-4">
+                <div
+                  class="border-2 border-dashed border-gray-300 rounded-md p-6 flex flex-col items-center"
+                >
+                  <ImageIcon class="h-8 w-8 text-gray-400 mb-2" />
+                  <p class="text-sm text-gray-500 mb-1">选择封面方式</p>
+                  <div class="flex space-x-2 mt-4">
+                    <input type="file" ref="coverImageUploadInput" @change="handleCoverImageUpload" class="hidden" accept="image/jpeg,image/png,image/webp" />
+                    <Button variant="outline" size="sm" @click="triggerCoverImageUpload"> 上传图片 </Button>
+                    <Button
+                      v-if="videoPreviewUrl"
+                      variant="outline"
+                      size="sm"
+                      @click="captureVideoFrame"
+                    >
+                      从视频截图
+                    </Button>
+                  </div>
+                </div>
+              </div>
+               <!-- Options to change cover if already set -->
+              <div v-if="showCoverOptions && formData.coverImage" class="mt-2 space-y-2">
+                 <input type="file" ref="coverImageUploadInputForChange" @change="handleCoverImageUpload" class="hidden" accept="image/jpeg,image/png,image/webp" />
+                 <Button variant="outline" size="sm" @click="triggerCoverImageUpload(true)">上传新图片</Button>
+                 <Button v-if="videoPreviewUrl" variant="outline" size="sm" @click="captureVideoFrame">从视频截图</Button>
+                 <Button variant="outline" size="sm" @click="showCoverOptions = false">取消</Button>
+              </div>
+            </div>
+          </div>
+        </Card>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref, reactive, computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import Card from '@/components/ui/Card.vue'
+import Button from '@/components/ui/Button.vue'
+import { ChevronLeftIcon, ImageIcon, UploadIcon, CalendarIcon, ClockIcon } from 'lucide-vue-next'
+
+interface VideoFormData {
+  title: string
+  author: string
+  description: string
+  video: File | null
+  coverImage: string | null // Data URL or server URL
+  primaryTag: string
+  secondaryTag: string
+  visibility: 'public' | 'private'
+  scheduledPublish: boolean
+  publishDate: string // YYYY-MM-DD
+  publishTime: string // HH:MM
+}
+
+const MAX_DESCRIPTION_LENGTH = 200
+const VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/ogg']
+const IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+
+const router = useRouter()
+const route = useRoute()
+const videoId = computed(() => route.params.id)
+
+const videoPlayer = ref<HTMLVideoElement | null>(null) // For capturing frame
+const videoUploadInput = ref<HTMLInputElement | null>(null)
+const coverImageUploadInput = ref<HTMLInputElement | null>(null)
+const coverImageUploadInputForChange = ref<HTMLInputElement | null>(null)
+
+
+const videoPreviewUrl = ref<string>('')
+const showCoverOptions = ref(false)
+
+const formData = reactive<VideoFormData>({
+  title: '', author: 'official', description: '', video: null, coverImage: null,
+  primaryTag: '', secondaryTag: '', visibility: 'public', scheduledPublish: false,
+  publishDate: '', publishTime: ''
+})
+
+// Fetch video data if videoId exists (on component mount)
+
+const triggerVideoUpload = () => videoUploadInput.value?.click()
+const triggerCoverImageUpload = (forChange = false) => {
+  if (forChange) {
+    coverImageUploadInputForChange.value?.click();
+  } else {
+    coverImageUploadInput.value?.click();
+  }
+}
+
+
+const handleVideoUpload = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (file && VIDEO_TYPES.includes(file.type)) {
+    formData.video = file
+    videoPreviewUrl.value = URL.createObjectURL(file)
+  } else {
+    alert('请上传有效的视频文件 (MP4, WebM, Ogg)')
+    formData.video = null;
+    videoPreviewUrl.value = '';
+    if (videoUploadInput.value) videoUploadInput.value.value = ''; // Reset file input
+  }
+}
+
+const resetVideoUpload = () => {
+  videoPreviewUrl.value = ''
+  formData.video = null
+  if (videoUploadInput.value) videoUploadInput.value.value = ''
+  // Also potentially reset cover image if it was auto-generated from video
+  // formData.coverImage = null; 
+}
+
+const handleCoverImageUpload = (event: Event) => {
+  const file = (event.target as HTMLInputElement).files?.[0]
+  if (file && IMAGE_TYPES.includes(file.type)) {
+    const imageUrl = URL.createObjectURL(file)
+    formData.coverImage = imageUrl
+    showCoverOptions.value = false // Hide options after selecting
+  } else {
+    alert('请上传有效的图片文件 (JPEG, PNG, WebP)')
+  }
+   if (coverImageUploadInput.value) coverImageUploadInput.value.value = '';
+   if (coverImageUploadInputForChange.value) coverImageUploadInputForChange.value.value = '';
+}
+
+const captureVideoFrame = () => {
+  const video = videoPlayer.value
+  if (video && video.readyState >= video.HAVE_METADATA) { // Ensure video metadata is loaded
+    const canvas = document.createElement('canvas')
+    canvas.width = video.videoWidth
+    canvas.height = video.videoHeight
+    const ctx = canvas.getContext('2d')
+    if (ctx) {
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+      formData.coverImage = canvas.toDataURL('image/jpeg')
+      showCoverOptions.value = false // Hide options after capturing
+    }
+  } else {
+    alert('视频未准备好截图，请稍后再试或播放一下视频。')
+  }
+}
+
+const handleSaveDraft = () => {
+  console.log('Saving draft:', { ...formData })
+  alert('草稿已保存 (模拟)')
+}
+
+const handlePublish = () => {
+  console.log('Publishing:', { ...formData })
+  alert('视频已发布 (模拟)')
+}
+</script>
+
+```
+
+### src\router\index.ts
 ```typescript
-/// <reference types="vite/client" />
+import { createRouter, createWebHashHistory, createWebHistory, RouteRecordRaw } from 'vue-router'
+import Layout from '@/components/layout/Layout.vue'
+import Dashboard from '@/pages/Dashboard.vue'
+import Permissions from '@/pages/Permissions.vue'
+import DailySignIn from '@/pages/DailySignIn.vue'
+import BannerManagement from '@/pages/BannerManagement.vue'
+import ActivityManagement from '@/pages/ActivityManagement.vue'
+import TagManagement from '@/pages/TagManagement.vue'
+import ContentDashboard from '@/pages/ContentDashboard.vue'
+import ArticleEditor from '@/pages/ArticleEditor.vue' // Assuming this is the primary editor
+// import ContentEditor from '@/pages/ContentEditor.vue'; // If this is a different editor
+import VideoPublisher from '@/pages/VideoPublisher.vue'
+import MessageFactory from '@/pages/MessageFactory.vue'
+import AccountManagement from '@/pages/AccountManagement.vue'
+
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      { path: 'dashboard', name: 'Dashboard', component: Dashboard },
+      { path: 'permissions', name: 'Permissions', component: Permissions },
+      { path: 'daily-sign-in', name: 'DailySignIn', component: DailySignIn },
+      { path: 'banner-management', name: 'BannerManagement', component: BannerManagement },
+      { path: 'activity-management', name: 'ActivityManagement', component: ActivityManagement },
+      { path: 'tag-management', name: 'TagManagement', component: TagManagement },
+      { path: 'content-dashboard', name: 'ContentDashboard', component: ContentDashboard },
+      { path: 'content-dashboard/article/new', name: 'ArticleNew', component: ArticleEditor },
+      { path: 'content-dashboard/article/:id', name: 'ArticleEdit', component: ArticleEditor, props: true },
+      { path: 'content-dashboard/video/new', name: 'VideoNew', component: VideoPublisher },
+      { path: 'content-dashboard/video/:id', name: 'VideoEdit', component: VideoPublisher, props: true },
+      { path: 'message-factory', name: 'MessageFactory', component: MessageFactory },
+      { path: 'account-management', name: 'AccountManagement', component: AccountManagement },
+    ]
+  },
+  // Fallback route for 404
+  {
+    path: '/:catchAll(.*)*',
+    redirect: '/dashboard' // Or a dedicated 404 page
+  }
+]
+
+const router = createRouter({
+  history: createWebHashHistory(import.meta.env.BASE_URL),
+  routes
+})
+
+export default router
+
+```
+
+### tailwind.config.js
+```javascript
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    './index.html',
+    './src/**/*.{vue,js,ts,jsx,tsx}'
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
 
 ```
 
 ### tsconfig.json
 ```json
 {
+  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
-    "target": "ES2020",
-    "useDefineForClassFields": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "module": "ESNext",
     "skipLibCheck": true,
-
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
-    /* Path Aliases */
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": []
 }
 
 ```
@@ -891,15 +4203,24 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 ### tsconfig.node.json
 ```json
 {
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "include": [
+    "vite.config.*",
+    "vitest.config.*",
+    "cypress.config.*",
+    "nightwatch.conf.*",
+    "playwright.config.*",
+    "postcss.config.js",
+    "tailwind.config.js"
+  ],
   "compilerOptions": {
     "composite": true,
-    "skipLibCheck": true,
+    "noEmit": true,
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "allowSyntheticDefaultImports": true,
-    "strict": true
-  },
-  "include": ["vite.config.ts"]
+    "moduleResolution": "Bundler",
+    "types": ["node"]
+  }
 }
 
 ```
@@ -907,12 +4228,23 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 ### vite.config.ts
 ```typescript
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import vue from '@vitejs/plugin-vue'
+import path from 'path'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [vue()],
+  resolve: {
+    alias: {
+      '@': path.resolve(__dirname, './src'),
+    },
+  },
+  // 添加 server 配置，允许通过 IP 访问
+  server: {
+    host: '0.0.0.0',  // 监听所有地址，包括局域网和公网地址
+    port: 9098,       // 可选：指定端口号
+    open: false,      // 可选：是否自动打开浏览器
+  },
 })
-
 ```
 

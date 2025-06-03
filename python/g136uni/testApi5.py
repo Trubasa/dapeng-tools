@@ -5,7 +5,7 @@ import time
 import sys
 from baseConfig import CONFIG
 
-APP_ID = "9b47f6bb-70b7-4eb8-bac6-ad5299ff43c9"
+APP_ID = CONFIG.app_id
 
 def read_markdown_file(file_path):
     """读取Markdown文件内容"""
@@ -17,6 +17,7 @@ def read_markdown_file(file_path):
         return ""
 
 def get_api_response(code_str=None, query='给一个例子'):
+    print('file_url',CONFIG.file_url);
     """从API获取响应"""
     if code_str is None:
         # 获取temp/step0.md的路径
@@ -40,11 +41,15 @@ def get_api_response(code_str=None, query='给一个例子'):
           "codeStr": code_str,
           "query": query
         },
-        'input_files': {},
+        'input_files': {
+        },
         'query': query,
         'mode': 'workflow',
         "stream_response": False
     }
+
+    if CONFIG.file_url:
+        data['input_files']['img'] = CONFIG.file_url
     
     # 显示API调用开始
     print("开始调用API...", flush=True)
