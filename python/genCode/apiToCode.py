@@ -13,7 +13,9 @@ from baseConfig import CONFIG
 PROJECT_DIR = r"G:\code\g136-miniprogram-admin-web"
 CONFIG.file_url = ''
 QUERY = """
+# 代码调整
 
+完成 `/content-dashboard` 下的`写文章`、`发视频` 对应的发布，改为私密发布 和公开发布，不需要保存草稿了
 """
 INPUT_DIR = PROJECT_DIR
 

@@ -11,9 +11,7 @@ from c2m import generate_markdown
 from baseConfig import CONFIG
 from splitContent import extract_content_from_last_single_hash
 
-# PROJECT_DIR = r"G:\code\2024-dh-carnival-uni\src"
-# PROJECT_DIR = r"D:\project_workplace\g17-credits-exchange-uni\src"
-PROJECT_DIR = r"D:\project_workplace\dapeng-tools\python\genCodeRefactor"
+PROJECT_DIR = r"D:\project_workplace\xy2-miniapp-assistance\src\minapp-code"
 INPUT_DIR = PROJECT_DIR
 CONTENT_FILE_PATH = './chatHistory/20250606.md'
 CONFIG.file_url = ''

@@ -1,0 +1,12 @@
+# 'xy2miniprogram' 项目的特定配置
+# --- API 相关配置 ---
+api:
+  app_id: "956939ad-e7be-4e6e-9467-995416c8a1a5"
+  api_params_dir: "apiParams"
+  # 此处 api_chat_system 已被移除，将自动继承 genConfigs/config.yaml 中定义的默认值。
+  # 如果需要为本项目指定特殊的 system prompt，可在此处取消注释并提供新值。
+  # api_chat_system: "这是 xy2miniprogram 项目专属的 system prompt。"
+
+project:
+  # 目标项目（待重构的项目）的根目录
+  dir: 'G:\test\testTsBase'
