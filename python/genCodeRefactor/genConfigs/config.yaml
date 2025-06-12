@@ -6,6 +6,7 @@
 api:
   url: "https://ext-idc-ai.nie.netease.com"
   app_id: ""
+  api_params_dir: "apiParams"
   # 新增: AI的系统级指令(System Prompt)
   # 定义了AI在处理请求时应遵循的核心角色和规则。
   api_chat_system: |
