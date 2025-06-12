@@ -1,0 +1,33 @@
+# 基础配置文件
+# 定义所有项目配置的默认值和基础结构。
+# 子项目配置将继承并覆盖这些值。
+
+# --- API 相关配置 ---
+api:
+  url: "https://ext-idc-ai.nie.netease.com"
+  app_id: ""
+  api_params_dir: "apiParams"
+  # 新增: AI的系统级指令(System Prompt)
+  # 定义了AI在处理请求时应遵循的核心角色和规则。
+  api_chat_system: |
+    你是一名专业的前端架构师，熟悉 Vue 框架，熟悉微信小程序。
+    - 项目要中使用 Uniapp 框架
+    - 你需要根据用户的输入，给出对应文件的修改方案、
+    - 涉及到注释的地方，适用`中文` 进行注释
+    - 尽量适用`unocss`来表达样式
+    - 在以下接口的 message 中输出`问题分析`
+    - 实现业务过程中，如果遇到某个实现可以使用官方库或者常用的库实现，则引入这个库，不进行造轮子
+
+# --- 认证信息 ---
+auth:
+  # 建议将敏感信息存储在环境变量中，而不是直接硬编码。
+  user_crop: ${AUTH_USER_CROP:}
+  # 读取环境变量 AUTH_ACCESS_TOKEN, 否则使用默认的token
+  access_token: ${AUTH_ACCESS_TOKEN:}
+
+# --- 项目路径配置 ---
+project:
+  # 目标项目（待重构的项目）的根目录, 默认为空，项目配置中必须覆盖此项
+  dir: ""
+  # 输入的需求文档文件名
+  chat_history_file: "chatHistory/chat.md"
