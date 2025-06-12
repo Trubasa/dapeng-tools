@@ -141,7 +141,8 @@ async def run_project_flow(project_name: str):
     system_prompt = app_config.get('api', {}).get('api_chat_system', '')
     if not system_prompt:
         print("警告: 'api_chat_system' 在配置中为空或未定义，API可能无法按预期工作。")
-    api_inputs["system"] = system_prompt
+    if not api_inputs.get("system"):
+        api_inputs["system"] = system_prompt
 
     chat_query = chat_content.get('content', '')
     

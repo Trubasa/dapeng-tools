@@ -52,7 +52,7 @@ EXTENSIONS_MAP = {
 DEFAULT_IGNORE_DIRS = [
     '.git', '.svn', '.idea', '.vscode', 
     'node_modules', '__pycache__', 
-    'venv', 'env', '.env', 'build', 'dist'
+    'venv', 'env', '.env', 'build', 'dist','chatHistory','temp','apiParams'
 ]
 
 DEFAULT_IGNORE_FILES = ['.gitignore','package-lock.json', '.DS_Store', 'Thumbs.db', '.env.local', '.env.development.local', '.env.test.local', '.env.production.local', 'yarn.lock']
@@ -174,7 +174,7 @@ def generate_markdown(directory, output_file='./temp/step0.md', ignore_dirs=None
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='将目录中的代码文件转换为Markdown文档')
     parser.add_argument('directory', help='要扫描的目录路径')
-    parser.add_argument('-o', '--output', default='./temp/step0.md', help='输出的Markdown文件名')
+    parser.add_argument('-o', '--output', help='输出的Markdown文件名')
     parser.add_argument('-i', '--ignore-dirs', dest='ignore_dirs', nargs='+', default=DEFAULT_IGNORE_DIRS, 
                         help='要忽略的目录名列表（空格分隔，默认包含常见系统和配置目录）')
     parser.add_argument('-f', '--ignore-files', dest='ignore_files', nargs='+', default=DEFAULT_IGNORE_FILES,
@@ -198,6 +198,10 @@ if __name__ == "__main__":
         print("\n默认忽略的文件:")
         for file_name in DEFAULT_IGNORE_FILES:
             print(f"  {file_name}")
+        exit(0)
+
+    if not args.output:
+        print("错误: 请指定输出文件名")
         exit(0)
     
     generate_markdown(args.directory, args.output, args.ignore_dirs, args.ignore_files, not args.no_toc)
