@@ -8,6 +8,8 @@ from xml.etree.ElementTree import XMLParser
 
 # 全局变量，默认输出目录
 output_dir = "output/"
+# 存储输出目录的基本名称（用于路径优化）
+output_dir_base = "output"
 
 def ensure_directory_exists(file_path):
     """确保文件所在目录存在"""
@@ -28,9 +30,36 @@ def delete_file(file_path):
         print(f"删除文件时出错: {file_path} - {e}", file=sys.stderr)
         return False
 
+def normalize_path(filename):
+    """
+    规范化文件路径，避免重复的目录名
+    例如：如果output_dir是'G:/code/g136-miniprogram-uni/src/'，文件名是'src/apps/test.json'，
+    则返回'G:/code/g136-miniprogram-uni/src/apps/test.json'而不是'G:/code/g136-miniprogram-uni/src/src/apps/test.json'
+    """
+    global output_dir, output_dir_base
+
+    # 将所有斜杠统一成系统标准
+    filename = filename.replace('/', os.sep).replace('\\', os.sep)
+    
+    # 拆分文件路径
+    parts = filename.split(os.sep)
+    
+    # 如果第一部分与output_dir_base相同，则移除
+    if parts and parts[0].lower() == output_dir_base.lower():
+        # 移除第一部分，保留剩余部分
+        parts = parts[1:]
+        
+    # 组合输出目录和处理后的文件名
+    target_path = os.path.join(output_dir, *parts) if parts else output_dir
+    
+    # 输出调试信息
+    print(f"DEBUG: 原始文件名: {filename}, 输出目录: {output_dir}, 基本名称: {output_dir_base}, 最终路径: {target_path}")
+    
+    return target_path
+
 def process_xml(xml_string):
     """处理XML字符串，提取消息和文件信息"""
-    global output_dir
+    global output_dir, output_dir_base
     
     try:
         # 解析XML
@@ -51,8 +80,12 @@ def process_xml(xml_string):
                 if filename_element is not None:
                     # 检查filename元素是否有action属性
                     action = filename_element.get("action", "").lower()
-                    # 使用全局变量output_dir而不是硬编码的"output/"
-                    file_path = os.path.join(output_dir, filename_element.text)
+                    
+                    # 获取原始文件名
+                    original_filename = filename_element.text
+                    
+                    # 规范化路径
+                    file_path = normalize_path(original_filename)
                     
                     if action == "delete":
                         # 删除文件
@@ -70,29 +103,39 @@ def process_xml(xml_string):
                         
                         print(f"文件已创建: {file_path}")
                     else:
-                        print(f"警告: 文件 {filename_element.text} 缺少内容元素", file=sys.stderr)
+                        print(f"警告: 文件 {original_filename} 缺少内容元素", file=sys.stderr)
                 else:
                     print("警告: 文件元素缺少filename子元素", file=sys.stderr)
         
     except Exception as e:
         print(f"处理XML时出错: {e}", file=sys.stderr)
+        import traceback
+        traceback.print_exc()
 
-def buildFiles(filePath,output):
+def buildFiles(filePath, output):
     """构建文件系统"""
+    global output_dir, output_dir_base
+    
     if output:
-       global output_dir 
-       output_dir = output
+        # 规范化输出目录路径
+        output_dir = os.path.normpath(output).replace('\\', os.sep)
+        if not output_dir.endswith(os.sep):
+            output_dir += os.sep
+        
+        # 提取输出目录的基本名称 (最后一层目录名)
+        output_dir_base = os.path.basename(os.path.normpath(output_dir))
+
+    print(f"输出目录: {output_dir}")
+    print(f"基本名称: {output_dir_base}")
 
     xml_string = ''
     with open(filePath, 'r', encoding='utf-8', errors="replace") as file:
         xml_string = file.read()
     process_xml(xml_string)
     
-        
-
 def main():
     """主函数，从文件读取XML字符串并处理"""
-    global output_dir
+    global output_dir, output_dir_base
     
     # 使用argparse处理命令行参数
     parser = argparse.ArgumentParser(description='处理XML文件并创建或删除指定的文件结构')
@@ -108,10 +151,13 @@ def main():
     if not output_dir.endswith(os.sep):
         output_dir += os.sep
     
-    print(f"使用输出目录: {output_dir}")
+    # 更新输出目录的基本名称
+    output_dir_base = os.path.basename(os.path.normpath(output_dir))
+    
+    print(f"使用输出目录: {output_dir} (基本名称: {output_dir_base})")
     
     try:
-        buildFiles(args.xml_file,output_dir)
+        buildFiles(args.xml_file, output_dir)
     except FileNotFoundError:
         print(f"错误: 找不到文件 '{args.xml_file}'", file=sys.stderr)
         sys.exit(1)
