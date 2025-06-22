@@ -52,7 +52,7 @@ EXTENSIONS_MAP = {
 DEFAULT_IGNORE_DIRS = [
     '.git', '.svn', '.idea', '.vscode', 
     'node_modules', '__pycache__', 
-    'venv', 'env', '.env', 'build', 'dist'
+    'venv', 'env', '.env', 'build', 'dist',
 ]
 
 DEFAULT_IGNORE_FILES = ['.gitignore','package-lock.json', '.DS_Store', 'Thumbs.db', '.env.local', '.env.development.local', '.env.test.local', '.env.production.local', 'yarn.lock']

@@ -52,10 +52,10 @@ EXTENSIONS_MAP = {
 DEFAULT_IGNORE_DIRS = [
     '.git', '.svn', '.idea', '.vscode', 
     'node_modules', '__pycache__', 
-    'venv', 'env', '.env', 'build', 'dist','chatHistory','temp','apiParams','wxcomponents'
+    'venv', 'env', '.env', 'build','public','scripts','.eslintrc-auto-import.json', 'dist','chatHistory','temp','apiParams','wxcomponents'
 ]
 
-DEFAULT_IGNORE_FILES = ['.gitignore','package-lock.json', '.DS_Store', 'Thumbs.db', '.env.local', '.env.development.local', '.env.test.local', '.env.production.local', 'yarn.lock']
+DEFAULT_IGNORE_FILES = ['.gitignore','package-lock.json', '.DS_Store', 'Thumbs.db', '.env.local', '.env.development.local', '.env.test.local', '.env.production.local', 'yarn.lock','area.ts','pnpm-lock.yaml']
 
 def scan_code_files(directory, ignore_dirs=None, ignore_files=None):
     """
