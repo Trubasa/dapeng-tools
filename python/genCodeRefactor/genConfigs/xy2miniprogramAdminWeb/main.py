@@ -6,7 +6,7 @@ import sys
 import os
 import asyncio
 
-sdk_source_dir = r'G:\code\lsdmxmp-client\node_modules\@everdev\lsdmxmp-client'
+# sdk_source_dir = r'G:\code\lsdmxmp-client\node_modules\@everdev\lsdmxmp-client'
 # --- 动态添加项目根目录到 sys.path ---
 # 这使得我们可以从 genCore 目录导入模块
 # 当前文件路径: .../genConfigs/g136Uni/main.py
@@ -70,12 +70,12 @@ async def main():
         print("配置加载完成。")
 
         # --- 步骤 2: 使用 c2m 生成 SDK 文档 ---
-        print(f"\n[步骤 2/5] 正在扫描目录 '{sdk_source_dir}' 以生成SDK文档...")
+        """  print(f"\n[步骤 2/5] 正在扫描目录 '{sdk_source_dir}' 以生成SDK文档...")
         if not os.path.isdir(sdk_source_dir):
             print(f"\n错误: 指定的SDK源目录 '{sdk_source_dir}' 不是一个有效的目录。程序退出。", file=sys.stderr)
             sys.exit(1)
         generate_markdown(sdk_source_dir, api_sdk_md_path)
-        print(f"SDK文档已成功生成到: {api_sdk_md_path}")
+        print(f"SDK文档已成功生成到: {api_sdk_md_path}") """
 
         # --- 步骤 3: 读取生成的 SDK 文档内容 ---
         print("\n[步骤 3/5] 正在读取SDK文档内容...")
