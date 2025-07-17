@@ -6,7 +6,7 @@ import sys
 import os
 import asyncio
 
-sdk_source_dir = r'G:\code\g136-miniprogram-admin-web\node_modules\@everdev\lsdmxmp-client'
+sdk_source_dir = r'G:\code\xy2-guild-quests-app'
 # --- 动态添加项目根目录到 sys.path ---
 # 这使得我们可以从 genCore 目录导入模块
 # 当前文件路径: .../genConfigs/g136Uni/main.py
