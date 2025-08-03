@@ -51,7 +51,7 @@ EXTENSIONS_MAP = {
 # 默认忽略的目录
 DEFAULT_IGNORE_DIRS = [
     '.git', '.svn', '.idea', '.vscode', 
-    'node_modules', '__pycache__', 
+    'node_modules', '__pycache__', 'node-jiti',
     'venv', 'env', '.env', 'build','public','scripts','.eslintrc-auto-import.json', 'dist','chatHistory','temp','apiParams','wxcomponents','storybook-static',"assets"
 ]
 
