@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -5,6 +6,7 @@ import asyncio
 import sys
 import os
 import json
+import requests # 导入 requests 库用于网络请求
 
 # --- 动态添加项目根目录到 sys.path ---
 # 这使得我们可以从 genCore 和 genUtils 目录导入模块
@@ -194,8 +196,27 @@ async def run_project_flow(project_name: str, step: int = 1):
         system_prompt = app_config.get('api', {}).get('api_chat_system', '')
         if not system_prompt:
             print("警告: 'api_chat_system' 在配置中为空或未定义，API可能无法按预期工作。")
-        if not api_inputs.get("system"):
-            api_inputs["system"] = system_prompt
+
+        # --- 新增逻辑: 加载并拼接 Swagger 文档 ---
+        swagger_doc_url = app_config.get('project', {}).get('swagger-doc')
+        if swagger_doc_url:
+            print(f"检测到 Swagger 文档配置，正在从 URL 加载: {swagger_doc_url}")
+            try:
+                # 使用 requests 库发起网络请求获取文档内容
+                response = requests.get(swagger_doc_url, timeout=15) # 设置15秒超时
+                response.raise_for_status()  # 如果请求失败 (如 404, 500), 则会抛出异常
+                
+                swagger_content = response.text
+                # 将 Swagger 内容附加到 system_prompt 后面，并添加说明
+                system_prompt += f"\n\n--- Swagger Doc ---\n{swagger_content}"
+                print("Swagger 文档加载并成功附加到 system_prompt。")
+
+            except requests.exceptions.RequestException as e:
+                print(f"警告: 加载 Swagger 文档失败，将跳过。错误: {e}", file=sys.stderr)
+        # --- 新增逻辑结束 ---
+
+    
+        api_inputs["system"] = system_prompt
 
         chat_query = chat_content.get('content', '')
         
